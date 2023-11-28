@@ -1,0 +1,513 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer version="1.02" type="Net" application="StiReport">
+  <Dictionary Ref="1" type="Dictionary" isKey="true">
+    <BusinessObjects isList="true" count="0" />
+    <Databases isList="true" count="1">
+      <Соединение Ref="2" type="Stimulsoft.Report.Dictionary.StiPostgreSQLDatabase" isKey="true">
+        <Alias>Соединение</Alias>
+        <ConnectionStringEncrypted>49b5CU8LWq1iGaWEz0BlXotw0WPlWdnB4lqhkeoB4DvGyPctYl27jMxY6MxNnPR71WhhYE8JQ4xiE030xLR3P41W0S3GT9M=</ConnectionStringEncrypted>
+        <Name>Соединение</Name>
+      </Соединение>
+    </Databases>
+    <DataSources isList="true" count="3">
+      <ИсточникДанных1 Ref="3" type="Stimulsoft.Report.Dictionary.StiPostgreSQLSource" isKey="true">
+        <Alias>ИсточникДанных1</Alias>
+        <Columns isList="true" count="32">
+          <value>НомерДела,System.String</value>
+          <value>violatorfio,System.String</value>
+          <value>birthdate,System.String</value>
+          <value>birthplace,System.String</value>
+          <value>liveplace,System.String</value>
+          <value>job,System.String</value>
+          <value>familystate,System.String</value>
+          <value>ДатаНарушения,System.String</value>
+          <value>ВремяНарушения,System.String</value>
+          <value>violationaddress,System.String</value>
+          <value>notpresent,System.Boolean</value>
+          <value>comissiondate,System.String</value>
+          <value>comissionname,System.String</value>
+          <value>fullviolation,System.String</value>
+          <value>comissionaddress,System.String</value>
+          <value>delo_date,System.String</value>
+          <value>addrphone,System.String</value>
+          <value>proctime,System.String</value>
+          <value>comissphone,System.String</value>
+          <value>penalty_amount,System.Decimal</value>
+          <value>pos_date,System.String</value>
+          <value>pos_number,System.String</value>
+          <value>excode,System.String</value>
+          <value>gcshort_name,System.String</value>
+          <value>gcname,System.String</value>
+          <value>gcinn,System.String</value>
+          <value>gckpp,System.String</value>
+          <value>gcogrn,System.String</value>
+          <value>juridical_address,System.String</value>
+          <value>pp_position,System.String</value>
+          <value>signer,System.String</value>
+          <value>notpaydate,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Name>ИсточникДанных1</Name>
+        <NameInSource>Соединение</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select i.inspection_number as "НомерДела",
+	case when ind.id &gt;0 then ind.name else '' end as ViolatorFio,
+case when ind.date_birth is not null then to_char(ind.date_birth, 'dd.MM.yyyy') else '' end as BirthDate,
+case when ind.id &gt;0 then ind.birth_place else '' end as BirthPlace,
+case when ind.actually_residence is not null and ind.actually_residence != '' then ind.actually_residence else ind.place_residence end as LivePlace,
+case when ind.id &gt;0 then ind.job else '' end as Job,
+	case when ind.FAMILY_STATUS = 0 then 'не задано'
+             when ind.FAMILY_STATUS = 1 then 'в браке'
+             when ind.FAMILY_STATUS = 2 then 'не состоит в браке' end FamilyState,
+case when p197.address_place is not null and p197.address_place != '' then concat(b4fa.address_name, ', ', p197.address_place) else b4fa.address_name end as ViolationAddress,
+to_char(cm.COMISSION_DATE, 'dd.MM.yyyy') ComissionDate,
+z.NAME as ComissionName,
+'' as FullViolation,
+z.address as comissionaddress,
+to_char(d.object_create_date, 'dd.MM.yyyy') DELO_DATE,
+concat(z.ADDRESS, ', тел.', z.PHONE) addrphone,
+concat(hour_of_proceedings, ':', minute_of_proceedings) proctime,
+z.PHONE comissphone, res.penalty_amount,
+to_char(pos.document_date, 'dd.MM.yyyy') POS_DATE,
+pos.document_number POS_NUMBER,
+to_char(res.protocol205_date, 'dd.MM.yyyy') notpaydate,
+exec.code excode, gc.short_name as gcshort_name, gc.name as gcname, gc.inn gcinn, gc.kpp gckpp, gc.ogrn gcogrn, gc.juridical_address, lower(p197.pp_position) pp_position, t1.signer
+
+ from gji_protocol p197
+join gji_document d on d.id = p197.id
+join gji_inspection i on i.id = d.inspection_id
+left join gkh_individual_person ind on ind.id = p197.individual_person_id
+left join b4_fias_address b4fa on b4fa.id = p197.fias_place_address
+join GJI_COMISSION_MEETING cm on d.COMISSION_ID = cm.id
+join GKH_DICT_ZONAINSP z on cm.ZONAL_ID = z.id
+join (select ak.id komid, string_agg(insp.shortfio, '') signer from GKH_DICT_ZONAINSP ak 
+join GKH_DICT_ZONAINSP_INSPECT aki on zonal_inspection_id = ak.id
+join gkh_dict_inspector insp on insp.id = aki.inspector_id
+where type_commission_member = 10 group by 1) t1 on t1.komid = z.id
+left join GJI_DOCUMENT_CHILDREN chil on chil.children_id = p197.id
+left join GJI_RESOLUTION res on res.id = chil.parent_id 
+left join gkh_contragent gc on gc.id = res.contragent_id
+join GJI_DICT_EXECUTANT exec on exec.id = res.EXECUTANT_ID
+join gji_document pos on pos.id = res.id
+where p197.id = {Id}</SqlCommand>
+      </ИсточникДанных1>
+      <ИсточникДанных2 Ref="4" type="Stimulsoft.Report.Dictionary.StiPostgreSQLSource" isKey="true">
+        <Alias>ИсточникДанных2</Alias>
+        <Columns isList="true" count="1">
+          <value>СтатьиЗакона,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Name>ИсточникДанных2</Name>
+        <NameInSource>Соединение</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select string_agg(al.name, ';') as "СтатьиЗакона" from GJI_PROTOCOL_ARTLAW art
+join GJI_PROTOCOL p197 on p197.id = art.PROTOCOL_ID
+join GJI_DICT_ARTICLELAW al on al.id = ARTICLELAW_ID
+where p197.id = {Id}</SqlCommand>
+      </ИсточникДанных2>
+      <ИсточникДанных3 Ref="5" type="Stimulsoft.Report.Dictionary.StiPostgreSQLSource" isKey="true">
+        <Alias>ИсточникДанных3</Alias>
+        <Columns isList="true" count="6">
+          <value>fios,System.String</value>
+          <value>phone,System.String</value>
+          <value>id,System.Int32</value>
+          <value>position,System.String</value>
+          <value>name,System.String</value>
+          <value>shortfio,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Name>ИсточникДанных3</Name>
+        <NameInSource>Соединение</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>
+select gdi.id, gdi.fio fios, gdi.PHONE, gdi.position, zp.name, gdi.shortfio
+ from gji_document_inspector cmi
+ join gkh_dict_inspector gdi on gdi.id = cmi.INSPECTOR_ID
+join GJI_document d on d.id = cmi.document_id
+left join gkh_dict_zonainsp_inspect zz on zz.inspector_id = gdi.id
+ left join gkh_dict_zonainsp zp on zp.id = zz.zonal_inspection_id
+where d.id = {Id}  limit 1</SqlCommand>
+      </ИсточникДанных3>
+    </DataSources>
+    <Relations isList="true" count="0" />
+    <Report isRef="0" />
+    <Variables isList="true" count="1">
+      <value>,Id,Id,System.Int64,_x0033_3298,False,False</value>
+    </Variables>
+  </Dictionary>
+  <EngineVersion>EngineV2</EngineVersion>
+  <GlobalizationStrings isList="true" count="0" />
+  <MetaTags isList="true" count="0" />
+  <Pages isList="true" count="2">
+    <Page1 Ref="6" type="Page" isKey="true">
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="2">
+        <ReportTitleBand1 Ref="7" type="ReportTitleBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,0.4,18,1.4</ClientRectangle>
+          <Components isList="true" count="1">
+            <Text16 Ref="8" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>2.4,0,13.2,1.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,16</Font>
+              <Guid>292c16a923aa401c9f70d2c6a61debc3</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text16</Name>
+              <Page isRef="6" />
+              <Parent isRef="7" />
+              <Text>Справка</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text16>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>ReportTitleBand1</Name>
+          <Page isRef="6" />
+          <Parent isRef="6" />
+        </ReportTitleBand1>
+        <DataBand1 Ref="9" type="DataBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,2.6,18,7.4</ClientRectangle>
+          <Components isList="true" count="5">
+            <Text10 Ref="10" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,5.4,6.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,10,Bold</Font>
+              <Guid>2dd607bd47bb4f138d3dc62d6e6d5528</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text10</Name>
+              <Page isRef="6" />
+              <Parent isRef="9" />
+              <Text>{ИсточникДанных3.position}                           </Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text10>
+            <Text4 Ref="11" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Border>Bottom;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>9.4,5.4,8.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,10</Font>
+              <Guid>9101bd670b344a9cb994c57d0c0323f0</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text4</Name>
+              <Page isRef="6" />
+              <Parent isRef="9" />
+              <Text>&lt;b&gt;{ИсточникДанных3.shortfio}&lt;/b&gt;</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text4>
+            <Text2 Ref="12" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,6.6,9.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,10</Font>
+              <Guid>9ce9d6293b934604b94507a52f90c8eb</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text2</Name>
+              <Page isRef="6" />
+              <Parent isRef="9" />
+              <Text>&lt;b&gt;Тел. {ИсточникДанных1.comissphone}&lt;/b&gt;                                        </Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text2>
+            <SubReport1 Ref="13" type="SubReport" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,0,18,5</ClientRectangle>
+              <Components isList="true" count="0" />
+              <Name>SubReport1</Name>
+              <Page isRef="6" />
+              <Parent isRef="9" />
+              <SubReportPageGuid>a1abdda5bc72405b9a5cc26ce2fdc5e1</SubReportPageGuid>
+            </SubReport1>
+            <Text12 Ref="14" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>12.8,6.6,5.2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Enabled>False</Enabled>
+              <Font>Times New Roman,10</Font>
+              <Guid>42cad996b5a740cba816408e27e57d21</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text12</Name>
+              <Page isRef="6" />
+              <Parent isRef="9" />
+              <Text>{Id}                                </Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text12>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Filters isList="true" count="0" />
+          <Name>DataBand1</Name>
+          <Page isRef="6" />
+          <Parent isRef="6" />
+          <Sort isList="true" count="0" />
+        </DataBand1>
+      </Components>
+      <Conditions isList="true" count="0" />
+      <Guid>58aa7ab28c9040fb8b5cf3c87cd8f3b8</Guid>
+      <Margins>2,1,1,1</Margins>
+      <Name>Page1</Name>
+      <PageHeight>29.7</PageHeight>
+      <PageWidth>21</PageWidth>
+      <PaperSize>A4</PaperSize>
+      <Report isRef="0" />
+      <Watermark Ref="15" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
+        <Font>Arial,100</Font>
+        <TextBrush>[50:0:0:0]</TextBrush>
+      </Watermark>
+    </Page1>
+    <subReport_1 Ref="16" type="Page" isKey="true">
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="4">
+        <DataBand2 Ref="17" type="DataBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,0.4,18,3.2</ClientRectangle>
+          <Components isList="true" count="1">
+            <Text11 Ref="18" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Brush>Transparent</Brush>
+              <CanBreak>True</CanBreak>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,0,18,3</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,12</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>8a9b9f8c4dcb47a59d6b97a2047f60d3</Guid>
+              <HorAlignment>Width</HorAlignment>
+              <Margins>0,0,0,10</Margins>
+              <Name>Text11</Name>
+              <Page isRef="16" />
+              <Parent isRef="17" />
+              <Text>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;{ИсточникДанных1.violatorfio}, {ИсточникДанных1.birthdate} г. рождения, проживающий(ая) по адресу: {ИсточникДанных1.liveplace},  
+по состоянию на {ИсточникДанных1.notpaydate} г. имеет задолженность в размере {ИсточникДанных1.penalty_amount} руб. по постановлению о назначении административного наказания, вынесенного {morpher.Проанализировать(ИсточникДанных1.comissionname).Творительный} № &lt;b&gt;{ИсточникДанных1.pos_number} от {ИсточникДанных1.pos_date} г.&lt;/b&gt;
+</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+            </Text11>
+          </Components>
+          <Conditions isList="true" count="1">
+            <value>ИсточникДанных1.excode,EqualTo,_x0038_,,String,Red,Transparent,Arial_x002C_8,True,False,,,None</value>
+          </Conditions>
+          <DataRelationName isNull="true" />
+          <Enabled>False</Enabled>
+          <Filters isList="true" count="0" />
+          <Name>DataBand2</Name>
+          <Page isRef="16" />
+          <Parent isRef="16" />
+          <Sort isList="true" count="0" />
+        </DataBand2>
+        <DataBand3 Ref="19" type="DataBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,4.4,18,3.2</ClientRectangle>
+          <Components isList="true" count="1">
+            <Text9 Ref="20" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Brush>Transparent</Brush>
+              <CanBreak>True</CanBreak>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,0,18,3</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,12</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>7d0083261cc343cda4a600c6e9f9e16c</Guid>
+              <HorAlignment>Width</HorAlignment>
+              <Margins>0,0,0,10</Margins>
+              <Name>Text9</Name>
+              <Page isRef="16" />
+              <Parent isRef="19" />
+              <Text>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;{ИсточникДанных1.gcname}, ИНН: {ИсточникДанных1.gcinn}, ОГРН: {ИсточникДанных1.gcogrn}, юридический адрес: {ИсточникДанных1.juridical_address},  
+по состоянию на {ИсточникДанных1.notpaydate} г. имеет задолженность в размере {ИсточникДанных1.penalty_amount} руб. по постановлению о назначении административного наказания, вынесенного {morpher.Проанализировать(ИсточникДанных1.comissionname).Творительный} № &lt;b&gt;{ИсточникДанных1.pos_number} от {ИсточникДанных1.pos_date} г.&lt;/b&gt;
+</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+            </Text9>
+          </Components>
+          <Conditions isList="true" count="1">
+            <value>ИсточникДанных1.excode,EqualTo,_x0030_,,String,Red,Transparent,Arial_x002C_8,True,False,,,None</value>
+          </Conditions>
+          <DataRelationName isNull="true" />
+          <Enabled>False</Enabled>
+          <Filters isList="true" count="0" />
+          <Guid>0187cffd8cb44ba8b28de1042d12bf64</Guid>
+          <Name>DataBand3</Name>
+          <Page isRef="16" />
+          <Parent isRef="16" />
+          <Sort isList="true" count="0" />
+        </DataBand3>
+        <DataBand4 Ref="21" type="DataBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,8.4,18,3.2</ClientRectangle>
+          <Components isList="true" count="1">
+            <Text13 Ref="22" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Brush>Transparent</Brush>
+              <CanBreak>True</CanBreak>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,0,18,3</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,12</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>5e96b0fecaf44150ad7e18db4b266784</Guid>
+              <HorAlignment>Width</HorAlignment>
+              <Margins>0,0,0,10</Margins>
+              <Name>Text13</Name>
+              <Page isRef="16" />
+              <Parent isRef="21" />
+              <Text>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;{ИсточникДанных1.violatorfio}, {ИсточникДанных1.birthdate} г. рождения, являющийся индивидуальным предпринимателем и проживающий(ая) по адресу: {ИсточникДанных1.liveplace},  
+по состоянию на {ИсточникДанных1.notpaydate} г. имеет задолженность в размере {ИсточникДанных1.penalty_amount} руб. по постановлению о назначении административного наказания, вынесенного {morpher.Проанализировать(ИсточникДанных1.comissionname).Творительный} № &lt;b&gt;{ИсточникДанных1.pos_number} от {ИсточникДанных1.pos_date} г.&lt;/b&gt;
+</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+            </Text13>
+          </Components>
+          <Conditions isList="true" count="1">
+            <value>ИсточникДанных1.excode,EqualTo,_x0031_3,,String,Red,Transparent,Arial_x002C_8,True,False,,,None</value>
+          </Conditions>
+          <DataRelationName isNull="true" />
+          <Enabled>False</Enabled>
+          <Filters isList="true" count="0" />
+          <Guid>01ba4da2246f4a6894ed1d3db4a360bd</Guid>
+          <Name>DataBand4</Name>
+          <Page isRef="16" />
+          <Parent isRef="16" />
+          <Sort isList="true" count="0" />
+        </DataBand4>
+        <DataBand5 Ref="23" type="DataBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,12.4,18,3.2</ClientRectangle>
+          <Components isList="true" count="1">
+            <Text14 Ref="24" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Brush>Transparent</Brush>
+              <CanBreak>True</CanBreak>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,0,18,3</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,12</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>3889c0da6b6a4206abf7081d0e742b17</Guid>
+              <HorAlignment>Width</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text14</Name>
+              <Page isRef="16" />
+              <Parent isRef="23" />
+              <Text>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;{ИсточникДанных1.violatorfio}, {ИсточникДанных1.birthdate} г. рождения, проживающий(ая) по адресу: {ИсточникДанных1.liveplace},  
+по состоянию на {ИсточникДанных1.notpaydate} г. имеет задолженность в размере {ИсточникДанных1.penalty_amount} руб. по постановлению о назначении административного наказания, вынесенного {morpher.Проанализировать(ИсточникДанных1.comissionname).Творительный} № &lt;b&gt;{ИсточникДанных1.pos_number} от {ИсточникДанных1.pos_date} г.&lt;/b&gt;
+</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+            </Text14>
+          </Components>
+          <Conditions isList="true" count="1">
+            <value>ИсточникДанных1.excode,EqualTo,_x0031_,,String,Red,Transparent,Arial_x002C_8,True,False,,,None</value>
+          </Conditions>
+          <DataRelationName isNull="true" />
+          <Enabled>False</Enabled>
+          <Filters isList="true" count="0" />
+          <Guid>91cd1aa13294451ca9569060c51220cd</Guid>
+          <Name>DataBand5</Name>
+          <Page isRef="16" />
+          <Parent isRef="16" />
+          <Sort isList="true" count="0" />
+        </DataBand5>
+      </Components>
+      <Conditions isList="true" count="0" />
+      <Guid>a1abdda5bc72405b9a5cc26ce2fdc5e1</Guid>
+      <LargeHeight>True</LargeHeight>
+      <LargeHeightFactor>2</LargeHeightFactor>
+      <Margins>1,1,1,1</Margins>
+      <Name>subReport_1</Name>
+      <PageHeight>29.7</PageHeight>
+      <PageWidth>20</PageWidth>
+      <Report isRef="0" />
+      <Watermark Ref="25" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
+        <Font>Arial,100</Font>
+        <TextBrush>[50:0:0:0]</TextBrush>
+      </Watermark>
+    </subReport_1>
+  </Pages>
+  <PrinterSettings Ref="26" type="Stimulsoft.Report.Print.StiPrinterSettings" isKey="true" />
+  <ReferencedAssemblies isList="true" count="9">
+    <value>System.Dll</value>
+    <value>System.Drawing.Dll</value>
+    <value>System.Windows.Forms.Dll</value>
+    <value>System.Data.Dll</value>
+    <value>System.Xml.Dll</value>
+    <value>Stimulsoft.Controls.Dll</value>
+    <value>Stimulsoft.Base.Dll</value>
+    <value>Stimulsoft.Report.Dll</value>
+    <value>Morpher.Dll</value>
+  </ReferencedAssemblies>
+  <ReportAlias>Report</ReportAlias>
+  <ReportChanged>12/20/2022 1:57:16 PM</ReportChanged>
+  <ReportCreated>5/28/2014 3:38:42 PM</ReportCreated>
+  <ReportFile>D:\FileStore\samara\комиссии\IZV_RASSM_PROT2025202212.mrt</ReportFile>
+  <ReportGuid>b2d7d5cb76c7441e9e92c6fb04088bf8</ReportGuid>
+  <ReportName>Report</ReportName>
+  <ReportUnit>Centimeters</ReportUnit>
+  <ReportVersion>2014.1.1900</ReportVersion>
+  <Script>using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data;
+using Stimulsoft.Controls;
+using Stimulsoft.Base.Drawing;
+using Stimulsoft.Report;
+using Stimulsoft.Report.Dialogs;
+using Stimulsoft.Report.Components;
+using Slepov.Russian.Morpher;
+
+namespace Reports
+{
+    public class Report : Stimulsoft.Report.StiReport
+    {
+        public Report()        {
+            this.InitializeComponent();
+        }
+		public Склонятель morpher = new Склонятель("SonFhyB1DbaxkkAQ4tfrhQ==");
+        #region StiReport Designer generated code - do not modify
+		#endregion StiReport Designer generated code - do not modify
+    }
+}
+</Script>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="0" />
+</StiSerializer>

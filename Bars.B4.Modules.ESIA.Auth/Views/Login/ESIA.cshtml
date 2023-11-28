@@ -1,0 +1,95 @@
+﻿@using Bars.B4
+@{
+    Layout = null;
+}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>@ViewData["Title"]</title>
+        <link rel="shortcut icon" href="@Url.Content("~/content/favicon.ico")" />
+        <link href='@Url.Content("~/content/css/login.css")' rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+    @*<div class="bg" style="height: 100%;">
+        <div class="march8-word"></div>
+        <div class="march8"></div>
+        <div class="towers"></div>
+    </div>*@
+        @{
+            AuthenticationResult authResult = (ViewData["result"] != null)
+                ? (AuthenticationResult)ViewData["result"]
+                : new AuthenticationResult { UserName = "", Error = "" };
+
+            var errorCookie = this.Request.Cookies["esiaError"];
+            var successCookie = this.Request.Cookies["esiaSuccess"];
+            var oauthSpecified = ViewData["oauthSpecified"] != null;
+            var hideLoginButton = (bool)ViewData["HideLoginButton"];
+            var containerStyle = "";
+            var hiddenStyle = "";
+            if (hideLoginButton == true)
+            {
+                containerStyle = "height: 200px;";
+                hiddenStyle = "display: none;";
+            }
+
+            if (errorCookie != null)
+            {
+                authResult.Error = errorCookie.Value;
+                var removeCookie = new HttpCookie("esiaError") { Expires = DateTime.Now.AddDays(-1d) };
+                this.Response.Cookies.Add(removeCookie);
+            }
+            else if (successCookie != null)
+            {
+                var removeCookie = new HttpCookie("esiaSuccess") { Expires = DateTime.Now.AddDays(-1d) };
+                this.Response.Cookies.Add(removeCookie);
+                this.Response.Redirect("~/");
+            }
+        }
+		<div class="textarea">
+            <div class="warning">
+                @Html.Raw(File.Exists(HttpRuntime.AppDomainAppPath + '\\' + "warn.html") ? File.ReadAllText(HttpRuntime.AppDomainAppPath + '\\' + "warn.html") : "")
+            </div>
+		</div>
+        <div class="wrapper">
+            <div class="container" style ="@containerStyle">
+                <div class="header">
+                    <span class="logo"></span>
+                    <span class="adlmincomission">Административные комиссии</span>
+                    @*<span class="title"></span>*@
+                    <span data-title="Комиссии"></span>
+                </div>
+                <form id="onboard_form" method="post" action="">
+                    <div class="content-esia" style="@hiddenStyle">
+                        <div class="input-holder">
+                            <label for="login">Логин</label>
+                            <input id="login" name="login" value="@authResult.UserName" type="text"/>
+                        </div>
+                        <div class="">
+                            <label for="password">Пароль</label>
+                            <input id="password" name="password" value="" type="password"/>
+                        </div>
+                    </div>
+                    <div class="errorMessage" @if (string.IsNullOrEmpty(authResult.Error)) { @: style="visibility: hidden" 
+                     }>
+                        @(string.IsNullOrEmpty(authResult.Error) ? "-" : authResult.Error)
+                    </div>
+                    <div class="footer">
+                        @*<div class="esia-ref" style=" @if (!oauthSpecified)
+                                                      {
+                                                          @:display: none; 
+                                                      } ">
+                            <input value="Войти через ЕСИА" type="button" class="nice-button" onclick="location.href='esia/oauthlogin.ashx';"/>
+                        </div>
+                        <div class="esia-ref" style="@if (oauthSpecified) {
+                                                        @:display: none;
+                                                     } ">
+                            <input value="Войти через ЕСИА" type="button" class="nice-button" onclick="location.href='esia/login.ashx';" />
+                        </div>*@
+                        <input name="commit" value="Войти" type="submit" class="nice-button" style="@hiddenStyle"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

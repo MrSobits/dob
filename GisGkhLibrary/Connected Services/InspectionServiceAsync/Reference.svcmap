@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="a44383a9-754a-40f8-8f1d-c67810f49960" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="D:\or\hcs_wsdl_xsd_v.13.1.2.8\inspection\hcs-inspection-service-async.wsdl" Protocol="file" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="hcs-premises-base1.xsd" MetadataType="Schema" ID="18f041d9-d61f-4470-8fef-4502843d9371" SourceId="1" SourceUrl="file:///D:/or/hcs_wsdl_xsd_v.13.1.2.8/lib/hcs-premises-base.xsd" />
+    <MetadataFile FileName="hcs-organizations-base1.xsd" MetadataType="Schema" ID="c2b8eb4f-554d-4aaf-9608-ec0d81eb945c" SourceId="1" SourceUrl="file:///D:/or/hcs_wsdl_xsd_v.13.1.2.8/lib/hcs-organizations-base.xsd" />
+    <MetadataFile FileName="hcs-base1.xsd" MetadataType="Schema" ID="f65b72f3-c289-4b97-bd01-4c79e15964e4" SourceId="1" SourceUrl="file:///D:/or/hcs_wsdl_xsd_v.13.1.2.8/lib/hcs-base.xsd" />
+    <MetadataFile FileName="hcs-inspection-service-async1.wsdl" MetadataType="Wsdl" ID="14f0655f-c4b9-46e1-a816-4bb819eeb96b" SourceId="1" SourceUrl="file:///D:/or/hcs_wsdl_xsd_v.13.1.2.8/inspection/hcs-inspection-service-async.wsdl" />
+    <MetadataFile FileName="hcs-nsi-base1.xsd" MetadataType="Schema" ID="e60e7147-3edf-4b6d-82bf-4f3e4855c93b" SourceId="1" SourceUrl="file:///D:/or/hcs_wsdl_xsd_v.13.1.2.8/lib/hcs-nsi-base.xsd" />
+    <MetadataFile FileName="hcs-organizations-registry-base1.xsd" MetadataType="Schema" ID="d6ae0492-98c3-4371-8381-7f2dcf2855a3" SourceId="1" SourceUrl="file:///D:/or/hcs_wsdl_xsd_v.13.1.2.8/lib/hcs-organizations-registry-base.xsd" />
+    <MetadataFile FileName="hcs-inspection-types1.xsd" MetadataType="Schema" ID="eff0ed54-bd1f-4153-9d9d-4680df22e505" SourceId="1" SourceUrl="file:///D:/or/hcs_wsdl_xsd_v.13.1.2.8/inspection/hcs-inspection-types.xsd" />
+    <MetadataFile FileName="xmldsig-core-schema1.xsd" MetadataType="Schema" ID="78851ede-476e-40bc-ae61-a2eaa6cc442d" SourceId="1" SourceUrl="file:///D:/or/hcs_wsdl_xsd_v.13.1.2.8/lib/xmldsig-core-schema.xsd" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

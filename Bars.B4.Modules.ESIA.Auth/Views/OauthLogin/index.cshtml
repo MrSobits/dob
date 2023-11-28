@@ -1,0 +1,63 @@
+﻿@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@using Bars.B4
+@using Bars.B4.Modules.ESIA.OAuth20.Entities
+@{
+    Layout = null;
+}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>@ViewData["Title"]</title>
+        <link rel="shortcut icon" href="@Url.Content("~/content/favicon.ico")" />
+        <link href='@Url.Content("~/content/css/login.css")' rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        @{
+            EsiaUserInfo userInfo = ViewData["userInfo"] != null ? (EsiaUserInfo) this.ViewData["userInfo"] : new EsiaUserInfo();
+            IEnumerable<SelectListItem> organizations = ViewData["organizations"] != null ? (ViewData["organizations"] as IEnumerable<SelectListItem>) : new List<SelectListItem>();
+
+            string organizationHidden = !organizations.Any() ? "visibility: hidden" : "";
+
+            var error = this.ViewData["error"].ToString();
+            var successCookie = this.Request.Cookies["esiaSuccess"];
+            if (successCookie != null)
+            {
+                var removeCookie = new HttpCookie("esiaSuccess") { Expires = DateTime.Now.AddDays(-1d) };
+                this.Response.Cookies.Add(removeCookie);
+                this.Response.Redirect("~/");
+            }
+        }
+        <div class="wrapper">
+            <div class="container">
+                <div class="header">
+                    <span class="logo"></span>
+                    <span class="title"></span>
+                    <span data-title="@ViewData["Title"]"></span> 
+                </div>
+                <form id="onboard_form" method="post" action="" style="padding: 10px;">
+                    <input type="hidden" name="userInfo.Id" value="@userInfo.Id"/>
+                    <input type="hidden" name="userInfo.FirstName" value="@userInfo.FirstName"/>
+                    <input type="hidden" name="userInfo.LastName" value="@userInfo.LastName"/>
+                    <input type="hidden" name="userInfo.MiddleName" value="@userInfo.MiddleName"/>
+                    <div class="nice-text">
+                        @userInfo.LastName @userInfo.FirstName @userInfo.MiddleName
+                    </div>
+                    @Html.DropDownList("selectedOrganizationGuid", organizations, new {@class = "nice-dropdownlist", @style = @organizationHidden })
+                    <div class="errorMessage" @if (string.IsNullOrEmpty(error))
+                                              {
+                                                  @: style="visibility: hidden" 
+                                              }>
+                        @(string.IsNullOrEmpty(error) ? "-" : error)
+                    </div>
+                    <div class="footer" style="bottom: 15px; position: absolute; width: 100%">
+                        <input value="Назад" type="button" class="nice-button" style="float: left;"
+                               onclick="location.href = '@Url.Action("Index", "Login")';"/>
+                        <input name="commit" value="Войти" type="submit" class="nice-button" style="float: right; margin-right: 20px; @organizationHidden"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

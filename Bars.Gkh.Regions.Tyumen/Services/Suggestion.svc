@@ -1,0 +1,2 @@
+<%@ ServiceHost Service="Bars.Gkh.Regions.Tyumen.Services.Impl.Suggestion.SuggestionServiceTyumen"
+Factory="Castle.Facilities.WcfIntegration.DefaultServiceHostFactory, Castle.Facilities.WcfIntegration" %>

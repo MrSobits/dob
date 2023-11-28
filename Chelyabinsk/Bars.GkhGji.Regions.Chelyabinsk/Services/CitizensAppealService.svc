@@ -1,0 +1,2 @@
+﻿<%@ ServiceHost Service="Bars.GkhGji.Regions.Chelyabinsk.Services.Impl.CitizensAppealService"
+Factory="Castle.Facilities.WcfIntegration.DefaultServiceHostFactory, Castle.Facilities.WcfIntegration" %>

@@ -1,0 +1,2 @@
+<%@ ServiceHost Service="Bars.Gkh1468.Wcf.PassportService"
+Factory="Castle.Facilities.WcfIntegration.WindsorServiceHostFactory`1[[Castle.Facilities.WcfIntegration.Rest.RestServiceModel,Castle.Facilities.WcfIntegration]], Castle.Facilities.WcfIntegration" %>

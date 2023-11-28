@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="06de4d29-ad22-43af-a0bc-0e26cd8cad67" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="C:\Users\Admin\Desktop\ГИС ЖКХ_Интеграция_v.13.1.1.4\hcs_wsdl_xsd_v.13.1.1.4\capital-repair\hcs-capital-repair-service-async.wsdl" Protocol="file" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="xmldsig-core-schema.xsd" MetadataType="Schema" ID="1d241e7e-339d-4b93-b590-07989820612a" SourceId="1" SourceUrl="file:///C:/Users/Admin/Desktop/ГИС ЖКХ_Интеграция_v.13.1.1.4/hcs_wsdl_xsd_v.13.1.1.4/lib/xmldsig-core-schema.xsd" />
+    <MetadataFile FileName="hcs-organizations-registry-base.xsd" MetadataType="Schema" ID="f1cb2f85-f493-47ef-a1c9-5bbfeb318f95" SourceId="1" SourceUrl="file:///C:/Users/Admin/Desktop/ГИС ЖКХ_Интеграция_v.13.1.1.4/hcs_wsdl_xsd_v.13.1.1.4/lib/hcs-organizations-registry-base.xsd" />
+    <MetadataFile FileName="hcs-nsi-base.xsd" MetadataType="Schema" ID="afce5dab-b2bc-4e6c-bcd6-cec4ced00dc2" SourceId="1" SourceUrl="file:///C:/Users/Admin/Desktop/ГИС ЖКХ_Интеграция_v.13.1.1.4/hcs_wsdl_xsd_v.13.1.1.4/lib/hcs-nsi-base.xsd" />
+    <MetadataFile FileName="hcs-premises-base.xsd" MetadataType="Schema" ID="25234c9d-008f-4cc7-9c93-37c84ff2b220" SourceId="1" SourceUrl="file:///C:/Users/Admin/Desktop/ГИС ЖКХ_Интеграция_v.13.1.1.4/hcs_wsdl_xsd_v.13.1.1.4/lib/hcs-premises-base.xsd" />
+    <MetadataFile FileName="hcs-base.xsd" MetadataType="Schema" ID="986a225d-2773-41bf-99a4-76534b72fac3" SourceId="1" SourceUrl="file:///C:/Users/Admin/Desktop/ГИС ЖКХ_Интеграция_v.13.1.1.4/hcs_wsdl_xsd_v.13.1.1.4/lib/hcs-base.xsd" />
+    <MetadataFile FileName="hcs-capital-repair-types.xsd" MetadataType="Schema" ID="9f950ceb-94c6-403c-8ef5-eeb2574ac948" SourceId="1" SourceUrl="file:///C:/Users/Admin/Desktop/ГИС ЖКХ_Интеграция_v.13.1.1.4/hcs_wsdl_xsd_v.13.1.1.4/capital-repair/hcs-capital-repair-types.xsd" />
+    <MetadataFile FileName="hcs-bills-base.xsd" MetadataType="Schema" ID="676305fe-9761-4b58-8385-504ac31dc552" SourceId="1" SourceUrl="file:///C:/Users/Admin/Desktop/ГИС ЖКХ_Интеграция_v.13.1.1.4/hcs_wsdl_xsd_v.13.1.1.4/lib/hcs-bills-base.xsd" />
+    <MetadataFile FileName="hcs-account-base.xsd" MetadataType="Schema" ID="9cdb963f-2224-4af7-ab23-3d307bdfa886" SourceId="1" SourceUrl="file:///C:/Users/Admin/Desktop/ГИС ЖКХ_Интеграция_v.13.1.1.4/hcs_wsdl_xsd_v.13.1.1.4/lib/hcs-account-base.xsd" />
+    <MetadataFile FileName="hcs-capital-repair-service-async.wsdl" MetadataType="Wsdl" ID="57ff3e9a-c265-4422-8d12-5dcdcced935e" SourceId="1" SourceUrl="file:///C:/Users/Admin/Desktop/ГИС ЖКХ_Интеграция_v.13.1.1.4/hcs_wsdl_xsd_v.13.1.1.4/capital-repair/hcs-capital-repair-service-async.wsdl" />
+    <MetadataFile FileName="hcs-organizations-base.xsd" MetadataType="Schema" ID="38d4bff0-9657-48db-ab6f-ad1a5a87ecd5" SourceId="1" SourceUrl="file:///C:/Users/Admin/Desktop/ГИС ЖКХ_Интеграция_v.13.1.1.4/hcs_wsdl_xsd_v.13.1.1.4/lib/hcs-organizations-base.xsd" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

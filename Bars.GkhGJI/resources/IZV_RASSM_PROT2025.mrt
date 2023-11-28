@@ -1,0 +1,440 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer version="1.02" type="Net" application="StiReport">
+  <Dictionary Ref="1" type="Dictionary" isKey="true">
+    <BusinessObjects isList="true" count="0" />
+    <Databases isList="true" count="1">
+      <Соединение Ref="2" type="Stimulsoft.Report.Dictionary.StiPostgreSQLDatabase" isKey="true">
+        <Alias>Соединение</Alias>
+        <ConnectionStringEncrypted>49b5CU8LWq1iGaWEz0BlXotw0WPlWdnB4lqhkeoB4DvGyPctYl27jMxY6MxNnPR71WhhYE8JQ4xiE030xLR3P41W0S3GT9M=</ConnectionStringEncrypted>
+        <Name>Соединение</Name>
+      </Соединение>
+    </Databases>
+    <DataSources isList="true" count="3">
+      <ИсточникДанных1 Ref="3" type="Stimulsoft.Report.Dictionary.StiPostgreSQLSource" isKey="true">
+        <Alias>ИсточникДанных1</Alias>
+        <Columns isList="true" count="22">
+          <value>НомерДела,System.String</value>
+          <value>violatorfio,System.String</value>
+          <value>birthdate,System.String</value>
+          <value>birthplace,System.String</value>
+          <value>liveplace,System.String</value>
+          <value>job,System.String</value>
+          <value>familystate,System.String</value>
+          <value>ДатаНарушения,System.String</value>
+          <value>ВремяНарушения,System.String</value>
+          <value>violationaddress,System.String</value>
+          <value>notpresent,System.Boolean</value>
+          <value>comissiondate,System.String</value>
+          <value>comissionname,System.String</value>
+          <value>fullviolation,System.String</value>
+          <value>comissionaddress,System.String</value>
+          <value>delo_date,System.String</value>
+          <value>addrphone,System.String</value>
+          <value>proctime,System.String</value>
+          <value>comissphone,System.String</value>
+          <value>penalty_amount,System.Decimal</value>
+          <value>pos_date,System.String</value>
+          <value>pos_number,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Name>ИсточникДанных1</Name>
+        <NameInSource>Соединение</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select i.inspection_number as "НомерДела",
+	case when ind.id &gt;0 then ind.name else '' end as ViolatorFio,
+case when ind.date_birth is not null then to_char(ind.date_birth, 'dd.MM.yyyy') else '' end as BirthDate,
+case when ind.id &gt;0 then ind.birth_place else '' end as BirthPlace,
+case when ind.actually_residence is not null and ind.actually_residence != '' then ind.actually_residence else ind.place_residence end as LivePlace,
+case when ind.id &gt;0 then ind.job else '' end as Job,
+	case when ind.FAMILY_STATUS = 0 then 'не задано'
+             when ind.FAMILY_STATUS = 1 then 'в браке'
+             when ind.FAMILY_STATUS = 2 then 'не состоит в браке' end FamilyState,
+case when p197.address_place is not null and p197.address_place != '' then concat(b4fa.address_name, ', ', p197.address_place) else b4fa.address_name end as ViolationAddress,
+to_char(cm.COMISSION_DATE, 'dd.MM.yyyy') ComissionDate,
+z.NAME as ComissionName,
+'' as FullViolation,
+z.address as comissionaddress,
+to_char(d.object_create_date, 'dd.MM.yyyy') DELO_DATE,
+concat(z.ADDRESS, ', тел.', z.PHONE) addrphone,
+concat(hour_of_proceedings, ':', minute_of_proceedings) proctime,
+z.PHONE comissphone, res.penalty_amount,
+to_char(pos.document_date, 'dd.MM.yyyy') POS_DATE,
+pos.document_number POS_NUMBER
+
+ from gji_protocol p197
+join gji_document d on d.id = p197.id
+join gji_inspection i on i.id = d.inspection_id
+left join gkh_individual_person ind on ind.id = p197.individual_person_id
+left join b4_fias_address b4fa on b4fa.id = p197.fias_place_address
+join GJI_COMISSION_MEETING cm on d.COMISSION_ID = cm.id
+join GKH_DICT_ZONAINSP z on cm.ZONAL_ID = z.id
+left join GJI_DOCUMENT_CHILDREN chil on chil.children_id = p197.id
+left join GJI_RESOLUTION res on res.id = chil.parent_id 
+join gji_document pos on pos.id = res.id
+where p197.id = {Id}</SqlCommand>
+      </ИсточникДанных1>
+      <ИсточникДанных2 Ref="4" type="Stimulsoft.Report.Dictionary.StiPostgreSQLSource" isKey="true">
+        <Alias>ИсточникДанных2</Alias>
+        <Columns isList="true" count="1">
+          <value>СтатьиЗакона,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Name>ИсточникДанных2</Name>
+        <NameInSource>Соединение</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select string_agg(al.name, ';') as "СтатьиЗакона" from GJI_PROTOCOL_ARTLAW art
+join GJI_PROTOCOL p197 on p197.id = art.PROTOCOL_ID
+join GJI_DICT_ARTICLELAW al on al.id = ARTICLELAW_ID
+where p197.id = {Id}</SqlCommand>
+      </ИсточникДанных2>
+      <ИсточникДанных3 Ref="5" type="Stimulsoft.Report.Dictionary.StiPostgreSQLSource" isKey="true">
+        <Alias>ИсточникДанных3</Alias>
+        <Columns isList="true" count="2">
+          <value>fios,System.String</value>
+          <value>phone,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Name>ИсточникДанных3</Name>
+        <NameInSource>Соединение</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select gdi.fio fios, gdi.PHONE
+ from GJI_COMISSION_MEETING_INSPECTOR cmi
+ join gkh_dict_inspector gdi on gdi.id = cmi.INSPECTOR_ID
+join GJI_COMISSION_MEETING cm on cm.id = cmi.MEETING_ID
+join GJI_document d on d.COMISSION_ID = cm.id
+where d.id = {Id} and (gdi.type_commission_member = 10 and cmi.type_comission_member =0 or cmi.type_comission_member = 10) limit 1</SqlCommand>
+      </ИсточникДанных3>
+    </DataSources>
+    <Relations isList="true" count="0" />
+    <Report isRef="0" />
+    <Variables isList="true" count="1">
+      <value>,Id,Id,System.Int64,_x0033_3298,False,False</value>
+    </Variables>
+  </Dictionary>
+  <EngineVersion>EngineV2</EngineVersion>
+  <GlobalizationStrings isList="true" count="0" />
+  <MetaTags isList="true" count="0" />
+  <Pages isList="true" count="2">
+    <Page1 Ref="6" type="Page" isKey="true">
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="2">
+        <ReportTitleBand1 Ref="7" type="ReportTitleBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,0.4,18,3.4</ClientRectangle>
+          <Components isList="true" count="3">
+            <Text16 Ref="8" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>2.4,0,13.2,1.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,16</Font>
+              <Guid>292c16a923aa401c9f70d2c6a61debc3</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text16</Name>
+              <Page isRef="6" />
+              <Parent isRef="7" />
+              <Text>{ToUpperCase(ИсточникДанных1.comissionname)}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text16>
+            <Text3 Ref="9" type="Text" isKey="true">
+              <Border>Top;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,1.2,18,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,8</Font>
+              <Guid>63531853029f4bbda35520fb4908d07f</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text3</Name>
+              <Page isRef="6" />
+              <Parent isRef="7" />
+              <Text>{ИсточникДанных1.addrphone}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text3>
+            <Text1 Ref="10" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>5.8,2.2,6.6,1</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,12</Font>
+              <Guid>eec5677a00594a7ba381e5934cea249d</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text1</Name>
+              <Page isRef="6" />
+              <Parent isRef="7" />
+              <Text>ИЗВЕЩЕНИЕ {Variables}{Id}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text1>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>ReportTitleBand1</Name>
+          <Page isRef="6" />
+          <Parent isRef="6" />
+        </ReportTitleBand1>
+        <DataBand1 Ref="11" type="DataBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,4.6,18,7.4</ClientRectangle>
+          <Components isList="true" count="4">
+            <Text9 Ref="12" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Brush>Transparent</Brush>
+              <CanBreak>True</CanBreak>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,0,18,5</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,12</Font>
+              <GrowToHeight>True</GrowToHeight>
+              <Guid>c803a376033f4a168e1141d5018d2f9f</Guid>
+              <HorAlignment>Width</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text9</Name>
+              <Page isRef="6" />
+              <Parent isRef="11" />
+              <Text>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;{ИсточникДанных1.comissionname} извещает &lt;b&gt;{morpher.Проанализировать(ИсточникДанных1.violatorfio).Родительный}&lt;/b&gt;, проживающего по адресу:&lt;b&gt;{ИсточникДанных1.liveplace}&lt;/b&gt;,  
+что Вами, в установленный законом срок, не оплачен административный штраф в размере {ИсточникДанных1.penalty_amount} руб., назначенный в соответствии с постановлением №&lt;b&gt;{ИсточникДанных1.pos_number} от {ИсточникДанных1.pos_date}&lt;/b&gt;
+&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;В связи с чем Вам необходимо явиться явиться к  {ИсточникДанных1.comissiondate} г. в {ИсточникДанных1.proctime} по адресу: &lt;b&gt;{ИсточникДанных1.comissionaddress}&lt;/b&gt; для составления протокола об административном правонарушении, предусмотренном ч1. ст.20.25 КоАП РФ.
+&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;b&gt;В случае неявки протокол об административном правонарушении будет составлен в Ваше отсутствие и направлен на рассмотрение мировому судье.&lt;/b&gt;
+</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+            </Text9>
+            <Text10 Ref="13" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,5.4,5.2,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,10</Font>
+              <Guid>2dd607bd47bb4f138d3dc62d6e6d5528</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text10</Name>
+              <Page isRef="6" />
+              <Parent isRef="11" />
+              <Text>&lt;b&gt;Председательствующий&lt;/b&gt;                                        </Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text10>
+            <Text4 Ref="14" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Border>Bottom;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>9.4,5.4,8.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,10</Font>
+              <Guid>9101bd670b344a9cb994c57d0c0323f0</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text4</Name>
+              <Page isRef="6" />
+              <Parent isRef="11" />
+              <Text>&lt;b&gt;{ИсточникДанных3.fios}&lt;/b&gt;</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text4>
+            <Text2 Ref="15" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,6.4,9.6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,10</Font>
+              <Guid>9ce9d6293b934604b94507a52f90c8eb</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text2</Name>
+              <Page isRef="6" />
+              <Parent isRef="11" />
+              <Text>&lt;b&gt;Тел. {ИсточникДанных1.comissphone}&lt;/b&gt;                                        </Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text2>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Filters isList="true" count="0" />
+          <Name>DataBand1</Name>
+          <Page isRef="6" />
+          <Parent isRef="6" />
+          <Sort isList="true" count="0" />
+        </DataBand1>
+      </Components>
+      <Conditions isList="true" count="0" />
+      <Guid>58aa7ab28c9040fb8b5cf3c87cd8f3b8</Guid>
+      <Margins>2,1,1,1</Margins>
+      <Name>Page1</Name>
+      <PageHeight>29.7</PageHeight>
+      <PageWidth>21</PageWidth>
+      <PaperSize>A4</PaperSize>
+      <Report isRef="0" />
+      <Watermark Ref="16" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
+        <Font>Arial,100</Font>
+        <TextBrush>[50:0:0:0]</TextBrush>
+      </Watermark>
+    </Page1>
+    <Page2 Ref="17" type="Page" isKey="true">
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="1">
+        <ReportTitleBand2 Ref="18" type="ReportTitleBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,0.4,24.7,5.8</ClientRectangle>
+          <Components isList="true" count="4">
+            <Text5 Ref="19" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>6.6,0,10,1.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,12</Font>
+              <Guid>b689d53470d8496385914c5d5b7cf1c3</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text5</Name>
+              <Page isRef="17" />
+              <Parent isRef="18" />
+              <Text>{ИсточникДанных1.comissionname},
+&lt;br&gt;{ИсточникДанных1.addrphone}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text5>
+            <Text7 Ref="20" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>16.8,3,7.8,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,12</Font>
+              <Guid>53442cf19eb043ef81f35f862c2da61c</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text7</Name>
+              <Page isRef="17" />
+              <Parent isRef="18" />
+              <Text>Заказное письмо с простым уведомлением</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text7>
+            <Text6 Ref="21" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>16.8,3.6,7.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,14</Font>
+              <Guid>09a5734943f24e8a9d9ce5ba801decde</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text6</Name>
+              <Page isRef="17" />
+              <Parent isRef="18" />
+              <Text>АДМИНИСТРАТИВНОЕ</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text6>
+            <Text8 Ref="22" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>16.8,4.6,7.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,12,Bold</Font>
+              <Guid>86ab3a95a5194823a31fa6b570d867aa</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text8</Name>
+              <Page isRef="17" />
+              <Parent isRef="18" />
+              <Text>{ИсточникДанных1.violatorfio}
+&lt;br&gt;{ИсточникДанных1.liveplace}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text8>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Guid>6c0ce7a9eb3544be8ebd8cf2572a3886</Guid>
+          <Name>ReportTitleBand2</Name>
+          <Page isRef="17" />
+          <Parent isRef="17" />
+        </ReportTitleBand2>
+      </Components>
+      <Conditions isList="true" count="0" />
+      <Guid>3b96665754554b96beac691035d3a3c2</Guid>
+      <Margins>2,3,5,2</Margins>
+      <Name>Page2</Name>
+      <Orientation>Landscape</Orientation>
+      <PageHeight>21</PageHeight>
+      <PageWidth>29.7</PageWidth>
+      <PaperSize>A4</PaperSize>
+      <Report isRef="0" />
+      <Watermark Ref="23" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
+        <Font>Arial,100</Font>
+        <TextBrush>[50:0:0:0]</TextBrush>
+      </Watermark>
+    </Page2>
+  </Pages>
+  <PrinterSettings Ref="24" type="Stimulsoft.Report.Print.StiPrinterSettings" isKey="true" />
+  <ReferencedAssemblies isList="true" count="9">
+    <value>System.Dll</value>
+    <value>System.Drawing.Dll</value>
+    <value>System.Windows.Forms.Dll</value>
+    <value>System.Data.Dll</value>
+    <value>System.Xml.Dll</value>
+    <value>Stimulsoft.Controls.Dll</value>
+    <value>Stimulsoft.Base.Dll</value>
+    <value>Stimulsoft.Report.Dll</value>
+    <value>Morpher.Dll</value>
+  </ReferencedAssemblies>
+  <ReportAlias>Report</ReportAlias>
+  <ReportChanged>6/10/2022 1:46:07 PM</ReportChanged>
+  <ReportCreated>5/28/2014 3:38:42 PM</ReportCreated>
+  <ReportFile>D:\FileStore\samara\комиссии\IZV_RASSM_PROT2025.mrt</ReportFile>
+  <ReportGuid>30db99f4fe9c43848661f4c7460aa071</ReportGuid>
+  <ReportName>Report</ReportName>
+  <ReportUnit>Centimeters</ReportUnit>
+  <ReportVersion>2014.1.1900</ReportVersion>
+  <Script>using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data;
+using Stimulsoft.Controls;
+using Stimulsoft.Base.Drawing;
+using Stimulsoft.Report;
+using Stimulsoft.Report.Dialogs;
+using Stimulsoft.Report.Components;
+using Slepov.Russian.Morpher;
+
+namespace Reports
+{
+    public class Report : Stimulsoft.Report.StiReport
+    {
+        public Report()        {
+            this.InitializeComponent();
+        }
+		public Склонятель morpher = new Склонятель("SonFhyB1DbaxkkAQ4tfrhQ==");
+        #region StiReport Designer generated code - do not modify
+		#endregion StiReport Designer generated code - do not modify
+    }
+}
+</Script>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="0" />
+</StiSerializer>

@@ -1,0 +1,2 @@
+<%@ ServiceHost Service="Bars.Gkh.Services.Impl.DataTransfer.DataTransferService"
+Factory="Castle.Facilities.WcfIntegration.DefaultServiceHostFactory, Castle.Facilities.WcfIntegration" %>

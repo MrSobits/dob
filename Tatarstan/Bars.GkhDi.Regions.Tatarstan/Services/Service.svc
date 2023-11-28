@@ -1,0 +1,2 @@
+<%@ ServiceHost Service="Bars.GkhDi.Regions.Tatarstan.Services.Service"
+Factory="Castle.Facilities.WcfIntegration.DefaultServiceHostFactory, Castle.Facilities.WcfIntegration" %>

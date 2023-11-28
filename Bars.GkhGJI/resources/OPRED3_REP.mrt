@@ -1,0 +1,677 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer version="1.02" type="Net" application="StiReport">
+  <Dictionary Ref="1" type="Dictionary" isKey="true">
+    <BusinessObjects isList="true" count="0" />
+    <Databases isList="true" count="1">
+      <Соединение Ref="2" type="Stimulsoft.Report.Dictionary.StiPostgreSQLDatabase" isKey="true">
+        <Alias>Соединение</Alias>
+        <ConnectionStringEncrypted>49D162ILQzVieO1YSdi1TtVwf4nmBXq86kyxhGkptBfHcPcC5Fmp/cwVuZhvXOBn0iD3oU9ZUYztTNCJYQFpL8BW2UhJWbPt7BOw/E4A7EaBWPdIYUsB3eI=</ConnectionStringEncrypted>
+        <Name>Соединение</Name>
+      </Соединение>
+    </Databases>
+    <DataSources isList="true" count="1">
+      <ИсточникДанных1 Ref="3" type="Stimulsoft.Report.Dictionary.StiPostgreSQLSource" isKey="true">
+        <Alias>ИсточникДанных1</Alias>
+        <Columns isList="true" count="21">
+          <value>ДатаОпределения,System.DateTime</value>
+          <value>НомерОпределения,System.String</value>
+          <value>АдресКомиссии,System.String</value>
+          <value>ФИОНарушителя,System.String</value>
+          <value>НарушенныеСтатьи,System.String</value>
+          <value>РайонГород,System.String</value>
+          <value>АдресНарушителя,System.String</value>
+          <value>birthdate,System.DateTime</value>
+          <value>address_birth,System.String</value>
+          <value>address_live,System.String</value>
+          <value>juridical_address,System.String</value>
+          <value>АдресКомиссии1,System.String</value>
+          <value>ФИОПредседателя,System.String</value>
+          <value>object_create_date,System.DateTime</value>
+          <value>Адрес_x0020_нарушения,System.Int64</value>
+          <value>ДатаПринтияСтатьи,System.DateTime</value>
+          <value>ДатаНарушения,System.DateTime</value>
+          <value>ВремяНарушения,System.DateTime</value>
+          <value>ДатаРассмотренияДела,System.DateTime</value>
+          <value>Член_x0020_комиссии,System.String</value>
+          <value>Заместитель_x0020_председателя,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Name>ИсточникДанных1</Name>
+        <NameInSource>Соединение</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select ad.document_date as "ДатаОпределения", ad.document_num as "НомерОпределения", r.physical_person as "ФИОНарушителя", dv.npd_name as "НарушенныеСтатьи",  mun.name as "РайонГород", pr.person_fact_address as "АдресНарушителя",  per.birthdate, per.address_birth, per.address_live, c.juridical_address,
+	zp.address as "АдресКомиссии", doc.object_create_date, r.fias_place_address as "Адрес нарушения", dv.object_create_date::date as "ДатаПринтияСтатьи", co.order_date::date as "ДатаНарушения", co.order_date::time as "ВремяНарушения",
+case when dd1.position = 'Председатель' then array_agg (dd1.fio) end "Председатель",
+case when dd1.position = 'Заместитель председателя' then array_agg (dd1.fio) end "Заместитель председателя",
+case when dd1.position = 'Ответственный секретарь' then array_agg (dd1.fio) end "Ответственный секретарь",
+case when dd1.position = 'Член комиссии' then array_agg (dd1.fio) end "Член комиссии",
+
+
+ad.execution_date as "ДатаРассмотренияДела"
+
+from GJI_RESOLUTION_DEFINITION t1
+left join GJI_RESOLUTION t on t.id = t1.resolution_id
+left join gkh_contragent c on c.id = t.contragent_id
+left join gkh_contragent_contact co on co.contragent_id = c.id
+left join gkh_person_placework pl on pl.contragent_id = c.id
+left join gkh_person per on per.id = pl.person_id
+left join gji_inspection i on i.contragent_id = c.id
+left join gji_inspection_violation iv on iv.inspection_id = i.id
+left join gji_dict_violation dv on dv.id = iv.violation_id
+left join gji_protocol r on r.contragent_id = c.id
+join gji_document doc1 on doc1.id = t.id
+left join gji_resolution_payfine rp on rp.resolution_id = t.id
+left join gji_protocol_artlaw pa on pa.protocol_id = t.id
+left join gji_dict_articlelaw at on at.id = pa.articlelaw_id
+join gji_document doc on doc.id = r.id
+join GJI_NSO_PROTOCOL pr on pr.id=r.id
+ left join gji_document_inspector n on n.document_id = doc.id
+ left join gkh_dict_inspector dd on dd.id = n.inspector_id
+ left join gkh_dict_zonainsp_inspect zz on zz.inspector_id = dd.id
+left join gkh_dict_inspector dd1 on dd1.id in (select inspector_id from gkh_dict_zonainsp_inspect where zonal_inspection_id = zz.zonal_inspection_id)
+
+ left join gkh_dict_zonainsp zp on zp.id = zz.zonal_inspection_id
+ left join gkh_dict_municipality mun on mun.id = c.municipality_id 
+ left join gji_document_children dc on dc.children_id= r.id
+ left join gji_actcheck g1 on g1.id = dc.parent_id
+ left join gji_actcheck_definition ad on ad.actcheck_id = g1.id
+ group by  doc.document_date , zp.address, mun.name,  doc1.document_date,
+ r.physical_person, pr.person_fact_address, doc1.document_number, doc1.document_date, r.format_hour, r.format_minute, dd.phone, dd.fio, per.birthdate,
+  zp.name, dv.npd_name, per.address_live, per.address_birth, c.juridical_address, doc.object_create_date, r.fias_place_address, dv.object_create_date, co.order_date, ad.execution_date, ad.document_date, ad.document_num,
+  dd.position,dd1.position
+ --where doc.id::bigint =  :id
+</SqlCommand>
+      </ИсточникДанных1>
+    </DataSources>
+    <Relations isList="true" count="0" />
+    <Report isRef="0" />
+    <Variables isList="true" count="62">
+      <value>,ЗональноеНаименование1ГосЯзык,ЗональноеНаименование1ГосЯзык,System.String,,False,False</value>
+      <value>,Адрес1ГосЯзык,Адрес1ГосЯзык,System.String,,False,False</value>
+      <value>,Телефон,Телефон,System.String,,False,False</value>
+      <value>,Email,Email,System.String,,False,False</value>
+      <value>,ВидПроверки,ВидПроверки,System.String,,False,False</value>
+      <value>,Дата,Дата,System.String,,False,False</value>
+      <value>,НомерПриказа,НомерПриказа,System.String,,False,False</value>
+      <value>,Лицо,Лицо,,System.String,,False,False,True</value>
+      <value>,АдресОбр,АдресОбр,System.String,,False,False</value>
+      <value>,ИнспекторыИКодыВинП,ИнспекторыИКодыВинП,System.String,,False,False</value>
+      <value>,Эксперты,Эксперты,System.String,,False,False</value>
+      <value>,НачалоПериода,НачалоПериода,System.String,,False,False</value>
+      <value>,ОкончаниеПериода,ОкончаниеПериода,System.String,,False,False</value>
+      <value>,ПравовоеОснованиеПроверки,ПравовоеОснованиеПроверки,System.String,,False,False</value>
+      <value>,МероприятияПоКонтролю,МероприятияПоКонтролю,System.String,,False,False</value>
+      <value>,ОтветственныйСокр,ОтветственныйСокр,System.String,,False,False</value>
+      <value>,КодРуководителя,КодРуководителя,System.String,,False,False</value>
+      <value>,ТелефонРуковод,ТелефонРуковод,System.String,,False,False</value>
+      <value>,ПредоставляемыеДокументы,ПредоставляемыеДокументы,System.String,,False,False</value>
+      <value>,УправОрг,УправОрг,System.String,,False,False</value>
+      <value>,ДолжностьОтветственныйРп,ДолжностьОтветственныйРп,System.String,,False,False</value>
+      <value>,ФИООтветственныйСокрРп,ФИООтветственныйСокрРп,System.String,,False,False</value>
+      <value>,НарушительФИО,НарушительФИО_x0020_,System.String,Иванов_x0020_ИВан_x0020_Иванович_x0020_,False,False</value>
+      <value>,ДокументОснование,ДокументОснование,System.String,,False,False</value>
+      <value>,ОтветственныйДолжность,ОтветственныйДолжность,System.String,,False,False</value>
+      <value>,ОтветственныйТел,ОтветственныйТел,System.String,,False,False</value>
+      <value>,ОснованиеПроверки,ОснованиеПроверки,,System.String,,False,False,True</value>
+      <value>,ОбъектПроверки,ОбъектПроверки,,System.String,,False,False,True</value>
+      <value>,ПроверяемыеДома,ПроверяемыеДома,System.String,,False,False</value>
+      <value>,РуководительФИОСокр,РуководительФИОСокр_x0020_,System.String,,False,False</value>
+      <value>,Id,Id,System.Int64,_x0032_930,False,False</value>
+      <value>,РуководительДолжность,РуководительДолжность,System.String,,False,False</value>
+      <value>,timevisitstart,timevisitstart,System.String,,False,False</value>
+      <value>,НАчальникОтКонтрГЖН,НАчальникОтКонтрГЖН,System.String,Шкредову_x0020_Т.С.,False,False</value>
+      <value>,ПорядковыйНомер,ПорядковыйНомер,System.String,_x0031_,False,False</value>
+      <value>,ЧленыКомисии,ЧленыКомисии,System.String,Коммисаренко_x0020_А.К.,False,False</value>
+      <value>,КоличествоЭкзмлр,КоличествоЭкзмлр,System.String,_x0031_,False,False</value>
+      <value>,НомерОпределения,НомерОпределения,System.String,_x0033_373,False,False</value>
+      <value>,Дата_x0020_определения,Дата_x0020_определения_x0020_,System.String,_x0030_9.10.2020г.,False,False</value>
+      <value>,АдминистративнаяКоимиссия,АдминистративнаяКоимиссия_x0020_,System.String,комиссия_x0020_Автозаводского_x0020_района_x0020_городского_x0020_округа_x0020_Тольятт,False,False</value>
+      <value>,ПредседательФИО,ПредседательФИО,System.String,Пучков_x0020_В_x002C_С,False,False</value>
+      <value>,ЗаместительПредседателя,ЗаместительПредседателя,System.String,Захаров_x0020_А.С.,False,False</value>
+      <value>,ОтветсвенныйСекретарьФИО,ОтветсвенныйСекретарьФИО,System.String,Атлашев_x0020_А.Е.,False,False</value>
+      <value>,НарушительФИО1,НарушительФИО1,System.String,Иванов_x0020_Иван_x0020_Ивановвич_x0020_,False,False</value>
+      <value>,НарушенныеСтатьи,НарушенныеСтатьи,System.String,п.2.1_x0020_ст.4.18,False,False</value>
+      <value>,Город,Город_x0020_,System.String,г.Тольятти,False,False</value>
+      <value>,АдресАДмКомисии,АдресАДмКомисии,System.String,_x0034_45044_x002C__x0020_Самарская_x0020_обл._x002C__x0020_г.Тольятти_x002C__x0020_ул_x0020_70_x0020_лет_x0020_октября_x0020_д.52_x002C__x0020_кв_x0020_4.,False,False</value>
+      <value>,ДатаРождения,ДатаРождения,System.String,_x0030_1.01.1900г.,False,False</value>
+      <value>,МестоРаботы,МестоРаботы,System.String,,False,False</value>
+      <value>,ДатаРассмотренияДела,ДатаРассмотренияДела,System.String,_x0032_4.11.2021_x0020_в_x0020_13:00,False,False</value>
+      <value>,ДатаНарушения,ДатаНарушения,System.String,_x0030_1.01.2020г.,False,False</value>
+      <value>,ВремяНарушения,ВремяНарушения,System.String,_x0030_1:20,False,False</value>
+      <value>,АдресНарушения,АдресНарушения,System.String,г.Тольятти_x002C__x0020_ул.70_x0020_лет_x0020_октября_x0020_д.34,False,False</value>
+      <value>,Нарушения,Нарушения,System.String,допустил_x0028_а_x0029__x0020_размещение_x0020_транспортного_x0020_средства_x0020_г_x002F_н_x0020__x005B__x2116__x005D__x0020_на_x0020_озелененной_x0020_территории_x002C__x0020_размещение_x0020_транспортных_x0020_средств_x0020_на_x0020_которой_x0020_ограничено,False,False</value>
+      <value>,НарушенныеПунктыСтатьи,НарушенныеПунктыСтатьи_x0020_,System.String,пп.14_x0020_п.3_x0020_ст.39.1,False,False</value>
+      <value>,ОписаниеСтатьи,ОписаниеСтатьи,System.String,_x0022_Правил_x0020_благоустройства_x0020_территории_x0020_городского_x0020_округа_x0020_Тольятти_x0022__x002C__x0020_утвержденных_x0020_решением_x0020_Думы_x0020_городского_x0020_округа_x0020_Тольятти,False,False</value>
+      <value>,ДатаПринятияСтатьиСНомером,ДатаПринятияСтатьиСНомером,System.String,_x0030_4.07.2018_x0020__x2116_1789,False,False</value>
+      <value>,ОбстоятельстваУстановленныеПрирассмотренииДела,ОбстоятельстваУстановленныеПрирассмотренииДела,System.String,,False,False</value>
+      <value>,СтатьяКодексаРФсОписанием,СтатьяКодексаРФсОписанием,System.String,п.1_x0020_ст._x0020_29.4_x0020_Кодекса_x0020_РФ_x0020_об_x0020_административных_x0020_правонарушениях_x002C__x0020_Законом_x0020_Самарской_x0020_области,False,False</value>
+      <value>,НомерСтатьиКодексаРФсдатойПринятия,НомерСтатьиКодексаРФсдатойПринятия,System.String,_x2116_115-ГД_x0020_от_x0020_01.11.2007г.,False,False</value>
+      <value>,ОписаниеСтатьиКодексаРФ,ОписаниеСтатьиКодексаРФ,System.String,_x00AB_Об_x0020_административных_x0020_правонарушениях_x0020_на_x0020_территории_x0020_Самарской_x0020_области_x00BB__x0020_и_x0020_Законом_x0020_Самарской_x0020_области,False,False</value>
+      <value>,ГосНомер,ГосНомер,System.String,А123ХУ_x0020_163,False,False</value>
+    </Variables>
+  </Dictionary>
+  <EngineVersion>EngineV2</EngineVersion>
+  <GlobalizationStrings isList="true" count="0" />
+  <MetaTags isList="true" count="0" />
+  <Pages isList="true" count="1">
+    <Page2 Ref="4" type="Page" isKey="true">
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="2">
+        <ReportTitleBand2 Ref="5" type="ReportTitleBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,0.4,18,5.2</ClientRectangle>
+          <Components isList="true" count="2">
+            <Text52 Ref="6" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Border>None;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,0.4,18,1.4</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,12</Font>
+              <Guid>d846920ecf204209bd1f1e62d4b1253f</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text52</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>&lt;b&gt;ОПРЕДЕЛЕНИЕ
+&lt;br&gt;в порядке подготовки к рассмотрению дела об административном правонарушении&lt;/b&gt;
+&lt;br&gt;№&lt;b&gt;{НомерОпределения}&lt;/b&gt;</Text>
+              <TextBrush>Black</TextBrush>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text52>
+            <Text1 Ref="7" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,2.4,18,3</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Editable>True</Editable>
+              <Font>Times New Roman,12</Font>
+              <Guid>c5dcdd11b7e7480ebfc7d49513563e3c</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text1</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;,&lt;b&gt;{[Дата определения ]}. административная {[АдминистративнаяКоимиссия ]}&lt;/b&gt; в составе: &lt;b&gt;{ПредседательФИО}, {ЗаместительПредседателя}, {ОтветсвенныйСекретарьФИО}, {ЧленыКомисии}&lt;/b&gt; при подготовке к рассмотрению дела о совершении &lt;b&gt;{НарушительФИО1}&lt;/b&gt; административного правонарушения, предусмотренного &lt;b&gt;{НарушенныеСтатьи}&lt;/b&gt;  Закона Самарской области №115-ГД от 01.11.2007г. «Об административных правонарушениях на территории Самарской области»,</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+            </Text1>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>ReportTitleBand2</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+        </ReportTitleBand2>
+        <DataBand18 Ref="8" type="DataBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,6.4,18,21.4</ClientRectangle>
+          <Components isList="true" count="18">
+            <Text2 Ref="9" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Border>None;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,0.6,18,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,12</Font>
+              <Guid>782a658076014f29b066af2bec8b2b3a</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text2</Name>
+              <Page isRef="4" />
+              <Parent isRef="8" />
+              <Text>&lt;b&gt;УСТАНОВИЛА&lt;/b&gt;
+</Text>
+              <TextBrush>Black</TextBrush>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text2>
+            <Text3 Ref="10" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Border>None;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,1.8,6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,12,Underline</Font>
+              <Guid>97b05f7b44ac4833bce4720687118952</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text3</Name>
+              <Page isRef="4" />
+              <Parent isRef="8" />
+              <Text>&lt;b&gt;{НарушительФИО1}&lt;b/&gt;</Text>
+              <TextBrush>Black</TextBrush>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text3>
+            <Text4 Ref="11" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Border>None;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,2.8,6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,12,Underline</Font>
+              <Guid>9a0e7904f45241d3a42b34b4936fdbc8</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text4</Name>
+              <Page isRef="4" />
+              <Parent isRef="8" />
+              <Text>&lt;b&gt;{Город}&lt;b/&gt;</Text>
+              <TextBrush>Black</TextBrush>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text4>
+            <Text5 Ref="12" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Border>None;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0.8,2.4,5.2,0.4</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,8</Font>
+              <Guid>3ed2ee3d433f4961a4b51940ab5b4d81</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text5</Name>
+              <Page isRef="4" />
+              <Parent isRef="8" />
+              <Text>ФИО</Text>
+              <TextBrush>Black</TextBrush>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text5>
+            <Text6 Ref="13" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Border>None;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0.8,3.6,5.2,0.4</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,8</Font>
+              <Guid>6b1ded6aea144dedbc06106690943e02</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text6</Name>
+              <Page isRef="4" />
+              <Parent isRef="8" />
+              <Text>место рождения</Text>
+              <TextBrush>Black</TextBrush>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text6>
+            <Text7 Ref="14" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Border>None;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,4,6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,12,Underline</Font>
+              <Guid>8a8a1a1bb9d74daa912e7270fe5a805f</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text7</Name>
+              <Page isRef="4" />
+              <Parent isRef="8" />
+              <Text>&lt;b&gt;{АдресАДмКомисии}&lt;b/&gt;</Text>
+              <TextBrush>Black</TextBrush>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text7>
+            <Text8 Ref="15" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Border>None;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0.8,4.8,5.2,0.4</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,8</Font>
+              <Guid>b77b7653be1e42478bac510a6e542f6d</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text8</Name>
+              <Page isRef="4" />
+              <Parent isRef="8" />
+              <Text>место проживания</Text>
+              <TextBrush>Black</TextBrush>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text8>
+            <Text9 Ref="16" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Border>None;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>13.4,2.6,4.2,0.4</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,8</Font>
+              <Guid>de692221a0694758b10ac26278d759d3</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text9</Name>
+              <Page isRef="4" />
+              <Parent isRef="8" />
+              <Text>дата рождения</Text>
+              <TextBrush>Black</TextBrush>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text9>
+            <Text10 Ref="17" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Border>None;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>11.6,1.8,6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,12,Underline</Font>
+              <Guid>d2896a3eaa454f7b947382d0082ad1d7</Guid>
+              <HorAlignment>Right</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text10</Name>
+              <Page isRef="4" />
+              <Parent isRef="8" />
+              <Text>&lt;b&gt;{ДатаРождения}&lt;b/&gt;</Text>
+              <TextBrush>Black</TextBrush>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text10>
+            <Text11 Ref="18" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Border>None;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0.8,6,5.2,0.4</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,8</Font>
+              <Guid>daf7cdf3b51a42268afdf17836143025</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text11</Name>
+              <Page isRef="4" />
+              <Parent isRef="8" />
+              <Text>место работы</Text>
+              <TextBrush>Black</TextBrush>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text11>
+            <Text12 Ref="19" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Border>None;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,5.2,6,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,12,Underline</Font>
+              <Guid>5ee294d6f6d24d9596a15e7238b3685e</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text12</Name>
+              <Page isRef="4" />
+              <Parent isRef="8" />
+              <Text>&lt;b&gt;{МестоРаботы}&lt;b/&gt;</Text>
+              <TextBrush>Black</TextBrush>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text12>
+            <Text13 Ref="20" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,7.2,18,2.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Editable>True</Editable>
+              <Font>Times New Roman,12</Font>
+              <Guid>ddfd1ea2727247e78810d882f55963ed</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text13</Name>
+              <Page isRef="4" />
+              <Parent isRef="8" />
+              <Text>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;,&lt;b&gt;Дата: {ДатаНарушения},  время: {ВремяНарушения}  адрес: {АдресНарушения}, существо нарушения: {НарушительФИО1} {Нарушения} {НарушенныеПунктыСтатьи} {ОписаниеСтатьи} от {ДатаПринятияСтатьиСНомером}&lt;/b&gt;</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+            </Text13>
+            <Text14 Ref="21" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Border>None;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,9.8,10.2,0.4</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,12</Font>
+              <Guid>2fa9809b54234cc19d46c86cdd9e8abd</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text14</Name>
+              <Page isRef="4" />
+              <Parent isRef="8" />
+              <Text>{ОбстоятельстваУстановленныеПрирассмотренииДела}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text14>
+            <Text15 Ref="22" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,10.4,18,4.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Editable>True</Editable>
+              <Font>Times New Roman,12</Font>
+              <Guid>324055736c8746a4ae32c4ce3d53f65a</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text15</Name>
+              <Page isRef="4" />
+              <Parent isRef="8" />
+              <Text>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Из материалов дела об административном правонарушении видно, что &lt;b&gt;{НарушительФИО1}&lt;/b&gt; не извещен(а) надлежащим образом о дате, месте и времени рассмотрения протокола об административном правонарушении.
+&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;В связи с вышеизложенным и руководствуясь {СтатьяКодексаРФсОписанием} {НомерСтатьиКодексаРФсдатойПринятия} «Об административных комиссиях на территории Самарской области»,
+</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+            </Text15>
+            <Text16 Ref="23" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Border>None;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,14.8,18,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,12</Font>
+              <Guid>b609b4200d1f4465b17e81f149176f5b</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text16</Name>
+              <Page isRef="4" />
+              <Parent isRef="8" />
+              <Text>ОПРЕДЕЛИЛА:</Text>
+              <TextBrush>Black</TextBrush>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text16>
+            <Text17 Ref="24" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,15.6,18,1.4</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Editable>True</Editable>
+              <Font>Times New Roman,12</Font>
+              <Guid>ae950c8d4ff2443d9dd19cdeae0b0003</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text17</Name>
+              <Page isRef="4" />
+              <Parent isRef="8" />
+              <Text>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Назначить рассмотрение дела &lt;b&gt;{НомерОпределения} на {ДатаРассмотренияДела}&lt;/b&gt;, пригласить &lt;b&gt;{НарушительФИО1}&lt;/b&gt; на заседание административной комиссии.
+</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+            </Text17>
+            <Text18 Ref="25" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Border>None;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0.6,17.8,9.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,12</Font>
+              <Guid>343a9a455c4445558d7fb2f998ee480e</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text18</Name>
+              <Page isRef="4" />
+              <Parent isRef="8" />
+              <Text>Председательствующий ___________________&lt;b&gt;(ФИО)&lt;/b&gt;</Text>
+              <TextBrush>Black</TextBrush>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text18>
+            <Text19 Ref="26" type="Text" isKey="true">
+              <Border>None;[105:105:105];1;Solid;False;4;[105:105:105]</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>18,0,2.4,21.4</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,12</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text19</Name>
+              <Page isRef="4" />
+              <Parent isRef="8" />
+              <Text>{ИсточникДанных1.Parameters["id"].ParameterValue}</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text19>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Filters isList="true" count="0" />
+          <Name>DataBand18</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+          <Sort isList="true" count="0" />
+        </DataBand18>
+      </Components>
+      <Conditions isList="true" count="0" />
+      <Guid>0f1ade4e564345f6bdb10f4dc5780aa9</Guid>
+      <LargeHeightFactor>1</LargeHeightFactor>
+      <Margins>2,1,1,1</Margins>
+      <Name>Page2</Name>
+      <PageHeight>29.7</PageHeight>
+      <PageWidth>21</PageWidth>
+      <Report isRef="0" />
+      <Watermark Ref="27" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
+        <Font>Arial,100</Font>
+        <TextBrush>[50:0:0:0]</TextBrush>
+      </Watermark>
+    </Page2>
+  </Pages>
+  <PrinterSettings Ref="28" type="Stimulsoft.Report.Print.StiPrinterSettings" isKey="true" />
+  <ReferencedAssemblies isList="true" count="9">
+    <value>System.Dll</value>
+    <value>System.Drawing.Dll</value>
+    <value>System.Windows.Forms.Dll</value>
+    <value>System.Data.Dll</value>
+    <value>System.Xml.Dll</value>
+    <value>Stimulsoft.Controls.Dll</value>
+    <value>Stimulsoft.Base.Dll</value>
+    <value>Stimulsoft.Report.Dll</value>
+    <value>Morpher.Dll</value>
+  </ReferencedAssemblies>
+  <ReportAlias>Report</ReportAlias>
+  <ReportChanged>12/27/2021 12:20:22 PM</ReportChanged>
+  <ReportCreated>8/15/2014 5:39:56 PM</ReportCreated>
+  <ReportFile>C:\Users\Dmitry\Desktop\sql Печатка\Определение(OPRED3_REP).mrt</ReportFile>
+  <ReportGuid>19c3e0d870ae468597c10c10cbecfe33</ReportGuid>
+  <ReportName>Report</ReportName>
+  <ReportUnit>Centimeters</ReportUnit>
+  <ReportVersion>2014.1.1900</ReportVersion>
+  <Script>using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data;
+using Stimulsoft.Controls;
+using Stimulsoft.Base.Drawing;
+using Stimulsoft.Report;
+using Stimulsoft.Report.Dialogs;
+using Stimulsoft.Report.Components;
+using Stimulsoft.Report.Dictionary;
+using System.Text;
+using Slepov.Russian.Morpher;
+
+namespace Reports
+{
+	public class Report : Stimulsoft.Report.StiReport
+	{
+		public Report(){
+			
+			StiFunctions.AddFunction(
+				"Bars", 
+				"ConcatDataSource",
+				"Возвращает скомбинированный в строку источник данных.",
+				typeof(Report), 
+				typeof(string), 
+				"Скомбинированный в строку источник данных.");
+			
+			StiFunctions.AddFunction(
+				"Bars", 
+				"CreateArray",
+				"Coздает массив строк из переданных параметров",
+				typeof(Report), 
+				typeof(string[]), 
+				"массив строк из переданных параметров");
+			
+			this.InitializeComponent();
+		}
+
+		#region StiReport Designer generated code - do not modify
+		#endregion StiReport Designer generated code - do not modify
+		public Склонятель morpher = new Склонятель("SonFhyB1DbaxkkAQ4tfrhQ==");
+    
+		
+		public static string ConcatDataSource(StiDataSource dataSource, string separator, string[] colNames, string[] colSeparators){
+			if(dataSource.Count == 0)
+			{
+				return string.Empty;
+			}
+			
+			var result = new StringBuilder(ConcatDataSourceRow(dataSource, 0, colNames, colSeparators));
+			
+			for(var i=0; i&lt;dataSource.Count; i++)
+			{
+				result.Append(separator);
+				result.Append(ConcatDataSourceRow(dataSource, i, colNames, colSeparators));
+			}
+			
+			return result.ToString();
+		}
+		
+		public static string[] CreateArray(params string[] arr){
+			return arr;
+		}
+		
+		private static string ConcatDataSourceRow(StiDataSource dataSource, int rowNum, string[] colNames, string[] colSeparators)
+		{
+			if(colNames.Length == 0){
+				return string.Empty;
+			}
+			var result = new StringBuilder(dataSource.GetData(colNames[0], rowNum).ToString());
+			for(var i=1; i&lt;colNames.Length; i++)
+			{
+				result.Append(colSeparators[i-1]);
+				result.Append(dataSource.GetData(colNames[i], rowNum));
+			}
+			
+			return result.ToString();
+		}
+	}
+	
+}
+
+</Script>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="0" />
+</StiSerializer>

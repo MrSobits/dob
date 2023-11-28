@@ -1,0 +1,2 @@
+<%@ ServiceHost Service="Bars.Gkh.Services.Impl.Suggestion.SuggestionService"
+Factory="Castle.Facilities.WcfIntegration.DefaultServiceHostFactory, Castle.Facilities.WcfIntegration" %>

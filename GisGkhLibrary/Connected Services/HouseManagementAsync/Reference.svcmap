@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="1cb72769-de88-4e60-929b-a9374d3b1b7f" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="C:\Users\Admin\Desktop\ГИС ЖКХ_Интеграция_v.13.1.0.4\hcs_wsdl_xsd_v.13.1.0.4\house-management\hcs-house-management-service-async.wsdl" Protocol="file" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="hcs-house-management-service-async.wsdl" MetadataType="Wsdl" ID="7ff20296-f4c5-4e90-ab15-b3dc3883dca5" SourceId="1" SourceUrl="file:///C:/Users/Admin/Desktop/ГИС ЖКХ_Интеграция_v.13.1.0.4/hcs_wsdl_xsd_v.13.1.0.4/house-management/hcs-house-management-service-async.wsdl" />
+    <MetadataFile FileName="hcs-individual-registry-base.xsd" MetadataType="Schema" ID="8f4133d3-0822-4fe1-8cd4-4762c7185c0f" SourceId="1" SourceUrl="file:///C:/Users/Admin/Desktop/ГИС ЖКХ_Интеграция_v.13.1.0.4/hcs_wsdl_xsd_v.13.1.0.4/lib/hcs-individual-registry-base.xsd" />
+    <MetadataFile FileName="hcs-bills-base.xsd" MetadataType="Schema" ID="7ddc5dc3-0d88-4f86-9f9d-4b9da0fdd751" SourceId="1" SourceUrl="file:///C:/Users/Admin/Desktop/ГИС ЖКХ_Интеграция_v.13.1.0.4/hcs_wsdl_xsd_v.13.1.0.4/lib/hcs-bills-base.xsd" />
+    <MetadataFile FileName="hcs-metering-device-base.xsd" MetadataType="Schema" ID="3392bacf-ad01-4116-a57e-b4f3e6635e87" SourceId="1" SourceUrl="file:///C:/Users/Admin/Desktop/ГИС ЖКХ_Интеграция_v.13.1.0.4/hcs_wsdl_xsd_v.13.1.0.4/lib/hcs-metering-device-base.xsd" />
+    <MetadataFile FileName="hcs-account-base.xsd" MetadataType="Schema" ID="153898e3-7c91-4271-9c08-246c62862443" SourceId="1" SourceUrl="file:///C:/Users/Admin/Desktop/ГИС ЖКХ_Интеграция_v.13.1.0.4/hcs_wsdl_xsd_v.13.1.0.4/lib/hcs-account-base.xsd" />
+    <MetadataFile FileName="hcs-nsi-base.xsd" MetadataType="Schema" ID="45371a73-83fd-4996-aee4-9b84a98e62b6" SourceId="1" SourceUrl="file:///C:/Users/Admin/Desktop/ГИС ЖКХ_Интеграция_v.13.1.0.4/hcs_wsdl_xsd_v.13.1.0.4/lib/hcs-nsi-base.xsd" />
+    <MetadataFile FileName="hcs-base.xsd" MetadataType="Schema" ID="b5b0d7d0-9c26-402d-a8da-210cb5234ba9" SourceId="1" SourceUrl="file:///C:/Users/Admin/Desktop/ГИС ЖКХ_Интеграция_v.13.1.0.4/hcs_wsdl_xsd_v.13.1.0.4/lib/hcs-base.xsd" />
+    <MetadataFile FileName="hcs-organizations-base.xsd" MetadataType="Schema" ID="16b0304f-c03e-4bf9-925c-fadafc12e9c8" SourceId="1" SourceUrl="file:///C:/Users/Admin/Desktop/ГИС ЖКХ_Интеграция_v.13.1.0.4/hcs_wsdl_xsd_v.13.1.0.4/lib/hcs-organizations-base.xsd" />
+    <MetadataFile FileName="xmldsig-core-schema.xsd" MetadataType="Schema" ID="200fd894-ca0d-4e16-8f75-9f43de1fa2a8" SourceId="1" SourceUrl="file:///C:/Users/Admin/Desktop/ГИС ЖКХ_Интеграция_v.13.1.0.4/hcs_wsdl_xsd_v.13.1.0.4/lib/xmldsig-core-schema.xsd" />
+    <MetadataFile FileName="hcs-premises-base.xsd" MetadataType="Schema" ID="65f4a33e-586f-44a0-909b-de15d6c988d0" SourceId="1" SourceUrl="file:///C:/Users/Admin/Desktop/ГИС ЖКХ_Интеграция_v.13.1.0.4/hcs_wsdl_xsd_v.13.1.0.4/lib/hcs-premises-base.xsd" />
+    <MetadataFile FileName="hcs-organizations-registry-base.xsd" MetadataType="Schema" ID="94bc40ce-5faa-448b-bcb5-46685de082d6" SourceId="1" SourceUrl="file:///C:/Users/Admin/Desktop/ГИС ЖКХ_Интеграция_v.13.1.0.4/hcs_wsdl_xsd_v.13.1.0.4/lib/hcs-organizations-registry-base.xsd" />
+    <MetadataFile FileName="hcs-house-management-types.xsd" MetadataType="Schema" ID="13bf3a80-90db-4cef-be15-d747eb04e408" SourceId="1" SourceUrl="file:///C:/Users/Admin/Desktop/ГИС ЖКХ_Интеграция_v.13.1.0.4/hcs_wsdl_xsd_v.13.1.0.4/house-management/hcs-house-management-types.xsd" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

@@ -1,0 +1,52 @@
+﻿namespace Bars.Gkh.Overhaul.Tat.Interceptors
+{
+    using System;
+    using System.Linq;
+
+    using Bars.B4;
+    using Bars.B4.Modules.States;
+    using Bars.Gkh.Overhaul.Tat.Entities;
+
+    public class SpecialAccountDecisionNoticeInterceptor : EmptyDomainInterceptor<SpecialAccountDecisionNotice>
+    {
+        public override IDataResult BeforeCreateAction(IDomainService<SpecialAccountDecisionNotice> service, SpecialAccountDecisionNotice entity)
+        {
+            // Перед сохранением проставляем начальный статус
+            var stateProvider = Container.Resolve<IStateProvider>();
+            stateProvider.SetDefaultState(entity);
+
+            entity.NoticeDate = DateTime.Now;
+
+            //проставляем порядковый номер
+            var noticeNums = service.GetAll()
+                   .Where(
+                       x =>
+                       x.SpecialAccountDecision.RealityObject.Municipality.Id
+                       == entity.SpecialAccountDecision.RealityObject.Municipality.Id && x.NoticeDate == entity.NoticeDate)
+                   .Select(x => x.NoticeNum)
+                   .ToList();
+            entity.NoticeNum = noticeNums.Any() ? noticeNums.Max() + 1 : 1;
+            entity.NoticeNumber = string.Format(
+                "{0}-{1}", entity.SpecialAccountDecision.RealityObject.Municipality.Code, entity.NoticeNum);
+
+            return this.Success();
+        }
+
+        public override IDataResult AfterUpdateAction(IDomainService<SpecialAccountDecisionNotice> service, SpecialAccountDecisionNotice entity)
+        {
+            //проставляем порядковый номер
+            var maxNum = service.GetAll()
+                    .Where(
+                        x =>
+                        x.SpecialAccountDecision.RealityObject.Municipality.Id
+                        == entity.SpecialAccountDecision.RealityObject.Municipality.Id && x.NoticeDate == entity.NoticeDate)
+                    .Select(x => x.NoticeNum)
+                    .Max();
+
+            entity.NoticeNumber = string.Format(
+                "{0}-{1}", entity.SpecialAccountDecision.RealityObject.Municipality.Code, maxNum + 1);
+
+            return this.Success();
+        }
+    }
+}

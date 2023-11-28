@@ -1,0 +1,1961 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2A580F94-6628-40B0-8540-45544D710F59}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Bars.Gkh.Gis</RootNamespace>
+    <AssemblyName>Bars.Gkh.Gis</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Services" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activation" />
+    <Reference Include="System.ServiceModel.Discovery" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="ClientRouteMapRegistrar.cs" />
+    <Compile Include="CommonParams\Impl\AreaLivingNotLivingMkdCommonParam.cs" />
+    <Compile Include="CommonParams\Impl\AreaMkdCommonParam.cs" />
+    <Compile Include="CommonParams\Impl\AreaOwnedCommonParam.cs" />
+    <Compile Include="CommonParams\Impl\BuildYearCommonParam.cs" />
+    <Compile Include="CommonParams\Impl\PrivatizationDateFirstApartment.cs" />
+    <Compile Include="CommonParams\IGisCommonParam.cs" />
+    <Compile Include="CommonParams\Impl\MaximumFloorsCommonParam.cs" />
+    <Compile Include="CommonParams\Impl\MinimumFloorsCommonParam.cs" />
+    <Compile Include="CommonParams\Impl\NumberLivingCommonParam.cs" />
+    <Compile Include="CommonParams\Impl\NumberEntrancesCommonParam.cs" />
+    <Compile Include="CommonParams\Impl\PhysicalWearCommonParam.cs" />
+    <Compile Include="CommonParams\Impl\HeatingSystemCommonParam.cs" />
+    <Compile Include="CommonParams\Impl\TypeProjectCommonParam.cs" />
+    <Compile Include="CommonParams\Impl\TypeHouseCommonParam.cs" />
+    <Compile Include="CommonParams\Impl\NumberApartmentsCommonParam.cs" />
+    <Compile Include="CommonParams\Impl\RoofingMaterialCommonParam.cs" />
+    <Compile Include="CommonParams\Impl\WallMaterialCommonParam.cs" />
+    <Compile Include="CommonParams\Impl\TypeRoofCommonParam.cs" />
+    <Compile Include="CommonParams\Impl\NumberLiftsCommonParam.cs" />
+    <Compile Include="ConfigSections\GisConfig.cs" />
+    <Compile Include="ConfigSections\OpenKazanIntegrationConfig.cs" />
+    <Compile Include="ConfigSections\EiasIntegrationConfig.cs" />
+    <Compile Include="ConfigSections\OpenTatarstanIntegrationConfig.cs" />
+    <Compile Include="ConfigSections\BilConnectionConfig.cs" />
+    <Compile Include="ConfigSections\PublicControlIntegrationConfig.cs" />
+    <Compile Include="Controllers\Dict\BilServiceDictionaryController.cs" />
+    <Compile Include="Controllers\Dict\GisNormativDictController.cs" />
+    <Compile Include="Controllers\GisAddressMatching\GisAddressController.cs" />
+    <Compile Include="Controllers\GisAddressMatching\GisAddressMatchingController.cs" />
+    <Compile Include="Controllers\GisRealEstate\IndicatorServiceComparisonController.cs" />
+    <Compile Include="Controllers\House\HouseClaimsController.cs" />
+    <Compile Include="Controllers\ImportData\BillingController.cs" />
+    <Compile Include="Controllers\ImportData\ImportDataOtController.cs" />
+    <Compile Include="Controllers\ImportExport\UnloadCounterValuesController.cs" />
+    <Compile Include="Controllers\ManOrg\ManagingOrgMkdWorkController.cs" />
+    <Compile Include="Controllers\Olap\CubeController.cs" />
+    <Compile Include="Controllers\PersonalAccount\PublicControlClaimsController.cs" />
+    <Compile Include="Controllers\PersonalAccount\PersonalAccountSaldoController.cs" />
+    <Compile Include="Controllers\PiwikController.cs" />
+    <Compile Include="Controllers\RealityObject\RealityObjectExtraController.cs" />
+    <Compile Include="Controllers\Register\HouseRegisterRegister\GisHouseRegisterController.cs" />
+    <Compile Include="Controllers\Register\ServiceSubsidyRegister\ServiceSubsidyRegisterController.cs" />
+    <Compile Include="Controllers\Register\TenantSubsidyRegister\TenantSubsidyRegisterController.cs" />
+    <Compile Include="Controllers\Register\HouseServiceRegister\HouseServiceRegisterController.cs" />
+    <Compile Include="Controllers\GisRealEstate\RealEstateTypeGroupController.cs" />
+    <Compile Include="Controllers\GisRealEstate\RealEstateTypeController.cs" />
+    <Compile Include="Controllers\CommonParamsController.cs" />
+    <Compile Include="Controllers\HostController.cs" />
+    <Compile Include="Controllers\ImportData\ImportDataController.cs" />
+    <Compile Include="Controllers\MultipleAnalysisTemplateController.cs" />
+    <Compile Include="Controllers\RegressionAnalysisController.cs" />
+    <Compile Include="Controllers\Report\BillingReportController.cs" />
+    <Compile Include="Controllers\Skap\SkapController.cs" />
+    <Compile Include="Controllers\WasteCollection\MenuWasteCollectionController.cs" />
+    <Compile Include="Controllers\WasteCollection\WasteCollectionPlaceController.cs" />
+    <Compile Include="DomainService\Analysis\Impl\RegressionAnalysisService.cs" />
+    <Compile Include="DomainService\Analysis\IRegressionAnalysisService.cs" />
+    <Compile Include="DomainService\Analysis\MultipleAnalysisIndicatorProxy.cs" />
+    <Compile Include="DomainService\Analysis\Impl\MultipleAnalysisService.cs" />
+    <Compile Include="DomainService\Analysis\IMultipleAnalysisService.cs" />
+    <Compile Include="DomainService\Analysis\MultipleAnalysisGroupProxy.cs" />
+    <Compile Include="DomainService\Analysis\MultipleAnalysisProxy.cs" />
+    <Compile Include="DomainService\BilConnection\Impl\BilConnectionService.cs" />
+    <Compile Include="DomainService\BilConnection\IBilConnectionService.cs" />
+    <Compile Include="DomainService\CalcVerification\Impl\BillingInstrumentary.cs" />
+    <Compile Include="DomainService\CalcVerification\Impl\InstanceProtocolHandler.cs" />
+    <Compile Include="DomainService\CalcVerification\Impl\NormativHandler.cs" />
+    <Compile Include="DomainService\CalcVerification\Impl\TarifHandler.cs" />
+    <Compile Include="DomainService\CalcVerification\Impl\CalcConsumptionsHandler.cs" />
+    <Compile Include="DomainService\CalcVerification\Impl\CalcPreparationHandler.cs" />
+    <Compile Include="DomainService\CalcVerification\Impl\CalcServicesHandler.cs" />
+    <Compile Include="DomainService\CalcVerification\Impl\CalcChargeHandler.cs" />
+    <Compile Include="DomainService\CalcVerification\Impl\CalcVerificationProtocol.cs" />
+    <Compile Include="DomainService\CalcVerification\Impl\TransferHandler.cs" />
+    <Compile Include="DomainService\CalcVerification\Impl\CalcTenantHandler.cs" />
+    <Compile Include="DomainService\CalcVerification\Impl\CalcVerificationService.cs" />
+    <Compile Include="DomainService\CalcVerification\Impl\InstanceHandler.cs" />
+    <Compile Include="DomainService\Dict\IBilServiceDictionaryService.cs" />
+    <Compile Include="DomainService\Dict\IEiasTariffImportService.cs" />
+    <Compile Include="DomainService\Dict\Impl\BilServiceDictionaryService.cs" />
+    <Compile Include="DomainService\Dict\Impl\EiasTariffImportService.Converter.cs" />
+    <Compile Include="DomainService\Dict\Impl\EiasTariffImportService.Model.cs" />
+    <Compile Include="DomainService\Dict\Impl\EiasTariffImportService.cs" />
+    <Compile Include="DomainService\House\IGisHouseService.cs" />
+    <Compile Include="DomainService\House\Impl\KpHouseService.cs" />
+    <Compile Include="DomainService\House\Impl\GisHouseService.cs" />
+    <Compile Include="DomainService\ImportData\BaseImportDataHandler.cs" />
+    <Compile Include="DomainService\ImportData\IImportDataService.cs" />
+    <Compile Include="DomainService\ImportData\Impl\ImportDataService.cs" />
+    <Compile Include="DomainService\ImportData\Impl\ImportGkhDataForMinstroyReportsHandler.cs" />
+    <Compile Include="DomainService\ImportData\Impl\ImportIncremetalData\ImportIncremetalDataForGis.cs" />
+    <Compile Include="DomainService\ImportData\Impl\ImportIncremetalData\ImportIncremetalDataForPgu.cs" />
+    <Compile Include="DomainService\ImportData\Impl\ImportIncremetalData\LoadFromOtherSystems\DeterminateStorageService.cs" />
+    <Compile Include="DomainService\ImportData\Impl\ImportIncremetalData\LoadFromOtherSystems\IncremetnalFileFormat.cs" />
+    <Compile Include="DomainService\ImportData\Impl\ImportIncremetalData\LoadFromOtherSystems\Intf\IDeterminateStorage.cs" />
+    <Compile Include="DomainService\ImportData\Impl\ImportIncremetalData\LoadFromOtherSystems\Intf\ILoadFileFromOtherSystem.cs" />
+    <Compile Include="DomainService\ImportData\Impl\ImportIncremetalData\LoadFromOtherSystems\Intf\IRegisterFormatForOtherSystems.cs" />
+    <Compile Include="DomainService\ImportData\Impl\ImportIncremetalData\LoadFromOtherSystems\Intf\IValidateFile.cs" />
+    <Compile Include="DomainService\ImportData\Impl\ImportIncremetalData\LoadFromOtherSystems\LoadFileFromOtherSystem.cs" />
+    <Compile Include="DomainService\ImportData\Impl\ImportIncremetalData\LoadFromOtherSystems\LoadFileFromOtherSystemInstance.cs" />
+    <Compile Include="DomainService\ImportData\Impl\ImportIncremetalData\LoadFromOtherSystems\RegisterFormatForOtherSystems.cs" />
+    <Compile Include="DomainService\ImportData\Impl\ImportIncremetalData\LoadFromOtherSystems\ValidateFile.cs" />
+    <Compile Include="DomainService\ImportData\Impl\ImportSzDataForMinstroyReportsHandler.cs" />
+    <Compile Include="DomainService\ImportExport\Impl\UnloadCounterValuesService.cs" />
+    <Compile Include="DomainService\ImportExport\IUnloadCounterValuesService.cs" />
+    <Compile Include="DomainService\ManOrg\IManagingOrgMkdWorkService.cs" />
+    <Compile Include="DomainService\ManOrg\Impl\ManagingOrgMkdWorkService.cs" />
+    <Compile Include="DomainService\PersonalAccount\Impl\KpPersonalAccountService.cs" />
+    <Compile Include="DomainService\PersonalAccount\Impl\GisPersonalAccountService.cs" />
+    <Compile Include="DomainService\PersonalAccount\IGisPersonalAccountService.cs" />
+    <Compile Include="Entities\CalcVerification\AccountDataChd.cs" />
+    <Compile Include="DomainService\CalcVerification\Impl\Tree\Building.cs" />
+    <Compile Include="DomainService\CalcVerification\Impl\Tree\BuildingOthers.cs" />
+    <Compile Include="Entities\CalcVerification\CalcFormula.cs" />
+    <Compile Include="Entities\CalcVerification\Consumption.cs" />
+    <Compile Include="DomainService\CalcVerification\Impl\Tree\ProtocolService.cs" />
+    <Compile Include="Entities\CalcVerification\TreeData.cs" />
+    <Compile Include="DomainService\CalcVerification\Intf\IBuildTree.cs" />
+    <Compile Include="DomainService\CalcVerification\Intf\ICalcCharge.cs" />
+    <Compile Include="DomainService\CalcVerification\Intf\ICalcVerificationProtocol.cs" />
+    <Compile Include="DomainService\CalcVerification\Intf\ICalcConsumptions.cs" />
+    <Compile Include="DomainService\CalcVerification\Intf\ICalcPreparation.cs" />
+    <Compile Include="DomainService\CalcVerification\Intf\ICalcServices.cs" />
+    <Compile Include="DomainService\CalcVerification\Intf\ICalcTenant.cs" />
+    <Compile Include="DomainService\CalcVerification\Intf\ICalcVerificationService.cs" />
+    <Compile Include="DomainService\CalcVerification\Intf\INormative.cs" />
+    <Compile Include="DomainService\CalcVerification\Intf\IProtocolService.cs" />
+    <Compile Include="DomainService\CalcVerification\Intf\ITarif.cs" />
+    <Compile Include="DomainService\CalcVerification\Intf\ITransfer.cs" />
+    <Compile Include="DomainService\Dict\BilServiceDictionaryDomainService.cs" />
+    <Compile Include="DomainService\GisAddressMatching\IAddressMatcherService.cs" />
+    <Compile Include="DomainService\GisAddressMatching\IAddressService.cs" />
+    <Compile Include="DomainService\GisAddressMatching\IGisAddressMatchingService.cs" />
+    <Compile Include="DomainService\GisAddressMatching\Impl\AddressMatcherService.cs" />
+    <Compile Include="DomainService\GisAddressMatching\Impl\AddressService.cs" />
+    <Compile Include="DomainService\GisAddressMatching\Impl\FuzzyStringsMatcher\DiceCoefficientExtensions.cs" />
+    <Compile Include="DomainService\GisAddressMatching\Impl\GisAddressMatchingService.cs" />
+    <Compile Include="DomainService\Helper\HqlHelper\IHqlHelper.cs" />
+    <Compile Include="DomainService\House\Claims\IHouseClaimsService.cs" />
+    <Compile Include="DomainService\House\Claims\Impl\HouseClaimsService.cs" />
+    <Compile Include="DomainService\PersonalAccount\Impl\PublicControlClaimsService.cs" />
+    <Compile Include="DomainService\PersonalAccount\IPublicControlClaimsService.cs" />
+    <Compile Include="DomainService\ImportData\IImportDataOtService.cs" />
+    <Compile Include="DomainService\ImportData\ILoadFromBillingBasesService.cs" />
+    <Compile Include="DomainService\ImportData\Impl\ImportDataOtService.cs" />
+    <Compile Include="DomainService\ImportData\Impl\LoadFromBillingBasesService.cs" />
+    <Compile Include="Domain\GisExtensions.cs" />
+    <Compile Include="Domain\IndicatorsOt\IIndicatorDescriptor.cs" />
+    <Compile Include="Domain\IndicatorsOt\IndicatorDescriptorProblemMkdPercent.cs" />
+    <Compile Include="Domain\IndicatorsOt\IndicatorDescriptorMkdOdpuwithOdngt20Percent.cs" />
+    <Compile Include="Domain\IndicatorsOt\TypeFrequency.cs" />
+    <Compile Include="Entities\CalcVerification\CalcVerficationTempTables.cs" />
+    <Compile Include="Entities\CalcVerification\CalcVerficationTables.cs" />
+    <Compile Include="Entities\CalcVerification\ChdCharge.cs" />
+    <Compile Include="Entities\CalcVerification\CalcVerificationParams.cs" />
+    <Compile Include="Entities\Dict\GisNormativDict.cs" />
+    <Compile Include="Entities\Dict\GisTariffDict.cs" />
+    <Compile Include="Entities\House\Claims\AuthenticationInfoOk.cs" />
+    <Compile Include="Entities\House\Claims\OrderInfoOk.cs" />
+    <Compile Include="Entities\House\Claims\OrganizationOk.cs" />
+    <Compile Include="Entities\House\Claims\BarsListResponse.cs" />
+    <Compile Include="Entities\House\Claims\OrderOk.cs" />
+    <Compile Include="DomainService\Indicator\IIndicatorService.cs" />
+    <Compile Include="DomainService\Indicator\Impl\IndicatorService.cs" />
+    <Compile Include="DomainService\Indicator\IndicatorGroupProxy.cs" />
+    <Compile Include="DomainService\JExtractor\IJExtractorService.cs" />
+    <Compile Include="DomainService\JExtractor\Impl\JExtractorService.cs" />
+    <Compile Include="DomainService\RealEstate\Impl\RealEstateTypeCommonParamService.cs" />
+    <Compile Include="DomainService\RealEstate\IRealEstateTypeCommonParamService.cs" />
+    <Compile Include="DomainService\Register\HouseRegisterRegister\IHouseRegisterService.cs" />
+    <Compile Include="DomainService\Register\HouseRegisterRegister\Impl\HouseRegisterService.cs" />
+    <Compile Include="DomainService\Register\ServiceSubsidyRegister\Impl\ServiceSubsidyRegisterService.cs" />
+    <Compile Include="DomainService\Register\ServiceSubsidyRegister\IServiceSubsidyRegisterService.cs" />
+    <Compile Include="DomainService\Register\TenantSubsidyRegister\ITenantSubsidyRegisterService.cs" />
+    <Compile Include="DomainService\Register\TenantSubsidyRegister\Impl\TenantSubsidyRegisterService.cs" />
+    <Compile Include="DomainService\Register\HouseServiceRegister\IHouseServiceRegisterService.cs" />
+    <Compile Include="DomainService\Register\HouseServiceRegister\Impl\HouseServiceRegisterService.cs" />
+    <Compile Include="DomainService\RealEstate\Impl\RealEstateTypeGroupService.cs" />
+    <Compile Include="DomainService\RealEstate\Impl\RealEstateTypeService.cs" />
+    <Compile Include="DomainService\RealEstate\IRealEstateTypeGroupService.cs" />
+    <Compile Include="DomainService\RealEstate\IRealEstateTypeService.cs" />
+    <Compile Include="DataResult\ImportDataResult.cs" />
+    <Compile Include="DomainService\Report\IBillingReport.cs" />
+    <Compile Include="DomainService\Report\IBillingReportService.cs" />
+    <Compile Include="DomainService\Report\Impl\BillingReportService.cs" />
+    <Compile Include="DomainService\UicHouse\Impl\UicHouseService.cs" />
+    <Compile Include="DomainService\UicHouse\IUicHouseService.cs" />
+    <Compile Include="Entities\Kp50\BilConnection.cs" />
+    <Compile Include="Entities\Kp50\BilManOrgStorage.cs" />
+    <Compile Include="Entities\ManOrg\Contract\ContractOwnersWorkService.cs" />
+    <Compile Include="Entities\ManOrg\Contract\ContractOwnersAddService.cs" />
+    <Compile Include="Entities\ManOrg\Contract\ContractOwnersCommService.cs" />
+    <Compile Include="Entities\ManOrg\Contract\JskTsjContractWorkService.cs" />
+    <Compile Include="Entities\ManOrg\Contract\RelationContractAddService.cs" />
+    <Compile Include="Entities\ManOrg\Contract\TransferContractWorkService.cs" />
+    <Compile Include="Entities\ManOrg\Contract\TransferContractAddService.cs" />
+    <Compile Include="Entities\ManOrg\Contract\JskTsjContractAddService.cs" />
+    <Compile Include="Entities\ManOrg\Contract\RelationContractCommService.cs" />
+    <Compile Include="Entities\ManOrg\Contract\TransferContractCommService.cs" />
+    <Compile Include="Entities\ManOrg\Contract\JskTsjContractCommService.cs" />
+    <Compile Include="Entities\ManOrg\ManOrgBilMkdWork.cs" />
+    <Compile Include="Entities\PersonalAccount\PersonalAccountOwner.cs" />
+    <Compile Include="Entities\ManOrg\ManOrgBilWorkService.cs" />
+    <Compile Include="Entities\ManOrg\ManOrgBilCommunalService.cs" />
+    <Compile Include="Entities\ManOrg\ManOrgBilAdditionService.cs" />
+    <Compile Include="Entities\PersonalAccount\PublicControlClaims\AuthenticationInfoPublicControl.cs" />
+    <Compile Include="Entities\PersonalAccount\PublicControlClaims\PublicControlResponse.cs" />
+    <Compile Include="Entities\ImportAddressMatching\ImportedAddressMatch.cs" />
+    <Compile Include="Entities\ImportIncrementalData\LoadFromOtherSystems\IncrementalParams.cs" />
+    <Compile Include="Entities\ImportIncrementalData\OpenTatarstanData.cs" />
+    <Compile Include="Entities\IndicatorServiceComparison\IndicatorServiceComparison.cs" />
+    <Compile Include="Entities\PersonalAccount\PersonalAccountUic.cs" />
+    <Compile Include="Entities\Kp50\BilDictSchema.cs" />
+    <Compile Include="Entities\Kp50\BilHouseCodeStorage.cs" />
+    <Compile Include="Entities\Kp50\BilNormativeStorage.cs" />
+    <Compile Include="Entities\Kp50\BilServiceDictionary.cs" />
+    <Compile Include="Entities\Kp50\BilTarifStorage.cs" />
+    <Compile Include="Entities\Kp50\GisDataBank.cs" />
+    <Compile Include="Entities\Register\ServiceRecalculationRegister\ServiceRecalculationRegister.cs" />
+    <Compile Include="Entities\Register\SupplierRegister\SupplierRegister.cs" />
+    <Compile Include="Entities\Register\HouseServiceRegister\HouseServiceRegister.cs" />
+    <Compile Include="Entities\Register\HouseRegister\HouseRegister.cs" />
+    <Compile Include="Entities\Register\LoadedFileRegister\LoadedFileRegister.cs" />
+    <Compile Include="Entities\PersonalAccount\PersonalAccountSaldo.cs" />
+    <Compile Include="Entities\RealEstate\GisRealEstateType\GisRealEstateTypeGroup.cs" />
+    <Compile Include="Entities\RealEstate\RealEstateIndicator.cs" />
+    <Compile Include="Entities\RealEstate\GisRealEstateType\GisRealEstateType.cs" />
+    <Compile Include="Entities\RealEstate\GisRealEstateType\GisRealEstateTypeIndicator.cs" />
+    <Compile Include="Entities\RealEstate\GisRealEstateType\GisRealEstateTypeCommonParam.cs" />
+    <Compile Include="Entities\Register\MultipleAnalysis\MultipleAnalysisIndicator.cs" />
+    <Compile Include="Entities\Register\MultipleAnalysis\MultipleAnalysisTemplate.cs" />
+    <Compile Include="Entities\Register\ServiceSubsidyRegister\ServiceSubsidyRegister.cs" />
+    <Compile Include="Entities\Register\TenantSubsidyRegister\TenantSubsidyRegister.cs" />
+    <Compile Include="Entities\WasteCollection\WasteCollectionPlace.cs" />
+    <Compile Include="Enum\ConsumerByElectricEnergyType.cs" />
+    <Compile Include="Enum\ConsumerType.cs" />
+    <Compile Include="Enum\SettelmentType.cs" />
+    <Compile Include="Enum\TypeConnection.cs" />
+    <Compile Include="Enum\CommonParamType.cs" />
+    <Compile Include="Enum\ImportResult.cs" />
+    <Compile Include="Enum\IncrementalImport\TypeIncImportLraryFormat.cs" />
+    <Compile Include="Enum\ManOrg\CommunalServiceName.cs" />
+    <Compile Include="Enum\ManOrg\CommunalServiceResource.cs" />
+    <Compile Include="Enum\ManOrg\ServiceWorkPurpose.cs" />
+    <Compile Include="Enum\ManOrg\ServiceWorkType.cs" />
+    <Compile Include="Enum\TypeAddressMatched.cs" />
+    <Compile Include="Enum\TypeContract.cs" />
+    <Compile Include="Enum\TypeArea.cs" />
+    <Compile Include="Enum\TypeImportFormat.cs" />
+    <Compile Include="Enum\TypeCommonParamsCodes.cs" />
+    <Compile Include="Enum\TypeCondition.cs" />
+    <Compile Include="Enum\TypeGroupIndicators.cs" />
+    <Compile Include="Enum\IncrementalImport\TypeIncImportFormat.cs" />
+    <Compile Include="Enum\IncrementalImport\TypeIncLoadStatus.cs" />
+    <Compile Include="Enum\GisTypeIndicator.cs" />
+    <Compile Include="Enum\TypeQueueName.cs" />
+    <Compile Include="Enum\GisTariffKind.cs" />
+    <Compile Include="Enum\TypeStatus.cs" />
+    <Compile Include="Enum\TypeWaste.cs" />
+    <Compile Include="Enum\TypeWasteCollectionPlace.cs" />
+    <Compile Include="ExecutionAction\EiasTariffImportServiceAction.cs" />
+    <Compile Include="ExecutionAction\ExportDeviceReadingPermissionsAddAction.cs" />
+    <Compile Include="ExecutionAction\ExportDeviceReadingPermissionsRemoveAction.cs" />
+    <Compile Include="ExecutionAction\ImportIncrementalDataPermissionsRemoveAction.cs" />
+    <Compile Include="ExecutionAction\ImportIncrementalDataPermissionsAddAction.cs" />
+    <Compile Include="Export\WasteCollectionDataExport.cs" />
+    <Compile Include="DomainService\Helper\HqlHelper\Impl\HqlHelper.cs" />
+    <Compile Include="Interceptors\Analysis\IndicatorServiceComparisonInterceptor.cs" />
+    <Compile Include="Interceptors\Dict\ServiceDictionaryInterceptor.cs" />
+    <Compile Include="Interceptors\ManOrg\ManOrgBilAdditionServiceInterceptor.cs" />
+    <Compile Include="Interceptors\ManOrg\ManOrgBilCommunalServiceInterceptor.cs" />
+    <Compile Include="Interceptors\ManOrg\ManOrgBilWorkServiceInterceptor.cs" />
+    <Compile Include="KP_legacy\Adres.intf.cs" />
+    <Compile Include="KP_legacy\Archive.cs" />
+    <Compile Include="KP_legacy\ArchiveFormat.cs" />
+    <Compile Include="KP_legacy\CalcFonTask.cs" />
+    <Compile Include="KP_legacy\CalcMonthParams.cs" />
+    <Compile Include="KP_legacy\CalcTypes.cs" />
+    <Compile Include="KP_legacy\Charge.cs" />
+    <Compile Include="KP_legacy\ChargeProxyIn.cs" />
+    <Compile Include="KP_legacy\TypeAccrualGroupingSettings.cs" />
+    <Compile Include="KP_legacy\ConnectionProvider.cs" />
+    <Compile Include="KP_legacy\Constants.cs" />
+    <Compile Include="KP_legacy\DataBankPostfixContainer.cs" />
+    <Compile Include="KP_legacy\DataBaseHead.cs" />
+    <Compile Include="KP_legacy\DbCalcCharge.cs" />
+    <Compile Include="KP_legacy\DbManager.cs" />
+    <Compile Include="KP_legacy\Finder.cs" />
+    <Compile Include="KP_legacy\FunctionsTypesGeneratePkod.cs" />
+    <Compile Include="KP_legacy\KvarPkodes.cs" />
+    <Compile Include="KP_legacy\Ls.cs" />
+    <Compile Include="KP_legacy\MultiHost.cs" />
+    <Compile Include="KP_legacy\MyDataReader.cs" />
+    <Compile Include="KP_legacy\MyDbConnection.cs" />
+    <Compile Include="KP_legacy\OrderingDirection.cs" />
+    <Compile Include="KP_legacy\Param.cs" />
+    <Compile Include="KP_legacy\Points.cs" />
+    <Compile Include="KP_legacy\Prm.cs" />
+    <Compile Include="KP_legacy\Rajon.cs" />
+    <Compile Include="KP_legacy\RecalcModes.cs" />
+    <Compile Include="KP_legacy\RecordMonth.cs" />
+    <Compile Include="KP_legacy\Regions.cs" />
+    <Compile Include="KP_legacy\Returns.cs" />
+    <Compile Include="KP_legacy\Saldo.cs" />
+    <Compile Include="KP_legacy\Service.cs" />
+    <Compile Include="KP_legacy\SupplierFinder.cs" />
+    <Compile Include="KP_legacy\Town.cs" />
+    <Compile Include="KP_legacy\Utils.cs" />
+    <Compile Include="KP_legacy\Vill.cs" />
+    <Compile Include="KP_legacy\_OrderingField.cs" />
+    <Compile Include="KP_legacy\_Point.cs" />
+    <Compile Include="KP_legacy\_RCentr.cs" />
+    <Compile Include="KP_legacy\_RolesVal.cs" />
+    <Compile Include="KP_legacy\_RServer.cs" />
+    <Compile Include="LogMap\AuditLogMapProvider.cs" />
+    <Compile Include="LogMap\GisTariffDictLogMap.cs" />
+    <Compile Include="Map\Dict\GisTariffDictMap.cs" />
+    <Compile Include="Map\Dict\GisNormativDictMap.cs" />
+    <Compile Include="Map\Kp50\BilConnectionMap.cs" />
+    <Compile Include="Map\Kp50\BilManOrgStorageMap.cs" />
+    <Compile Include="Map\Kp50\BilServiceDictionaryMap.cs" />
+    <Compile Include="Map\ImportedAddressMatching\ImportedAddressMatchMap.cs" />
+    <Compile Include="Map\ImportIncrementalData\OpenTatarstanDataMap.cs" />
+    <Compile Include="Map\IndicatorServiceComparison\IndicatorServiceComparisonMap.cs" />
+    <Compile Include="Map\Kp50\BilDictSchemaMap.cs" />
+    <Compile Include="Map\Kp50\BilHouseCodeStorageMap.cs" />
+    <Compile Include="Map\Kp50\BilNormativeStorageMap.cs" />
+    <Compile Include="Map\Kp50\BilTarifStorageMap.cs" />
+    <Compile Include="Map\Kp50\GisDataBankMap.cs" />
+    <Compile Include="Map\ManOrg\Contract\ContractOwnersWorkServiceMap.cs" />
+    <Compile Include="Map\ManOrg\Contract\ContractOwnersAddServiceMap.cs" />
+    <Compile Include="Map\ManOrg\Contract\ContractOwnersCommServiceMap.cs" />
+    <Compile Include="Map\ManOrg\Contract\JskTsjContractWorkServiceMap.cs" />
+    <Compile Include="Map\ManOrg\Contract\RelationContractAddServiceMap.cs" />
+    <Compile Include="Map\ManOrg\Contract\TransferContractWorkServiceMap.cs" />
+    <Compile Include="Map\ManOrg\Contract\TransferContractAddServiceMap.cs" />
+    <Compile Include="Map\ManOrg\Contract\JskTsjContractAddServiceMap.cs" />
+    <Compile Include="Map\ManOrg\Contract\RelationContractCommServiceMap.cs" />
+    <Compile Include="Map\ManOrg\Contract\TransferContractCommServiceMap.cs" />
+    <Compile Include="Map\ManOrg\Contract\JskTsjContractCommServiceMap.cs" />
+    <Compile Include="Map\ManOrg\ManOrgBilAdditionServiceMap.cs" />
+    <Compile Include="Map\ManOrg\ManOrgBilCommunalServiceMap.cs" />
+    <Compile Include="Map\ManOrg\ManOrgBilMkdWorkMap.cs" />
+    <Compile Include="Map\ManOrg\ManOrgBilWorkServiceMap.cs" />
+    <Compile Include="Map\PersonalAccount\PersonalAccountUicMap.cs" />
+    <Compile Include="Map\Register\ServiceRecalculationRegister\ServiceRecalculationRegister.cs" />
+    <Compile Include="Map\Register\ServiceSubsidyRegister\ServiceSubsidyRegisterMap.cs" />
+    <Compile Include="Map\Register\TenantSubsidyRegister\TenantSubsidyRegisterMap.cs" />
+    <Compile Include="Map\Register\SupplierRegister\SupplierRegisterMap.cs" />
+    <Compile Include="Map\Register\HouseRegister\HouseRegisterMap.cs" />
+    <Compile Include="Map\Register\HouseServiceRegister\HouseServiceRegisterMap.cs" />
+    <Compile Include="Map\Register\LoadedFileRegister\LoadedFileRegisterMap.cs" />
+    <Compile Include="Map\GisRealEstate\GisRealEstateIndicatorMap.cs" />
+    <Compile Include="Map\GisRealEstate\GisRealEstateTypeIndicatorMap.cs" />
+    <Compile Include="Map\GisRealEstate\GisRealEstateTypeCommonParamMap.cs" />
+    <Compile Include="Map\GisRealEstate\GisRealEstateTypeGroupMap.cs" />
+    <Compile Include="Map\GisRealEstate\GisRealEstateTypeMap.cs" />
+    <Compile Include="Map\Register\MultipleAnalysis\MultipleAnalysisIndicatorMap.cs" />
+    <Compile Include="Map\Register\MultipleAnalysis\MultipleAnalysisTemplateMap.cs" />
+    <Compile Include="Map\WasteCollection\WasteCollectionPlaceMap.cs" />
+    <Compile Include="Migrations\2017\Version_2017101300\UpdateSchema.cs" />
+    <Compile Include="Migrations\MigrationInfo.cs" />
+    <Compile Include="Migrations\2014\Version_1\UpdateSchema.cs" />
+    <Compile Include="Migrations\2014\Version_2014050500\UpdateSchema.cs" />
+    <Compile Include="Entities\AnalysisReport.cs" />
+    <Compile Include="Entities\PersonalAccount\PersonalAccountAccruals.cs" />
+    <Compile Include="Entities\House\HouseCounter.cs" />
+    <Compile Include="Entities\House\HouseAccruals.cs" />
+    <Compile Include="Entities\House\GisHouseProxy.cs" />
+    <Compile Include="Entities\PersonalAccount\PersonalAccountService.cs" />
+    <Compile Include="Entities\PersonalAccount\PersonalAccountCounter.cs" />
+    <Compile Include="Entities\House\HouseService.cs" />
+    <Compile Include="Entities\PersonalAccount\PersonalAccountParam.cs" />
+    <Compile Include="Entities\PersonalAccount\PersonalAccount.cs" />
+    <Compile Include="Entities\House\HouseParam.cs" />
+    <Compile Include="Migrations\2014\Version_2014112000\UpdateSchema.cs" />
+    <Compile Include="Migrations\2014\Version_2014050600\UpdateSchema.cs" />
+    <Compile Include="Migrations\2014\Version_2014111901\UpdateSchema.cs" />
+    <Compile Include="Migrations\2014\Version_2014111900\UpdateSchema.cs" />
+    <Compile Include="Migrations\2014\Version_2014112100\UpdateSchema.cs" />
+    <Compile Include="Migrations\2014\Version_2014112001\UpdateSchema.cs" />
+    <Compile Include="Migrations\2014\Version_2014120201\UpdateSchema.cs" />
+    <Compile Include="Migrations\2014\Version_2014120100\UpdateSchema.cs" />
+    <Compile Include="Migrations\2014\Version_2014112800\UpdateSchema.cs" />
+    <Compile Include="Migrations\2014\Version_2014112500\UpdateSchema.cs" />
+    <Compile Include="Migrations\2014\Version_2014112402\UpdateSchema.cs" />
+    <Compile Include="Migrations\2014\Version_2014112200\UpdateSchema.cs" />
+    <Compile Include="Migrations\2014\Version_2014112401\UpdateSchema.cs" />
+    <Compile Include="Migrations\2014\Version_2014112400\UpdateSchema.cs" />
+    <Compile Include="Migrations\2014\Version_2014120200\UpdateSchema.cs" />
+    <Compile Include="Migrations\2014\Version_2014120400\UpdateSchema.cs" />
+    <Compile Include="Migrations\2014\Version_2014120401\UpdateSchema.cs" />
+    <Compile Include="Migrations\2014\Version_2014120500\UpdateSchema.cs" />
+    <Compile Include="Migrations\2014\Version_2014120402\UpdateSchema.cs" />
+    <Compile Include="Migrations\2014\Version_2014120300\UpdateSchema.cs" />
+    <Compile Include="Migrations\2014\Version_2014121800\UpdateSchema.cs" />
+    <Compile Include="Migrations\2014\Version_2014121600\UpdateSchema.cs" />
+    <Compile Include="Migrations\2014\Version_2014121201\UpdateSchema.cs" />
+    <Compile Include="Migrations\2014\Version_2014121200\UpdateSchema.cs" />
+    <Compile Include="Migrations\2014\Version_2014121100\UpdateSchema.cs" />
+    <Compile Include="Migrations\2014\Version_2014120900\UpdateSchema.cs" />
+    <Compile Include="Migrations\2015\Version_2015020400\UpdateSchema.cs" />
+    <Compile Include="Migrations\2014\Version_2014122200\UpdateSchema.cs" />
+    <Compile Include="Migrations\2015\Version_2015032400\UpdateSchema.cs" />
+    <Compile Include="Migrations\2015\Version_2015062201\UpdateSchema.cs" />
+    <Compile Include="Migrations\2015\Version_2015070200\UpdateSchema.cs" />
+    <Compile Include="Migrations\2015\Version_2015070300\UpdateSchema.cs" />
+    <Compile Include="Migrations\2015\Version_2015070700\UpdateSchema.cs" />
+    <Compile Include="Migrations\2015\Version_2015071600\UpdateSchema.cs" />
+    <Compile Include="Migrations\2015\Version_2015072200\UpdateSchema.cs" />
+    <Compile Include="Migrations\2015\Version_2015081200\UpdateSchema.cs" />
+    <Compile Include="Migrations\2015\Version_2015081700\UpdateSchema.cs" />
+    <Compile Include="Migrations\2015\Version_2015081900\UpdateSchema.cs" />
+    <Compile Include="Migrations\2015\Version_2015081901\UpdateSchema.cs" />
+    <Compile Include="Migrations\2015\Version_2015082200\UpdateSchema.cs" />
+    <Compile Include="Migrations\2015\Version_2015083000\UpdateSchema.cs" />
+    <Compile Include="Migrations\2015\Version_2015090900\UpdateSchema.cs" />
+    <Compile Include="Migrations\2015\Version_2015091400\UpdateSchema.cs" />
+    <Compile Include="Migrations\2015\Version_2015091500\UpdateSchema.cs" />
+    <Compile Include="Migrations\2015\Version_2015091700\UpdateSchema.cs" />
+    <Compile Include="Migrations\2015\Version_2015091701\UpdateSchema.cs" />
+    <Compile Include="Migrations\2015\Version_2015091702\UpdateSchema.cs" />
+    <Compile Include="Migrations\2015\Version_2015092000\UpdateSchema.cs" />
+    <Compile Include="Migrations\2015\Version_2015092100\UpdateSchema.cs" />
+    <Compile Include="Migrations\2015\Version_2015092300\UpdateSchema.cs" />
+    <Compile Include="Migrations\2015\Version_2015092200\UpdateSchema.cs" />
+    <Compile Include="Migrations\2015\Version_2015100100\UpdateSchema.cs" />
+    <Compile Include="Migrations\2015\Version_2015102300\UpdateSchema.cs" />
+    <Compile Include="Migrations\2015\Version_2015120100\UpdateSchema.cs" />
+    <Compile Include="Migrations\2016\Version_2016011400\UpdateSchema.cs" />
+    <Compile Include="Migrations\2016\Version_2016040200\UpdateSchema.cs" />
+    <Compile Include="Migrations\2016\Version_2016040100\UpdateSchema.cs" />
+    <Compile Include="Migrations\2016\Version_2016011600\UpdateSchema.cs" />
+    <Compile Include="Migrations\2016\Version_2016041500\UpdateSchema.cs" />
+    <Compile Include="Migrations\2016\Version_2016110300\UpdateSchema.cs" />
+    <Compile Include="Migrations\2016\Version_2016092200\UpdateSchema.cs" />
+    <Compile Include="Migrations\2016\Version_2016082500\UpdateSchema.cs" />
+    <Compile Include="Migrations\2016\Version_2016081600\UpdateSchema.cs" />
+    <Compile Include="Migrations\2016\Version_2016060800\UpdateSchema.cs" />
+    <Compile Include="Migrations\2016\Version_2016042200\UpdateSchema.cs" />
+    <Compile Include="Module.WcfRiaServices.cs" />
+    <Compile Include="Module.cs" />
+    <Compile Include="Module.ResourcePart.cs" />
+    <Compile Include="NavigationMenu\ManOrgMenuProvider.cs" />
+    <Compile Include="NavigationMenu\PersonalAccountInfoMenu.cs" />
+    <Compile Include="NavigationMenu\RealityObjMenuProvider.cs" />
+    <Compile Include="NavigationMenu\WasteCollectionMenuProvider.cs" />
+    <Compile Include="NavigationProvider.cs" />
+    <Compile Include="Permissions\GisFieldRequirementMap.cs" />
+    <Compile Include="Permissions\GisPermissionMap.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="..\..\..\Main\AssemblyInfoVersion.cs">
+      <Link>Properties\AssemblyInfoVersion.cs</Link>
+    </Compile>
+    <Compile Include="Properties\ModuleAssemblyInfo.cs">
+      <DependentUpon>ModuleAssemblyInfo.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="RabbitMQ\BaseTask.cs" />
+    <Compile Include="RabbitMQ\FileTask.cs" />
+    <Compile Include="RabbitMQ\IConsumerService.cs" />
+    <Compile Include="RabbitMQ\Impl\ConnectToRabbitMQ.cs" />
+    <Compile Include="RabbitMQ\Impl\ConsumerService.cs" />
+    <Compile Include="RabbitMQ\Impl\FileTaskHandler.cs" />
+    <Compile Include="RabbitMQ\Impl\ProducerService.cs" />
+    <Compile Include="RabbitMQ\IProducerService.cs" />
+    <Compile Include="RabbitMQ\ITaskHandler.cs" />
+    <Compile Include="RabbitMQ\SettingsKeyStore.cs" />
+    <Compile Include="Reports\BillingStimulReport\BillingReport.cs" />
+    <Compile Include="Reports\BillingStimulReport\PrintFormExtension.cs" />
+    <Compile Include="Reports\ReportIndicator.cs" />
+    <Compile Include="RepositoryDomain\IAnalysisReportService.cs" />
+    <Compile Include="RepositoryDomain\Impl\AnalysisReportService.cs" />
+    <Compile Include="ResourceManifest.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResourceManifest.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ResourceManifest.Part.cs" />
+    <Compile Include="Services\DataContracts\OpenTatarstan\ImportIndicator.cs" />
+    <Compile Include="Services\ServiceContracts\OpenTatarstan\IOpenTatarstanService.ImportIndicator.cs" />
+    <Compile Include="Services\ServiceContracts\OpenTatarstan\IOpenTatarstanService.cs" />
+    <Compile Include="SqlExecutor\SqlExecutor.cs" />
+    <Compile Include="Utils\BillingConnection.cs" />
+    <Compile Include="Utils\DummyPropertyInfo.cs" />
+    <Compile Include="Utils\EntityUtils.cs" />
+    <Compile Include="Utils\FileUtils.cs" />
+    <Compile Include="Utils\HouseRegisterUtils.cs" />
+    <Compile Include="Utils\MenuExtensions.cs" />
+    <Compile Include="Utils\NotificationPgmu.cs" />
+    <Compile Include="Utils\TimestampDateConverter.cs" />
+    <Compile Include="ViewModel\Analysis\IndicatorServiceComparisonViewModel.cs" />
+    <Compile Include="ViewModel\Dict\Service\BilNormativeStorageViewModel.cs" />
+    <Compile Include="ViewModel\Dict\Service\BilServiceDictionaryViewModel.cs" />
+    <Compile Include="ViewModel\Dict\Service\BilTarifStorageViewModel.cs" />
+    <Compile Include="ViewModel\GisRealEstateType\Dict\Normativ\GisNormativDictViewModel.cs" />
+    <Compile Include="ViewModel\GisRealEstateType\Dict\Tarif\GisTariffDictViewModel.cs" />
+    <Compile Include="ViewModel\KpSettings\BilConnectionViewModel.cs" />
+    <Compile Include="ViewModel\KpSettings\GisDataBankViewModel.cs" />
+    <Compile Include="ViewModel\ManOrg\Contract\ContractOwnersAddServiceViewModel.cs" />
+    <Compile Include="ViewModel\ManOrg\Contract\ContractOwnersWorkServiceViewModel.cs" />
+    <Compile Include="ViewModel\ManOrg\Contract\ContractOwnersCommServiceViewModel.cs" />
+    <Compile Include="ViewModel\ManOrg\Contract\JskTsjContractWorkServiceViewModel.cs" />
+    <Compile Include="ViewModel\ManOrg\Contract\RelationContractAddServiceViewModel.cs" />
+    <Compile Include="ViewModel\ManOrg\Contract\TransferContractWorkServiceViewModel.cs" />
+    <Compile Include="ViewModel\ManOrg\Contract\TransferContractAddServiceViewModel.cs" />
+    <Compile Include="ViewModel\ManOrg\Contract\JskTsjContractAddServiceViewModel.cs" />
+    <Compile Include="ViewModel\ManOrg\Contract\RelationContractCommServiceViewModel.cs" />
+    <Compile Include="ViewModel\ManOrg\Contract\TransferContractCommServiceViewModel.cs" />
+    <Compile Include="ViewModel\ManOrg\Contract\JskTsjContractCommServiceViewModel.cs" />
+    <Compile Include="ViewModel\ManOrg\ManOrgBilCommunalServiceViewModel.cs" />
+    <Compile Include="ViewModel\ManOrg\ManOrgBilMkdWorkViewModel.cs" />
+    <Compile Include="ViewModel\ManOrg\ManOrgBilWorkServiceViewModel.cs" />
+    <Compile Include="ViewModel\ManOrg\ManOrgBilAdditionServiceViewModel.cs" />
+    <Compile Include="ViewModel\MultipleAnalysis\MultipleAnalysisTemplateViewModel.cs" />
+    <Compile Include="Controllers\PersonalAccount\PersonalAccountAccrualsController.cs" />
+    <Compile Include="Controllers\House\HouseCounterController.cs" />
+    <Compile Include="Controllers\PersonalAccount\PersonalAccountServiceController.cs" />
+    <Compile Include="Controllers\PersonalAccount\PersonalAccountCounterController.cs" />
+    <Compile Include="Controllers\House\HouseAccrualsController.cs" />
+    <Compile Include="Controllers\House\HouseServiceController.cs" />
+    <Compile Include="Controllers\PersonalAccount\PersonalAccountParamController.cs" />
+    <Compile Include="Controllers\PersonalAccount\PersonalAccountController.cs" />
+    <Compile Include="Controllers\House\HouseParamController.cs" />
+    <Compile Include="ViewModel\GisRealEstateType\GisRealEstateTypeCommonParamViewModel.cs" />
+    <Compile Include="ViewModel\GisRealEstateType\GisRealEstateTypeIndicatorViewModel.cs" />
+    <Compile Include="ViewModel\GisRealEstateType\GisRealEstateTypeViewModel.cs" />
+    <Compile Include="ViewModel\WasteCollection\WasteCollectionPlaceViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\administration\executionaction\actionwithparams\EiasTariffImportServiceAction.js" />
+    <EmbeddedResource Include="libs\B4\view\dict\tariff\EditPanel.js" />
+    <EmbeddedResource Include="libs\B4\view\dict\tariff\ContragentInfoFieldSet.js" />
+    <EmbeddedResource Include="libs\B4\view\dict\tariff\TariffInfoFieldSet.js" />
+    <EmbeddedResource Include="libs\B4\store\manorg\contract\ManOrgComContractService.js" />
+    <EmbeddedResource Include="libs\B4\store\manorg\contract\ManOrgAgrContractService.js" />
+    <EmbeddedResource Include="libs\B4\store\manorg\contract\ManOrgAddContractService.js" />
+    <EmbeddedResource Include="libs\B4\model\manorg\contract\ManOrgAgrContractService.js" />
+    <EmbeddedResource Include="libs\B4\model\manorg\contract\ManOrgAddContractService.js" />
+    <EmbeddedResource Include="libs\B4\model\manorg\contract\ManOrgComContractService.js" />
+    <EmbeddedResource Include="libs\B4\model\manorg\contract\ManOrgContractService.js" />
+    <EmbeddedResource Include="libs\B4\view\BilConnectionEditWindow.js" />
+    <EmbeddedResource Include="libs\B4\controller\BilConnection.js" />
+    <EmbeddedResource Include="libs\B4\ux\config\BilConnectionEditor.js" />
+    <EmbeddedResource Include="libs\B4\view\BilConnectionGrid.js" />
+    <EmbeddedResource Include="libs\B4\store\BilConnection.js" />
+    <EmbeddedResource Include="libs\B4\model\BilConnection.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\contract\TransferWorkServiceGrid.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\contract\OwnersWorkServiceGrid.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\contract\JskTsjWorkServiceGrid.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\contract\TransferWorkServiceEditWindow.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\contract\OwnersWorkServiceEditWindow.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\contract\JskTsjWorkServiceEditWindow.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\contract\WorkServiceGrid.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\contract\AdditionServiceEditWindow.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\contract\RelationCommunalServiceEditWindow.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\contract\RelationAdditionServiceGrid.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\contract\RelationAdditionServiceEditWindow.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\contract\RelationCommunalServiceGrid.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\contract\RelationEditWindow.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\contract\TransferCommunalServiceGrid.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\contract\TransferCommunalServiceEditWindow.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\contract\TransferAdditionServiceGrid.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\contract\TransferAdditionServiceEditWindow.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\contract\CommunalServiceGrid.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\contract\CommunalServiceEditWindow.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\contract\AdditionServiceGrid.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\contract\WorkServiceEditWindow.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\contract\TransferEditWindow.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\contract\OwnersAdditionServiceEditWindow.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\contract\OwnersCommunalServiceEditWindow.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\contract\JskTsjCommunalServiceEditWindow.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\contract\JskTsjAdditionServiceEditWindow.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\contract\JskTsjCommunalServiceGrid.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\contract\JskTsjAdditionServiceGrid.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\contract\OwnersEditWindow.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\contract\JskTsjEditWindow.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\contract\OwnersAdditionServiceGrid.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\contract\OwnersCommunalServiceGrid.js" />
+    <EmbeddedResource Include="libs\B4\controller\manorg\Contract.js" />
+    <EmbeddedResource Include="libs\B4\aspects\permission\manorg\ContractTat.js" />
+    <EmbeddedResource Include="libs\B4\aspects\permission\manorg\ServiceWorks.js" />
+    <EmbeddedResource Include="libs\B4\aspects\permission\manorg\CommonService.js" />
+    <EmbeddedResource Include="libs\B4\aspects\permission\manorg\AdditionService.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\WorkServiceGrid.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\CommunalServiceGrid.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\AdditionServiceGrid.js" />
+    <EmbeddedResource Include="libs\B4\controller\manorg\WorkService.js" />
+    <EmbeddedResource Include="libs\B4\controller\manorg\CommonService.js" />
+    <EmbeddedResource Include="libs\B4\controller\manorg\AdditionService.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\ManOrgBilMkdWorkGrid.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\WorkServiceEditWindow.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\CommunalServiceEditWindow.js" />
+    <EmbeddedResource Include="libs\B4\model\dict\service\BilServiceDictionaryWork.js" />
+    <EmbeddedResource Include="libs\B4\model\dict\service\BilServiceDictionaryCommunal.js" />
+    <EmbeddedResource Include="libs\B4\model\dict\service\BilServiceDictionaryAdditional.js" />
+    <EmbeddedResource Include="libs\B4\store\dict\service\BilServiceDictionaryCommunal.js" />
+    <EmbeddedResource Include="libs\B4\store\dict\service\BilServiceDictionaryWork.js" />
+    <EmbeddedResource Include="libs\B4\store\dict\service\BilServiceDictionaryAdditional.js" />
+    <EmbeddedResource Include="libs\B4\view\manorg\AdditionServiceEditWindow.js" />
+    <EmbeddedResource Include="libs\B4\model\manorg\ManOrgBilMkdWork.js" />
+    <EmbeddedResource Include="libs\B4\store\manorg\ManOrgBilMkdWork.js" />
+    <EmbeddedResource Include="libs\B4\model\manorg\ManOrgBilCommunalService.js" />
+    <EmbeddedResource Include="libs\B4\model\manorg\ManOrgBilWorkService.js" />
+    <EmbeddedResource Include="libs\B4\model\manorg\ManOrgBilAdditionService.js" />
+    <EmbeddedResource Include="libs\B4\store\manorg\ManOrgBilCommunalService.js" />
+    <EmbeddedResource Include="libs\B4\store\manorg\ManOrgBilWorkService.js" />
+    <EmbeddedResource Include="libs\B4\store\manorg\ManOrgBilAdditionService.js" />
+    <EmbeddedResource Include="libs\B4\model\importexport\IncrementalImport.js" />
+    <EmbeddedResource Include="libs\B4\store\importexport\IncrementalImport.js" />
+    <EmbeddedResource Include="libs\B4\view\importexport\incrementalimport\Panel.js" />
+    <EmbeddedResource Include="libs\B4\controller\importexport\ImportData.js" />
+    <EmbeddedResource Include="libs\B4\view\importexport\unloadcountervalues\Grid.js" />
+    <EmbeddedResource Include="libs\B4\store\importexport\UnloadCounterValues.js" />
+    <EmbeddedResource Include="libs\B4\model\importexport\UnloadCounterValues.js" />
+    <EmbeddedResource Include="libs\B4\controller\importexport\UnloadCounterValues.js" />
+    <EmbeddedResource Include="libs\B4\model\multipleAnalysis\MunicipalityFias.js" />
+    <EmbeddedResource Include="libs\B4\store\multipleAnalysis\MunicipalityFias.js" />
+    <EmbeddedResource Include="libs\d3\d3.min.js" />
+    <EmbeddedResource Include="content\css\b4KP60Protocol.css" />
+    <EmbeddedResource Include="libs\B4\utils\KP6Utils.js" />
+    <EmbeddedResource Include="libs\B4\JSTreeGraph.js" />
+    <EmbeddedResource Include="libs\B4\view\dict\service\BilNormativStorageGrid.js" />
+    <EmbeddedResource Include="libs\B4\store\dict\service\BilNormativStorage.js" />
+    <EmbeddedResource Include="libs\B4\model\dict\service\BilNormativStorage.js" />
+    <EmbeddedResource Include="libs\Piwik\analytics.js" />
+    <EmbeddedResource Include="libs\B4\view\dict\service\Grid.js" />
+    <EmbeddedResource Include="libs\B4\view\dict\service\EditWindow.js" />
+    <EmbeddedResource Include="libs\B4\view\dict\tariff\Grid.js" />
+    <EmbeddedResource Include="libs\B4\view\dict\tariff\EditWindow.js" />
+    <EmbeddedResource Include="libs\B4\store\dict\GisNormativ.js" />
+    <EmbeddedResource Include="libs\B4\store\dict\GisTariff.js" />
+    <EmbeddedResource Include="libs\B4\model\dict\GisTariff.js" />
+    <EmbeddedResource Include="libs\B4\model\dict\GisNormativ.js" />
+    <EmbeddedResource Include="libs\B4\controller\dict\Normativ.js" />
+    <EmbeddedResource Include="libs\B4\controller\dict\Tariff.js" />
+    <EmbeddedResource Include="libs\B4\view\dict\service\BilTarifStorageGrid.js" />
+    <EmbeddedResource Include="libs\B4\store\dict\service\BilTarifStorage.js" />
+    <EmbeddedResource Include="libs\B4\model\dict\service\BilTarifStorage.js" />
+    <EmbeddedResource Include="libs\B4\store\dict\service\BilServiceDictionarySelect.js" />
+    <EmbeddedResource Include="libs\B4\store\dict\service\BilServiceDictionarySelected.js" />
+    <EmbeddedResource Include="libs\B4\store\dict\service\BilServiceDictionary.js" />
+    <EmbeddedResource Include="libs\B4\model\dict\service\BilServiceDictionary.js" />
+    <EmbeddedResource Include="libs\B4\view\dict\service\BilServiceGrid.js" />
+    <EmbeddedResource Include="libs\B4\view\dict\normativ\EditWindow.js" />
+    <EmbeddedResource Include="libs\B4\view\dict\normativ\Grid.js" />
+    <EmbeddedResource Include="libs\B4\controller\dict\Service.js" />
+    <EmbeddedResource Include="libs\B4\view\delta\DeltaOfChargesOverride.js" />
+    <EmbeddedResource Include="libs\B4\store\delta\DeltaOfChargesOverride.js" />
+    <EmbeddedResource Include="libs\B4\model\delta\DeltaOfChargesOverride.js" />
+    <EmbeddedResource Include="libs\B4\controller\delta\DeltaOfChargesOverride.js" />
+    <EmbeddedResource Include="libs\B4\store\gisrealestate\IndicatorServiceComparison.js" />
+    <EmbeddedResource Include="libs\B4\model\gisrealestate\IndicatorServiceComparison.js" />
+    <EmbeddedResource Include="libs\B4\view\gisrealestatetype\IndicatorGridEditWindow.js" />
+    <EmbeddedResource Include="libs\B4\view\personalAccount\PublicControlGrid.js" />
+    <EmbeddedResource Include="libs\B4\store\personalaccount\PublicControl.js" />
+    <EmbeddedResource Include="libs\B4\model\personalaccount\PublicControl.js" />
+    <EmbeddedResource Include="libs\B4\controller\personalaccount\PublicControl.js" />
+    <EmbeddedResource Include="libs\B4\view\wastecollection\AddWindow.js" />
+    <EmbeddedResource Include="libs\B4\controller\wastecollection\Edit.js" />
+    <EmbeddedResource Include="libs\B4\view\wastecollection\Grid.js" />
+    <EmbeddedResource Include="libs\B4\model\wastecollection\WasteCollectionPlace.js" />
+    <EmbeddedResource Include="libs\B4\store\wastecollection\WasteCollectionPlace.js" />
+    <EmbeddedResource Include="libs\B4\view\wastecollection\EditPanel.js" />
+    <EmbeddedResource Include="libs\B4\store\wastecollection\NavigationMenu.js" />
+    <EmbeddedResource Include="libs\B4\view\wastecollection\NavigationPanel.js" />
+    <EmbeddedResource Include="libs\B4\controller\wastecollection\Navi.js" />
+    <EmbeddedResource Include="libs\B4\controller\wastecollection\WasteCollection.js" />
+    <EmbeddedResource Include="libs\B4\store\import\OpenTatarstan.js" />
+    <EmbeddedResource Include="libs\B4\model\import\OpenTatarstan.js" />
+    <EmbeddedResource Include="libs\B4\model\analytics\importdata\importdataot\ImportOtFileStatus.js" />
+    <EmbeddedResource Include="libs\B4\store\analytics\importdata\importdataot\ImportOtFileStatus.js" />
+    <EmbeddedResource Include="libs\B4\view\analytics\importdata\importdataot\ImportPanel.js" />
+    <EmbeddedResource Include="libs\B4\controller\analytics\importdata\ImportDataOt.js" />
+    <EmbeddedResource Include="libs\B4\view\billingaddressmatching\FiasGrid.js" />
+    <EmbeddedResource Include="libs\B4\store\billingaddressmatching\FiasAddress.js" />
+    <EmbeddedResource Include="libs\B4\model\billingaddressmatching\FiasAddress.js" />
+    <EmbeddedResource Include="libs\B4\view\billingaddressmatching\AddressMatchingPanel.js" />
+    <EmbeddedResource Include="libs\B4\view\billingaddressmatching\ImportedGrid.js" />
+    <EmbeddedResource Include="libs\B4\model\billingaddressmatching\ImportedAddress.js" />
+    <EmbeddedResource Include="libs\B4\store\billingaddressmatching\ImportedAddress.js" />
+    <EmbeddedResource Include="libs\B4\controller\billingaddressmatching\AddressMatching.js" />
+    <EmbeddedResource Include="libs\B4\view\gisdatabank\Window.js" />
+    <EmbeddedResource Include="libs\B4\view\gisdatabank\Grid.js" />
+    <EmbeddedResource Include="libs\B4\controller\GisDataBank.js" />
+    <EmbeddedResource Include="libs\B4\store\GisDataBank.js" />
+    <EmbeddedResource Include="libs\B4\model\GisDataBank.js" />
+    <EmbeddedResource Include="libs\B4\plugins\CalculationMonthWatcher.js" />
+    <EmbeddedResource Include="libs\B4\plugins\GlobalComponentWatcher.js" />
+    <EmbeddedResource Include="libs\B4\controller\HouseClaims.js" />
+    <EmbeddedResource Include="libs\B4\store\HouseClaims.js" />
+    <EmbeddedResource Include="libs\B4\view\house\ClaimsGrid.js" />
+    <EmbeddedResource Include="libs\B4\model\HouseClaims.js" />
+    <EmbeddedResource Include="libs\B4\store\address\StreetPaging.js" />
+    <EmbeddedResource Include="libs\B4\model\address\StreetPaging.js" />
+    <EmbeddedResource Include="libs\B4\aspects\GkuInfoToolbar.js" />
+    <EmbeddedResource Include="libs\B4\model\address\AreaPaging.js" />
+    <EmbeddedResource Include="libs\B4\model\address\PlacePaging.js" />
+    <EmbeddedResource Include="libs\B4\store\address\AreaPaging.js" />
+    <EmbeddedResource Include="libs\B4\store\address\PlacePaging.js" />
+    <EmbeddedResource Include="libs\B4\view\gisaddressmatching\FiasEditWindow.js" />
+    <EmbeddedResource Include="libs\B4\view\gisaddressmatching\HouseMunicipality.js" />
+    <EmbeddedResource Include="libs\B4\view\gisaddressmatching\HouseType.js" />
+    <EmbeddedResource Include="libs\B4\store\volumediscrepancy\ServiceGroup.js" />
+    <EmbeddedResource Include="libs\B4\model\volumediscrepancy\ServiceGroup.js" />
+    <EmbeddedResource Include="libs\B4\controller\personalaccount\ServiceSubsidy.js" />
+    <EmbeddedResource Include="libs\B4\model\personalaccount\ServiceSubsidy.js" />
+    <EmbeddedResource Include="libs\B4\store\personalaccount\ServiceSubsidy.js" />
+    <EmbeddedResource Include="libs\B4\view\personalAccount\ServiceSubsidyGrid.js" />
+    <EmbeddedResource Include="libs\B4\model\personalaccount\TenantSubsidy.js" />
+    <EmbeddedResource Include="libs\B4\store\personalaccount\TenantSubsidy.js" />
+    <EmbeddedResource Include="libs\B4\view\personalAccount\TenantSubsidyGrid.js" />
+    <EmbeddedResource Include="libs\B4\controller\personalaccount\TenantSubsidy.js" />
+    <EmbeddedResource Include="libs\B4\controller\Skap\Skap.js" />
+    <EmbeddedResource Include="libs\B4\view\skap\Skap.js" />
+    <Content Include="ExternalLibraries\7z.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ExternalLibraries\7z64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ExternalLibraries\LCDeast.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ExternalLibraries\SevenZipSharp.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ExternalPrograms\jar32\JAR.CFG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="paket.references">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\ModuleAssemblyInfo.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ModuleAssemblyInfo.cs</LastGenOutput>
+    </None>
+    <None Include="ResourceManifest.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ResourceManifest.cs</LastGenOutput>
+    </None>
+    <None Include="Resources\MultipleAnalysis.mrt" />
+    <None Include="Resources\ReportIndicator.mrt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\house\InfoPanel.js" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\controller\House.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\house\Grid.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\House.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\HouseParam.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\House.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\controller\HouseInfo.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\controller\HouseParam.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\house\ParamGrid.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\HouseParam.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\controller\PersonalAccount.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\PersonalAccount.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\PersonalAccount.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\personalAccount\Grid.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\controller\PersonalAccountInfo.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\personalAccount\InfoPanel.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\controller\PersonalAccountParam.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\PersonalAccountParam.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\PersonalAccountParam.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\personalAccount\ParamGrid.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Bars.Gkh.RegOperator\Bars.Gkh.RegOperator.csproj">
+      <Project>{8f66a00d-2773-4a04-8fe5-56f532d10e0b}</Project>
+      <Name>Bars.Gkh.RegOperator</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Bars.GkhExcel\Bars.GkhExcel.csproj">
+      <Project>{558c303d-115d-4c79-bc89-73dc91a1834f}</Project>
+      <Name>Bars.GkhExcel</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Bars.Gkh\Bars.Gkh.csproj">
+      <Project>{2495a42b-7ec1-44d3-b7a7-1f90a2c44c85}</Project>
+      <Name>Bars.Gkh</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Modules\FIAS\Bars.B4.Modules.FIAS\Bars.B4.Modules.FIAS.csproj">
+      <Project>{6a9e84ec-5b9e-441f-95e5-493b52081d92}</Project>
+      <Name>Bars.B4.Modules.FIAS</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\controller\PersonalAccountCounter.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\controller\HouseService.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\aspects\PeriodFilterGrid.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\house\ServiceGrid.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\HouseService.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\HouseService.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\controller\HouseAccruals.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\HouseAccruals.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\HouseAccruals.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\house\AccrualsGrid.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\controller\HouseCounter.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\PersonalAccountCounter.js" />
+    <EmbeddedResource Include="libs\B4\store\PersonalAccountCounter.js" />
+    <EmbeddedResource Include="libs\B4\view\personalAccount\CounterGrid.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\HouseCounter.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\HouseCounter.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\house\CounterGrid.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\controller\PersonalAccountService.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\PersonalAccountService.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\PersonalAccountService.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\personalAccount\ServiceGrid.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\controller\PersonalAccountAccruals.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\PersonalAccountAccruals.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\personalAccount\AccrualsGrid.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="content\css\b4GisMain.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\PersonalAccountAccruals.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\analysisreport\AnalysisReportForm.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\controller\gisrealestate\Indicator.js" />
+    <EmbeddedResource Include="libs\B4\model\gisrealestate\Indicator.js" />
+    <EmbeddedResource Include="libs\B4\store\gisrealestate\Indicator.js" />
+    <EmbeddedResource Include="libs\B4\view\indicator\Grid.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\AnalysisReport.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\AnalysisReport.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\gisrealestatetype\Grid.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\gisrealestatetype\EditPanel.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\gisrealestatetype\CommonParamGrid.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\controller\gisrealestate\RealEstateType.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\gisrealestate\realestatetype\RealEstateTypeCommonParam.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\gisrealestate\realestatetype\RealEstateTypeCommonParam.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\gisrealestate\realestatetype\RealEstateType.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\gisrealestate\realestatetype\RealEstateType.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\gisrealestatetype\IndicatorGrid.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\gisrealestate\realestatetype\RealEstateTypeIndicator.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\gisrealestate\realestatetype\RealEstateTypeIndicator.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\controller\AnalysisReport.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\controller\gisrealestate\AnalysisOfIndicators.js" />
+    <EmbeddedResource Include="libs\B4\view\indicator\AnalysisOfIndicators.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\controller\PersonalAccountSaldo.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\personalAccount\SaldoGrid.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\PersonalAccountSaldo.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\PersonalAccountSaldo.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\regressionanalysis\Panel.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\regressionanalysis\Chart.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\controller\regressionanalysis\RegressionAnalysis.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\regressionanalysis\Chart.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\regressionanalysis\Chart.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\form\GisTreeSelectField.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\regressionanalysis\HouseType.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\regressionanalysis\HouseType.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\regressionanalysis\IndicatorType.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\regressionanalysis\IndicatorType.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\gisrealestate\realestatetype\RealEstateTypeGroup.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\gisrealestate\realestatetype\RealEstateTypeGroup.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\gisrealestate\realestatetype\RealEstateTypeGrouped.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\gisrealestate\realestatetype\RealEstateTypeGrouped.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\gisrealestatetype\TypeGroupEditPanel.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\volumediscrepancy\MainView.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\controller\volumediscrepancy\VolumeDiscrepancy.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\volumediscrepancy\DiscrepancyList.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\volumediscrepancy\DiscrepancyList.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\regressionanalysis\ChartUnit.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\multipleAnalysis\Grid.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\multipleAnalysis\Template.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\controller\multipleAnalysis\MultipleAnalysis.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\multipleAnalysis\Template.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\multipleAnalysis\Window.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\multipleAnalysis\Indicator.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\multipleAnalysis\Indicator.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\volumediscrepancy\MunicipalArea.js" />
+    <EmbeddedResource Include="libs\B4\model\volumediscrepancy\Settlement.js" />
+    <EmbeddedResource Include="libs\B4\model\volumediscrepancy\Street.js" />
+    <EmbeddedResource Include="libs\B4\store\volumediscrepancy\MunicipalArea.js" />
+    <EmbeddedResource Include="libs\B4\store\volumediscrepancy\Settlement.js" />
+    <EmbeddedResource Include="libs\B4\store\volumediscrepancy\Street.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\volumediscrepancy\Service.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\volumediscrepancy\Service.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\volumediscrepancy\Supplier.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\volumediscrepancy\Supplier.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\olap\Cube.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\controller\olap\Cube.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\gisaddressmatching\GisAddress.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\gisaddressmatching\GisAddress.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\gisaddressmatching\AddressMatchingPanel.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\gisaddressmatching\GisGrid.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\controller\gisaddressmatching\AddressMatching.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\gisaddressmatching\FiasAddress.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\gisaddressmatching\FiasAddress.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\gisaddressmatching\FiasGrid.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ExternalPrograms\jar32\JAR32.EXE">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ViewModel\GisRealEstateType\Dict\Service\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Import Project="..\..\..\.paket\paket.targets" />
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Antlr3.Runtime">
+          <HintPath>..\..\..\packages\Antlr\lib\Antlr3.Runtime.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="AutoMapper">
+          <HintPath>..\..\..\packages\AutoMapper\lib\net40\AutoMapper.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="AutoMapper.Net4">
+          <HintPath>..\..\..\packages\AutoMapper\lib\net40\AutoMapper.Net4.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Bars.B4.Core">
+          <HintPath>..\..\..\packages\Bars.B4.Core\lib\net40\Bars.B4.Core.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Bars.B4.Icons">
+          <HintPath>..\..\..\packages\Bars.B4.Icons\lib\net40\Bars.B4.Icons.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Bars.B4.Modules.DataExport">
+          <HintPath>..\..\..\packages\Bars.B4.Modules.DataExport\lib\net40\Bars.B4.Modules.DataExport.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Bars.B4.Modules.ECM7">
+          <HintPath>..\..\..\packages\Bars.B4.Modules.ECM7\lib\net40\Bars.B4.Modules.ECM7.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Bars.B4.Modules.Ecm7.Framework">
+          <HintPath>..\..\..\packages\Bars.B4.Modules.Ecm7.Framework\lib\net40\Bars.B4.Modules.Ecm7.Framework.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Bars.B4.Modules.Ecm7.Migrator">
+          <HintPath>..\..\..\packages\Bars.B4.Modules.Ecm7.Migrator\lib\net40\Bars.B4.Modules.Ecm7.Migrator.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Bars.B4.Modules.ExtJs">
+          <HintPath>..\..\..\packages\Bars.B4.Modules.ExtJs\lib\net40\Bars.B4.Modules.ExtJs.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Bars.B4.Modules.ExtJs3">
+          <HintPath>..\..\..\packages\Bars.B4.Modules.ExtJs3\lib\net40\Bars.B4.Modules.ExtJs3.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Bars.B4.Modules.FileStorage">
+          <HintPath>..\..\..\packages\Bars.B4.Modules.FileStorage\lib\net40\Bars.B4.Modules.FileStorage.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Bars.B4.Modules.JSDeferred">
+          <HintPath>..\..\..\packages\Bars.B4.Modules.JSDeferred\lib\net40\Bars.B4.Modules.JSDeferred.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Bars.B4.Modules.Mapping">
+          <HintPath>..\..\..\packages\Bars.B4.Modules.Mapping\lib\net40\Bars.B4.Modules.Mapping.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Bars.B4.Modules.Messenger">
+          <HintPath>..\..\..\packages\Bars.B4.Modules.Messenger\lib\net40\Bars.B4.Modules.Messenger.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Bars.B4.Modules.NH">
+          <HintPath>..\..\..\packages\Bars.B4.Modules.NH\lib\net40\Bars.B4.Modules.NH.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Bars.B4.Modules.NH.Migrations">
+          <HintPath>..\..\..\packages\Bars.B4.Modules.NH.Migrations\lib\net40\Bars.B4.Modules.NH.Migrations.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Bars.B4.Modules.NHibernateChangeLog">
+          <HintPath>..\..\..\packages\Bars.B4.Modules.NHibernateChangeLog\lib\net40\Bars.B4.Modules.NHibernateChangeLog.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Bars.B4.Modules.Pivot">
+          <HintPath>..\..\..\packages\Bars.B4.Modules.Pivot\lib\net40\Bars.B4.Modules.Pivot.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Bars.B4.Modules.Queue">
+          <HintPath>..\..\..\packages\Bars.B4.Modules.Queue\lib\net40\Bars.B4.Modules.Queue.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Bars.B4.Modules.ReportPanel">
+          <HintPath>..\..\..\packages\Bars.B4.Modules.ReportPanel\lib\net40\Bars.B4.Modules.ReportPanel.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Bars.B4.Modules.Reports">
+          <HintPath>..\..\..\packages\Bars.B4.Modules.Reports\lib\net40\Bars.B4.Modules.Reports.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Bars.B4.Modules.RequireJS">
+          <HintPath>..\..\..\packages\Bars.B4.Modules.RequireJS\lib\net40\Bars.B4.Modules.RequireJS.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Bars.B4.Modules.Security">
+          <HintPath>..\..\..\packages\Bars.B4.Modules.Security\lib\net40\Bars.B4.Modules.Security.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Bars.B4.Modules.Security.ExtJS4">
+          <HintPath>..\..\..\packages\Bars.B4.Modules.Security.ExtJS4\lib\net40\Bars.B4.Modules.Security.ExtJS4.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Bars.B4.Modules.Security.Web">
+          <HintPath>..\..\..\packages\Bars.B4.Modules.Security.Web\lib\net40\Bars.B4.Modules.Security.Web.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Bars.B4.Modules.Setup">
+          <HintPath>..\..\..\packages\Bars.B4.Modules.Setup\lib\net40\Bars.B4.Modules.Setup.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Bars.B4.Modules.States">
+          <HintPath>..\..\..\packages\Bars.B4.Modules.States\lib\net40\Bars.B4.Modules.States.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Bars.B4.Modules.StimulReportGenerator">
+          <HintPath>..\..\..\packages\Bars.B4.Modules.StimulReportGenerator\lib\net40\Bars.B4.Modules.StimulReportGenerator.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Bars.B4.Modules.TaskManager.Contracts">
+          <HintPath>..\..\..\packages\Bars.B4.Modules.TaskManager.Contracts\lib\net40\Bars.B4.Modules.TaskManager.Contracts.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Bars.B4.Modules.Tasks.Common">
+          <HintPath>..\..\..\packages\Bars.B4.Modules.Tasks.Common\lib\net40\Bars.B4.Modules.Tasks.Common.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Bars.B4.Modules.UserProfile">
+          <HintPath>..\..\..\packages\Bars.B4.Modules.UserProfile\lib\net40\Bars.B4.Modules.UserProfile.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Bars.B4.Utils">
+          <HintPath>..\..\..\packages\Bars.B4.Utils\lib\net40\Bars.B4.Utils.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Bars.B4.Utils.Web">
+          <HintPath>..\..\..\packages\Bars.B4.Utils.Web\lib\net40\Bars.B4.Utils.Web.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Bars.B4.Web">
+          <HintPath>..\..\..\packages\Bars.B4.Web\lib\net40\Bars.B4.Web.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Bars.Security">
+          <HintPath>..\..\..\packages\Bars.Security\lib\net40\Bars.Security.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3')">
+      <ItemGroup>
+        <Reference Include="Castle.Core">
+          <HintPath>..\..\..\packages\Castle.Core\lib\net40-client\Castle.Core.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Castle.Core">
+          <HintPath>..\..\..\packages\Castle.Core\lib\net45\Castle.Core.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3')">
+      <ItemGroup>
+        <Reference Include="Castle.Facilities.WcfIntegration">
+          <HintPath>..\..\..\packages\Castle.WcfIntegrationFacility\lib\net40\Castle.Facilities.WcfIntegration.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Castle.Facilities.WcfIntegration">
+          <HintPath>..\..\..\packages\Castle.WcfIntegrationFacility\lib\net45\Castle.Facilities.WcfIntegration.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3')">
+      <ItemGroup>
+        <Reference Include="Castle.Windsor">
+          <HintPath>..\..\..\packages\Castle.Windsor\lib\net40\Castle.Windsor.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Castle.Windsor">
+          <HintPath>..\..\..\packages\Castle.Windsor\lib\net45\Castle.Windsor.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3')">
+      <ItemGroup>
+        <Reference Include="Dapper">
+          <HintPath>..\..\..\packages\Dapper\lib\net40\Dapper.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Dapper">
+          <HintPath>..\..\..\packages\Dapper\lib\net45\Dapper.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="DotNetZip">
+          <HintPath>..\..\..\packages\DotNetZip\lib\net20\DotNetZip.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="EcmaScript.NET">
+          <HintPath>..\..\..\packages\EcmaScript.Net\lib\net20\EcmaScript.NET.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Elmah">
+          <HintPath>..\..\..\packages\elmah.corelibrary\lib\Elmah.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Fasterflect">
+          <HintPath>..\..\..\packages\fasterflect\lib\net40\Fasterflect.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Iesi.Collections">
+          <HintPath>..\..\..\packages\Iesi.Collections\lib\net40\Iesi.Collections.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Microsoft.Web.Infrastructure">
+          <HintPath>..\..\..\packages\Mvc3-Base\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="System.Web">
+          <HintPath>..\..\..\packages\Mvc3-Base\lib\net40\System.Web.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="System.Web.Helpers">
+          <HintPath>..\..\..\packages\Mvc3-Base\lib\net40\System.Web.Helpers.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="System.Web.Mvc">
+          <HintPath>..\..\..\packages\Mvc3-Base\lib\net40\System.Web.Mvc.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="System.Web.Razor">
+          <HintPath>..\..\..\packages\Mvc3-Base\lib\net40\System.Web.Razor.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="System.Web.Services">
+          <HintPath>..\..\..\packages\Mvc3-Base\lib\net40\System.Web.Services.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="System.Web.WebPages">
+          <HintPath>..\..\..\packages\Mvc3-Base\lib\net40\System.Web.WebPages.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="System.Web.WebPages.Deployment">
+          <HintPath>..\..\..\packages\Mvc3-Base\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="System.Web.WebPages.Razor">
+          <HintPath>..\..\..\packages\Mvc3-Base\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3')">
+      <ItemGroup>
+        <Reference Include="Newtonsoft.Json">
+          <HintPath>..\..\..\packages\Newtonsoft.Json\lib\net40\Newtonsoft.Json.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Newtonsoft.Json">
+          <HintPath>..\..\..\packages\Newtonsoft.Json\lib\net45\Newtonsoft.Json.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="NHibernate">
+          <HintPath>..\..\..\packages\NHibernate\lib\net40\NHibernate.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3')">
+      <ItemGroup>
+        <Reference Include="NLog">
+          <HintPath>..\..\..\packages\NLog\lib\net40\NLog.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="NLog">
+          <HintPath>..\..\..\packages\NLog\lib\net45\NLog.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3')">
+      <ItemGroup>
+        <Reference Include="Mono.Security">
+          <HintPath>..\..\..\packages\Npgsql\lib\net40\Mono.Security.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="Npgsql">
+          <HintPath>..\..\..\packages\Npgsql\lib\net40\Npgsql.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Mono.Security">
+          <HintPath>..\..\..\packages\Npgsql\lib\net45\Mono.Security.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="Npgsql">
+          <HintPath>..\..\..\packages\Npgsql\lib\net45\Npgsql.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="QuickGraph">
+          <HintPath>..\..\..\packages\QuickGraph\lib\net4\QuickGraph.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="QuickGraph.Data">
+          <HintPath>..\..\..\packages\QuickGraph\lib\net4\QuickGraph.Data.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="QuickGraph.Graphviz">
+          <HintPath>..\..\..\packages\QuickGraph\lib\net4\QuickGraph.Graphviz.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="QuickGraph.Serialization">
+          <HintPath>..\..\..\packages\QuickGraph\lib\net4\QuickGraph.Serialization.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="RabbitMQ.Client">
+          <HintPath>..\..\..\packages\RabbitMQ.Client\lib\net30\RabbitMQ.Client.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="ServiceStack.Common">
+          <HintPath>..\..\..\packages\ServiceStack.Common\lib\net35\ServiceStack.Common.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="ServiceStack.Interfaces">
+          <HintPath>..\..\..\packages\ServiceStack.Common\lib\net35\ServiceStack.Interfaces.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="ServiceStack.Text">
+          <HintPath>..\..\..\packages\ServiceStack.Text\lib\net35\ServiceStack.Text.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3')">
+      <ItemGroup>
+        <Reference Include="Stimulsoft.Base">
+          <HintPath>..\..\..\packages\StimulReport.Base\lib\net40\Stimulsoft.Base.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="Stimulsoft.Report">
+          <HintPath>..\..\..\packages\StimulReport.Base\lib\net40\Stimulsoft.Report.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Stimulsoft.Base">
+          <HintPath>..\..\..\packages\StimulReport.Base\lib\net45\Stimulsoft.Base.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="Stimulsoft.Report">
+          <HintPath>..\..\..\packages\StimulReport.Base\lib\net45\Stimulsoft.Report.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.0.3' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3' Or $(TargetFrameworkVersion) == 'v4.7' Or $(TargetFrameworkVersion) == 'v4.7.1' Or $(TargetFrameworkVersion) == 'v4.7.2')">
+      <ItemGroup>
+        <Reference Include="Yahoo.Yui.Compressor">
+          <HintPath>..\..\..\packages\YUICompressor.NET\lib\NET20\Yahoo.Yui.Compressor.dll</HintPath>
+          <Private>False</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+</Project>

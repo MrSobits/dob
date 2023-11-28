@@ -1,0 +1,4 @@
+﻿<%@ ServiceHost 
+    Factory="Castle.Facilities.WcfIntegration.DefaultServiceHostFactory, Castle.Facilities.WcfIntegration" 
+    Service="Bars.Gkh.RegOperator.Wcf.Services.NullPersonalAccountService"
+%>

@@ -1,0 +1,14 @@
+﻿@using System.Web.UI.WebControls
+@using Stimulsoft.Report.Mvc
+@{
+    ViewBag.Title = "Редактор шаблонов";
+}
+
+@section HeadContent{
+    <style type="text/css" media="screen">
+        body { margin: 0; }
+        div { position: absolute; }
+    </style>
+}
+
+@Html.Stimulsoft().StiMvcDesignerFx(new StiMvcDesignerFxOptions { Actions = { SaveReportTemplate = "SaveTemplate", GetLocalization = "GetLocalization", GetReportTemplate = "GetTemplate", CreateReportTemplate = "CreateTemplate", DesignerEvent = "DesignerEvent" }, Width = Unit.Percentage(100), Height = Unit.Percentage(100), MainMenu = { ShowAbout = false, ShowClose = false, ShowExitButton = false, ShowOpenReport = false, ShowPreview = true, ShowNewReport = true, ShowNew = false, ShowNewReportWithWizard = false, ShowSaveAs = false }, Toolbar = { ShowPreviewReportTab = false, ShowSelectLanguage = false } })

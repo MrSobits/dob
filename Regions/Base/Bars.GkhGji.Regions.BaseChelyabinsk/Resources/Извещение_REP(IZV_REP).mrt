@@ -1,0 +1,464 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer version="1.02" type="Net" application="StiReport">
+  <Dictionary Ref="1" type="Dictionary" isKey="true">
+    <BusinessObjects isList="true" count="0" />
+    <Databases isList="true" count="1">
+      <samara_purely Ref="2" type="Stimulsoft.Report.Dictionary.StiPostgreSQLDatabase" isKey="true">
+        <Alias>samara_purely</Alias>
+        <ConnectionStringEncrypted>49bLCU9dAYViGaXMzxhlXosM2cLlTdOFaFuhlE5xqF7GaNnrxgtL8ENHuRxvSa1ejVZ3ic1XkqxDbKGISQThL4Z42YnOFluMwFo=</ConnectionStringEncrypted>
+        <Name>samara_purely</Name>
+      </samara_purely>
+    </Databases>
+    <DataSources isList="true" count="1">
+      <ИсточникДанных1 Ref="3" type="Stimulsoft.Report.Dictionary.StiPostgreSQLSource" isKey="true">
+        <Alias>ИсточникДанных1</Alias>
+        <Columns isList="true" count="21">
+          <value>РайонГород,System.String</value>
+          <value>ФИОНарушителя,System.String</value>
+          <value>АдресНарушителя,System.String</value>
+          <value>НомерПостановления,System.String</value>
+          <value>ДатаПостановления,System.String</value>
+          <value>ДатаЯвки,System.String</value>
+          <value>ВремяЯвки,System.String</value>
+          <value>НарушеннаяСтатья,System.String</value>
+          <value>Адрес,System.String</value>
+          <value>phone,System.String</value>
+          <value>order_num,System.String</value>
+          <value>order_date,System.String</value>
+          <value>октмо,System.String</value>
+          <value>bik,System.String</value>
+          <value>inn,System.String</value>
+          <value>kbk,System.String</value>
+          <value>kpp,System.String</value>
+          <value>uin,System.String</value>
+          <value>Месторегфизлица,System.String</value>
+          <value>Местофакжитфизлица,System.String</value>
+          <value>Председатель,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Name>ИсточникДанных1</Name>
+        <NameInSource>samara_purely</NameInSource>
+        <Parameters isList="true" count="1">
+          <value>id,Id,1,0</value>
+        </Parameters>
+        <SqlCommand>create temp table table1 as(
+select distinct  case when dd2.position ='Председатель' then dd2.fio else 'Не задан' end "Председатель",   
+	    dis.fio as "ФИОНарушителя",
+	    case when dis.BIRTH_PLACE is not null and dis.BIRTH_PLACE != '' then dis.BIRTH_PLACE else 'Место рождения не задано' end "Место рождения",
+        case when dis.ACTUALLY_RESIDENCE is not null and dis.ACTUALLY_RESIDENCE != '' then dis.ACTUALLY_RESIDENCE else 'Место фактического жительства не задано' end "Местофакжитфизлица",
+        case when dis.PLACE_RESIDENCE is not null and dis.PLACE_RESIDENCE != '' then dis.PLACE_RESIDENCE else 'Место регистрации не задано' end "Месторегфизлица",
+
+	mun.name as "РайонГород", pr.person_fact_address as "АдресНарушителя",  
+doc1.document_number as "НомерПостановления", to_char(doc1.document_date::date, 'dd TMMonth YYYY г.') as "ДатаПостановления", cc.order_num, to_char(cc.order_date, 'dd TMMonth YYYY г.' ) order_date,
+to_char(doc.document_date::date, 'dd TMMonth YYYY г.') as "ДатаЯвки", format('%s:%s', r.format_hour, r.format_minute) as "ВремяЯвки", 
+dv.npd_name, dv.object_create_date, zp.address as "Адрес", 
+dd.phone, zp.oktmo as "октмо", zp.bik, zp.inn, zp.kbk, zp.kpp, zp.uin
+from GJI_RESOLUTION t
+left join gkh_contragent c on c.id = t.contragent_id
+left join gkh_contragent_contact cc on cc.contragent_id = c.id
+left join gji_inspection i on i.contragent_id = c.id
+left join gji_inspection_violation iv on iv.inspection_id = i.id
+left join gji_dict_violation dv on dv.id = iv.violation_id
+left join gji_document docdv on docdv.id = dv.id
+left join gji_protocol r on r.contragent_id = c.id
+
+left join GJI_DOCUMENT_CHILDREN chil on chil.children_id = r.id
+left join gji_disposal dis  on dis.id = chil.parent_id
+
+
+join gji_document doc1 on doc1.id = t.id
+left join gji_resolution_payfine rp on rp.resolution_id = t.id
+left join gji_protocol_artlaw pa on pa.protocol_id = t.id
+left join gji_dict_articlelaw at on at.id = pa.articlelaw_id
+join gji_document doc on doc.id = r.id
+join GJI_NSO_PROTOCOL pr on pr.id=r.id
+ left join gji_document_inspector n on n.document_id = doc.id
+ left join gkh_dict_inspector dd on dd.id = n.inspector_id
+ left join gkh_dict_zonainsp_inspect zz on zz.inspector_id = dd.id
+ left join gkh_dict_zonainsp zp on zp.id = zz.zonal_inspection_id
+ left join gkh_dict_municipality mun on mun.id = c.municipality_id 
+ left join gji_document_children dc on dc.children_id= r.id
+ left join gji_actcheck g1 on g1.id = dc.parent_id
+
+
+join gji_document doc2 on doc2.id = r.id
+ left join gji_document_inspector n1 on n1.document_id = doc2.id
+ left join gkh_dict_inspector dd1 on dd1.id = n1.inspector_id
+ left join gkh_dict_zonainsp_inspect zz1 on zz1.inspector_id = dd1.id
+left join gkh_dict_inspector dd2 on dd2.id in (select inspector_id from gkh_dict_zonainsp_inspect where zonal_inspection_id = zz1.zonal_inspection_id)
+where t.id ::bigint =:{Id} 
+ group by dd2.position, dd2.fio,dis.PLACE_RESIDENCE,dis.ACTUALLY_RESIDENCE,dis.BIRTH_PLACE, dis.fio,doc.document_date, mun.name,  doc1.document_date,
+ r.physical_person, pr.person_fact_address, doc1.document_number, doc1.document_date, r.format_hour, r.format_minute, 
+zp.address, dd.phone, cc.order_num, cc.order_date, zp.oktmo, zp.bik, zp.inn, zp.kbk, zp.kpp, zp.uin, dv.npd_name, dv.object_create_date);
+select "Председатель","Месторегфизлица","Местофакжитфизлица","Место рождения","РайонГород", "ФИОНарушителя", "АдресНарушителя", 
+	"НомерПостановления", "ДатаПостановления", order_num, order_date,
+	"ДатаЯвки", "ВремяЯвки", "Адрес", "ФИОНарушителя",
+	phone, "октмо", bik, inn, kbk, kpp, uin,
+	string_agg((npd_name || ' от ' || to_char(object_create_date, 'dd-mm-YYYY г.')),', &lt;br&gt;') as "НарушеннаяСтатья"
+from table1
+group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22;
+</SqlCommand>
+      </ИсточникДанных1>
+    </DataSources>
+    <Relations isList="true" count="0" />
+    <Report isRef="0" />
+    <Variables isList="true" count="96">
+      <value>,ДатаАкта,ДатаАкта,System.String,,False,False</value>
+      <value>,НомерАкта,НомерАкта,System.String,,False,False</value>
+      <value>,ПроверПлощадь,ПроверПлощадь,System.String,,False,False</value>
+      <value>,ВремяСоставленияАкта,ВремяСоставленияАкта,System.String,,False,False</value>
+      <value>,УправОрг,УправОрг,System.String,,False,False</value>
+      <value>,ИННУправОрг,ИННУправОрг,System.String,,False,False</value>
+      <value>,ТипЛица,ТипЛица,System.String,,False,False</value>
+      <value>,УправОргРП,УправОргРП,System.String,,False,False</value>
+      <value>,СокрУправОрг,СокрУправОрг,System.String,,False,False</value>
+      <value>,РуководительЮЛ,РуководительЮЛ,System.String,,False,False</value>
+      <value>,АдресКонтрагентаФакт,АдресКонтрагентаФакт,System.String,,False,False</value>
+      <value>,НеВыявлено,НеВыявлено,System.String,,False,False</value>
+      <value>,ПрилагаемыеДокументы,ПрилагаемыеДокументы,System.String,,False,False</value>
+      <value>,НомерДома,НомерДома,System.String,,False,False</value>
+      <value>,АдресДома,АдресДома,System.String,,False,False</value>
+      <value>,НаселенныйПункт,НаселенныйПункт,System.String,,False,False</value>
+      <value>,УлицаДом,УлицаДом,System.String,,False,False</value>
+      <value>,Описание,Описание,System.String,,False,False</value>
+      <value>,ДомаИАдреса,ДомаИАдреса,System.String,,False,False</value>
+      <value>,НевыявленныеНарушения,НевыявленныеНарушения,System.String,,False,False</value>
+      <value>,ОбщаяПлощадьСумма,ОбщаяПлощадьСумма,System.String,,False,False</value>
+      <value>,ДатаРаспоряжения,ДатаРаспоряжения,System.String,,False,False</value>
+      <value>,НомерРаспоряжения,НомерРаспоряжения,System.String,,False,False</value>
+      <value>,ВидПроверки,ВидПроверки,System.String,,False,False</value>
+      <value>,ВидОбследования,ВидОбследования,System.String,,False,False</value>
+      <value>,КодИнспектораРП,КодИнспектораРП,System.String,,False,False</value>
+      <value>,КодИнспектораТП,КодИнспектораТП,System.String,,False,False</value>
+      <value>,РуководительРП,РуководительРП,System.String,,False,False</value>
+      <value>,РуководительТП,РуководительТП,System.String,,False,False</value>
+      <value>,ВидОбследованияРП,ВидОбследованияРП,System.String,,False,False</value>
+      <value>,ПродолжительностьПроверки,ПродолжительностьПроверки,System.String,,False,False</value>
+      <value>,Эксперты,Эксперты,System.String,,False,False</value>
+      <value>,КодРуководителяФИО,КодРуководителяФИО,System.String,,False,False</value>
+      <value>,НачалоПериода,НачалоПериода,System.String,,False,False</value>
+      <value>,ОкончаниеПериода,ОкончаниеПериода,System.String,,False,False</value>
+      <value>,ПредоставляемыеДокументыСтрокой,ПредоставляемыеДокументыСтрокой,System.String,,False,False</value>
+      <value>,ДЛприПроверке,ДЛприПроверке,System.String,,False,False</value>
+      <value>,Ознакомлен,Ознакомлен,System.String,,False,False</value>
+      <value>,ЧислоЛицПривлеченныеЛица,ЧислоЛицПривлеченныеЛица,System.String,,False,False</value>
+      <value>,РуководительЮЛДолжность,РуководительЮЛДолжность,System.String,,False,False</value>
+      <value>,ПредоставленныеДокументыСтрокой,ПредоставленныеДокументыСтрокой,System.String,,False,False</value>
+      <value>,ФактПредоставленныйДокумент,ФактПредоставленныйДокумент,System.String,,False,False</value>
+      <value>,ДопПредоставленныеДокументыСтрокой,ДопПредоставленныеДокументыСтрокой,System.String,,False,False</value>
+      <value>,ДатаИНомерРешенияПрокурора,ДатаИНомерРешенияПрокурора,System.String,,False,False</value>
+      <value>,СсылкиНаПунктыНормативныхАктов,СсылкиНаПунктыНормативныхАктов,System.String,,False,False</value>
+      <value>,ДатаВремяПроверки,ДатаВремяПроверки,System.String,,False,False</value>
+      <value>,ИнспекторыИКоды,ИнспекторыИКоды,System.String,,False,False</value>
+      <value>,ЮрАдресКонтрагента,ЮрАдресКонтрагента,System.String,,False,False</value>
+      <value>,Отдел,Отдел,System.String,,False,False</value>
+      <value>,ИнспекторыАкта,ИнспекторыАкта,System.String,,False,False</value>
+      <value>,ПродолжительностьПроверкиДЧ,ПродолжительностьПроверкиДЧ,System.String,,False,False</value>
+      <value>,ТекстНарушения,ТекстНарушения,System.String,,False,False</value>
+      <value>,НарушенияВыявлены,НарушенияВыявлены,System.String,,False,False</value>
+      <value>,ОбщаяПродолжительностьРабДни,ОбщаяПродолжительностьРабДни,ОбщаяПродолжительностьРабДни,System.String,,False,False,False</value>
+      <value>,СКопиейПриказаОзнакомлен,СКопиейПриказаОзнакомлен,СКопиейПриказаОзнакомлен,System.String,,False,False,False</value>
+      <value>,МестоСоставления,МестоСоставления,System.String,,False,False</value>
+      <value>,МестаПроведенияПроверки,МестаПроведенияПроверки,System.String,,False,False</value>
+      <value>,ОбъектПроверки,ОбъектПроверки,System.String,,False,False</value>
+      <value>,ФИОФизлицаРП,ФИОФизлицаРП,System.String,,False,False</value>
+      <value>,НомерРешенияПрокурора,НомерРешенияПрокурора,System.String,,False,False</value>
+      <value>,ДатаРешенияПрокурора,ДатаРешенияПрокурора,System.String,,False,False</value>
+      <value>,СогласованиеСПрокуратурой,СогласованиеСПрокуратурой,System.String,,False,False</value>
+      <value>,ОснованиеОбследования,ОснованиеОбследования,System.String,,False,False</value>
+      <value>,НомераНевыполненныхПунктовПредписания,НомераНевыполненныхПунктовПредписания,System.String,,False,False</value>
+      <value>,НомерПредписания,НомерПредписания,System.String,,False,False</value>
+      <value>,НомерДела,НомерДела,System.String,_x0033_373,False,False</value>
+      <value>,СведенияОЛицахДопустившихНарушения,СведенияОЛицахДопустившихНарушения,System.String,,False,False</value>
+      <value>,СведенияСвидетельствующие,СведенияСвидетельствующие,System.String,,False,False</value>
+      <value>,ПереченьНПД,ПереченьНПД,System.String,,False,False</value>
+      <value>,Дата,Дата,System.String,_x0022_01_x0022__x0020_июля_x0020_2021_x0020_г.,False,False</value>
+      <value>,НаименованиеОРГ,НаименованиеОРГ,System.String,ТСЖ_x0020__x0022_Север_x0022__x0020_ОГРН:_x0020_1062700016675_x002C__x0020_ИНН:_x0020_2721144972.,False,False</value>
+      <value>,ЮрАдресОрг,ЮрАдресОрг,System.String,_x0036_80054_x002C__x0020_г._x0020_Хабаровск_x002C__x0020_ул._x0020_Профессора_x0020_Даниловского_x0020_М.П._x002C__x0020_д._x0020_20,False,False</value>
+      <value>,НомерОбращения,НомерОбращения,System.String,_x2116__x0020_У27-02-7664_x0020_,False,False</value>
+      <value>,ДатаОбращения,ДатаОбращения,System.String,_x0030_1.06.2021,False,False</value>
+      <value>,НаименованиеОргКоротко,НаименованиеОргКоротко,System.String,ТСЖ_x0020__x0022_Север_x0022_,False,False</value>
+      <value>,СтатьяФЗсОписанием,СтатьяФЗсОписанием,System.String,_x0035__x0020_статьи_x0020_11_x0020_Федерального_x0020_закона_x0020_от_x0020_26_x0020_декабря_x0020_2008_x0020_года_x0020__x2116__x0020_294-ФЗ_x0020__x0022_О_x0020_защите_x0020_прав_x0020_юридических_x0020_лиц_x0020_и_x0020_индивидуальных_x0020_предпринимателей_x0020_при_x0020_осуществлении_x0020_государственного_x0020_контроля_x0020__x0028_надзора_x0029__x0020_и_x0020_муниципального_x0020_контроля_x0022_,False,False</value>
+      <value>,РайонГородCaps,РайонГородCaps,System.String,АВТОЗАВОДСКОГО_x0020_РАЙОНА_x0020__x000D__x000A_ГОРОДСКОГО_x0020_ОКРУГА_x0020_ТОЛЬЯТТИ_x000D__x000A__x000D__x000A_,False,False</value>
+      <value>,РеквизитыАдминистративнойКом,РеквизитыАдминистративнойКом,System.String,_x0034_45037_x002C__x0020_ГСП_x002C__x0020_Российская_x0020_Федерация_x002C__x0020_Самарская_x0020_область_x002C__x0020_г._x0020_Тольятти_x002C__x0020_Новый_x0020_проезд_x002C__x0020_2_x0020_тел._x0020__x0028_8482_x0029__x0020_54-35-10_x002C__x0020_54-30-57_x000D__x000A_,False,False</value>
+      <value>,ДатаИзвещения,ДатаИзвещения,System.String,_x0030_1.10.0202г.,False,False</value>
+      <value>,ФИОНарушителя,ФИОНарушителя,System.String,Иванов_x0020_Иван_x0020_Иванович,False,False</value>
+      <value>,АдресПроживанияНарушителя,АдресПроживанияНарушителя,System.String,_x0034_45044_x002C__x0020_Самарская_x0020_область_x002C_г._x0020_Тольятти_x002C_ул_x0020_70_x0020_лет_x0020_октября_x0020_д5_x002C__x0020_45кв._x0020__x000D__x000A_,False,False</value>
+      <value>,РайонГород,РайонГород,System.String,Автозаводского_x0020_района_x0020_городского_x0020_округа_x0020_Тольятти,False,False</value>
+      <value>,СуммаШтрафа,СуммаШтрафа,System.String,_x0031_000_x0020_руб,False,False</value>
+      <value>,НомерПостановления,НомерПостановления,System.String,_x2116__x0020_3373_x0020_,False,False</value>
+      <value>,ДатаПостановления,ДатаПостановления,System.String,_x0030_9.10.2020г.,False,False</value>
+      <value>,Город,Город,System.String,г.Тольятти_x0020_,False,False</value>
+      <value>,ВремяЯвки,ВремяЯвки_x0020_,System.String,_x0031_0:00,False,False</value>
+      <value>,АдрессАдмкомисСНомеромКаб,АдрессАдмкомисСНомеромКаб,System.String,ул._x0020_Новый_x0020_проезд_x002C__x0020_дом_x0020_2_x002C__x0020_каб.5_x0020_г._x0020_Тольятти_x002C__x0020_Самарская_x0020_обл._x002C__x0020_Россия_x002C__x0020_445037,False,False</value>
+      <value>,НарушеннаяСтатьяКОАПРФ,НарушеннаяСтатьяКОАПРФ,System.String,ч1._x0020_ст.20.25_x0020_,False,False</value>
+      <value>,НомерТелефона,НомерТелефона,System.String,_x002B_7_x0020_917_x0020_473_x0020_39_x0020_85,False,False</value>
+      <value>,НомерДела1,НомерДела1,System.String,_x0033_373,False,False</value>
+      <value>,ДатаСоставленияДела,ДатаСоставленияДела,System.String,_x0030_9.10.2020,False,False</value>
+      <value>,НарушенныеПунктыСОписанием,НарушенныеПунктыСОписанием,System.String,п._x0020_2.1_x0020_ст._x0020_4.18_x0020_ЗСО_x0020__x0028_размещение_x0020_ТС_x0020_-_x0020_озелененная_x0020_территория_x0029_,False,False</value>
+      <value>,НомерСтатьиКОАПсДатойПринятия,НомерСтатьиКОАПсДатойПринятия,System.String,_x2116_115-ГД_x0020_от_x0020_01.11.2007г,False,False</value>
+      <value>,ДатаЯвки,ДатаЯвки,System.String,_x0030_9.10.2020г.,False,False</value>
+      <value>,Id,Id,System.Int32,_x0033_2993,False,False</value>
+    </Variables>
+  </Dictionary>
+  <EngineVersion>EngineV2</EngineVersion>
+  <GlobalizationStrings isList="true" count="0" />
+  <MetaTags isList="true" count="0" />
+  <Pages isList="true" count="1">
+    <Page1 Ref="4" type="Page" isKey="true">
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="2">
+        <ReportTitleBand1 Ref="5" type="ReportTitleBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,0.4,18,3.6</ClientRectangle>
+          <Components isList="true" count="3">
+            <Text16 Ref="6" type="Text" isKey="true">
+              <Border>Bottom;Black;1;Solid;False;4;Black</Border>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,0,18,1.2</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,10</Font>
+              <Guid>292c16a923aa401c9f70d2c6a61debc3</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text16</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>АДМИНИСТРАТИВНАЯ КОМИССИЯ
+{ИсточникДанных1.РайонГород}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text16>
+            <Text3 Ref="7" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0.8,1.2,16.4,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,8</Font>
+              <Guid>63531853029f4bbda35520fb4908d07f</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text3</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>{ИсточникДанных1.октмо},{ИсточникДанных1.bik},{ИсточникДанных1.inn},{ИсточникДанных1.kbk},{ИсточникДанных1.kpp},{ИсточникДанных1.uin}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text3>
+            <Text1 Ref="8" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>7,2.4,3.8,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,10</Font>
+              <Guid>eec5677a00594a7ba381e5934cea249d</Guid>
+              <HorAlignment>Center</HorAlignment>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text1</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>ИЗВЕЩЕНИЕ</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text1>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Name>ReportTitleBand1</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+        </ReportTitleBand1>
+        <DataBand1 Ref="9" type="DataBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <BusinessObjectGuid isNull="true" />
+          <ClientRectangle>0,4.8,18,12.2</ClientRectangle>
+          <Components isList="true" count="6">
+            <Text9 Ref="10" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,0,18,2.4</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,10</Font>
+              <Guid>c803a376033f4a168e1141d5018d2f9f</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text9</Name>
+              <Page isRef="4" />
+              <Parent isRef="9" />
+              <Text>{ИсточникДанных1.order_num==""?"":ИсточникДанных1.order_num}
+&amp;ensp;&amp;ensp;&amp;ensp;&amp;ensp;&amp;ensp;Административная комиссия {ИсточникДанных1.РайонГород} 
+Самарской области  извещает {ИсточникДанных1.ФИОНарушителя} , 
+проживающего {ИсточникДанных1.Месторегфизлица}
+что в производстве административной комиссии находится дело № 
+{ИсточникДанных1.order_num==""?"":ИсточникДанных1.order_num} от {ИсточникДанных1.order_date==null?"":ИсточникДанных1.order_date}
+о совершении {ИсточникДанных1.ФИОНарушителя} административного правонарушения, предусмотренного {ИсточникДанных1.НарушеннаяСтатья} 
+Закона Самарской области. «Об административных правонарушениях на территории Самарской области».
+</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+            </Text9>
+            <Text10 Ref="11" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,10,4.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,10</Font>
+              <Guid>2dd607bd47bb4f138d3dc62d6e6d5528</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text10</Name>
+              <Page isRef="4" />
+              <Parent isRef="9" />
+              <Text>&lt;b&gt;Председатель
+административной комиссии &lt;/b&gt;                                        </Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+            </Text10>
+            <Text4 Ref="12" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>10.8,10.4,7.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,10</Font>
+              <Guid>9101bd670b344a9cb994c57d0c0323f0</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text4</Name>
+              <Page isRef="4" />
+              <Parent isRef="9" />
+              <Text>______________________________&lt;b&gt;(ФИО)&lt;/b&gt;</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+            </Text4>
+            <Text7 Ref="13" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0,10.8,0.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,10</Font>
+              <Guid>1f0d5260de924e3c80dc6b72d4cd783a</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text7</Name>
+              <Page isRef="4" />
+              <Parent isRef="9" />
+              <Text>&lt;b&gt;Тел&lt;/b&gt;</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text7>
+            <Text8 Ref="14" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Brush>Transparent</Brush>
+              <ClientRectangle>0.8,10.8,4.8,0.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,10</Font>
+              <Guid>b924f3003a6b4a188cb07d8fe22ed05f</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text8</Name>
+              <Page isRef="4" />
+              <Parent isRef="9" />
+              <Text>{ИсточникДанных1.phone}</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text8>
+            <Text2 Ref="15" type="Text" isKey="true">
+              <AllowHtmlTags>True</AllowHtmlTags>
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,2.6,18,1.8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Font>Times New Roman,10</Font>
+              <Guid>02ca21997f534475b5b890dedb202390</Guid>
+              <Margins>0,0,0,0</Margins>
+              <Name>Text2</Name>
+              <Page isRef="4" />
+              <Parent isRef="9" />
+              <Text>&amp;ensp;&amp;ensp;&amp;ensp;&amp;ensp;&amp;ensp;Просим явиться на заседание административной комиссии {ИсточникДанных1.ДатаЯвки}. в {ИсточникДанных1.ВремяЯвки} часов по адресу: {ИсточникДанных1.Адрес}, 
+&lt;br&gt;В соответствии со ст. 25.1 КоАП РФ, в случае Вашего отсутствия, административная комиссия рассмотрит данное дело без Вашего участия.</Text>
+              <TextBrush>Black</TextBrush>
+              <TextOptions>HotkeyPrefix=None, LineLimit=False, RightToLeft=False, Trimming=None, WordWrap=True, Angle=0, FirstTabOffset=40, DistanceBetweenTabs=20,</TextOptions>
+              <TextQuality>Wysiwyg</TextQuality>
+              <Type>Expression</Type>
+            </Text2>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <DataRelationName isNull="true" />
+          <Filters isList="true" count="0" />
+          <Name>DataBand1</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+          <Sort isList="true" count="0" />
+        </DataBand1>
+      </Components>
+      <Conditions isList="true" count="0" />
+      <Guid>58aa7ab28c9040fb8b5cf3c87cd8f3b8</Guid>
+      <LargeHeightFactor>1</LargeHeightFactor>
+      <Margins>2,1,1,1</Margins>
+      <Name>Page1</Name>
+      <PageHeight>50</PageHeight>
+      <PageWidth>21</PageWidth>
+      <Report isRef="0" />
+      <Watermark Ref="16" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
+        <Font>Arial,100</Font>
+        <TextBrush>[50:0:0:0]</TextBrush>
+      </Watermark>
+    </Page1>
+  </Pages>
+  <PrinterSettings Ref="17" type="Stimulsoft.Report.Print.StiPrinterSettings" isKey="true" />
+  <ReferencedAssemblies isList="true" count="8">
+    <value>System.Dll</value>
+    <value>System.Drawing.Dll</value>
+    <value>System.Windows.Forms.Dll</value>
+    <value>System.Data.Dll</value>
+    <value>System.Xml.Dll</value>
+    <value>Stimulsoft.Controls.Dll</value>
+    <value>Stimulsoft.Base.Dll</value>
+    <value>Stimulsoft.Report.Dll</value>
+  </ReferencedAssemblies>
+  <ReportAlias>Report</ReportAlias>
+  <ReportChanged>2/3/2022 6:08:32 PM</ReportChanged>
+  <ReportCreated>5/28/2014 3:38:42 PM</ReportCreated>
+  <ReportFile>C:\Users\Dmitry\Desktop\Печатки 12.01.2022\Извещение_REP(IZV_REP).mrt</ReportFile>
+  <ReportGuid>b613d9c57d414d49921bde68b579c3d3</ReportGuid>
+  <ReportName>Report</ReportName>
+  <ReportUnit>Centimeters</ReportUnit>
+  <ReportVersion>2014.1.1900</ReportVersion>
+  <Script>using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data;
+using Stimulsoft.Controls;
+using Stimulsoft.Base.Drawing;
+using Stimulsoft.Report;
+using Stimulsoft.Report.Dialogs;
+using Stimulsoft.Report.Components;
+
+namespace Reports
+{
+    public class Report : Stimulsoft.Report.StiReport
+    {
+        public Report()        {
+            this.InitializeComponent();
+        }
+
+        #region StiReport Designer generated code - do not modify
+		#endregion StiReport Designer generated code - do not modify
+    }
+}
+</Script>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="0" />
+</StiSerializer>

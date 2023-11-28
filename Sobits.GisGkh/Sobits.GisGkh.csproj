@@ -1,0 +1,486 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0CB75CBC-CEDC-4DA8-8BDF-FE45D94F808A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Sobits.GisGkh</RootNamespace>
+    <AssemblyName>Sobits.GisGkh</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Bars.B4.Core">
+      <HintPath>..\packages\Bars.B4.Core\lib\net40\Bars.B4.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Bars.B4.Modules.Ecm7.Framework, Version=1.11.6274.28431, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\Bars.B4.Modules.Ecm7.Framework\lib\net40\Bars.B4.Modules.Ecm7.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Bars.B4.Modules.ExtJs, Version=3.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\Bars.B4.Modules.ExtJs\lib\net40\Bars.B4.Modules.ExtJs.dll</HintPath>
+    </Reference>
+    <Reference Include="Bars.B4.Modules.ExtJs3">
+      <HintPath>..\packages\Bars.B4.Modules.ExtJs3\lib\net40\Bars.B4.Modules.ExtJs3.dll</HintPath>
+    </Reference>
+    <Reference Include="Bars.B4.Modules.FileStorage">
+      <HintPath>..\packages\Bars.B4.Modules.FileStorage\lib\net40\Bars.B4.Modules.FileStorage.dll</HintPath>
+    </Reference>
+    <Reference Include="Bars.B4.Modules.Mapping, Version=3.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\Bars.B4.Modules.Mapping\lib\net40\Bars.B4.Modules.Mapping.dll</HintPath>
+    </Reference>
+    <Reference Include="Bars.B4.Modules.NH, Version=3.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\Bars.B4.Modules.NH\lib\net40\Bars.B4.Modules.NH.dll</HintPath>
+    </Reference>
+    <Reference Include="Bars.B4.Modules.NH.Migrations, Version=3.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\Bars.B4.Modules.NH.Migrations\lib\net40\Bars.B4.Modules.NH.Migrations.dll</HintPath>
+    </Reference>
+    <Reference Include="Bars.B4.Modules.Security">
+      <HintPath>..\packages\Bars.B4.Modules.Security\lib\net40\Bars.B4.Modules.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Bars.B4.Modules.States">
+      <HintPath>..\packages\Bars.B4.Modules.States\lib\net40\Bars.B4.Modules.States.dll</HintPath>
+    </Reference>
+    <Reference Include="Bars.B4.Modules.TaskManager.Contracts">
+      <HintPath>..\packages\Bars.B4.Modules.TaskManager.Contracts\lib\net40\Bars.B4.Modules.TaskManager.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="Bars.B4.Modules.Tasks.Common, Version=3.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\Bars.B4.Modules.Tasks.Common\lib\net40\Bars.B4.Modules.Tasks.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Bars.B4.Utils, Version=3.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\Bars.B4.Utils\lib\net40\Bars.B4.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="Bars.B4.Web, Version=3.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\Bars.B4.Web\lib\net40\Bars.B4.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=3.4.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc">
+      <HintPath>..\packages\Castle.Windsor\lib\net45\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="CryptoPro.Sharpei.Base, Version=1.4.0.10, Culture=neutral, PublicKeyToken=473b8c5086e795f5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\CryptoPro.Sharpei.Base\lib\net40\CryptoPro.Sharpei.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Dapper, Version=1.40.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\Dapper\lib\net45\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetZip, Version=1.10.1.0, Culture=neutral, PublicKeyToken=6583c7c814667745">
+      <HintPath>..\packages\DotNetZip\lib\net20\DotNetZip.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4">
+      <HintPath>..\packages\NHibernate\lib\net40\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Quartz">
+      <HintPath>..\packages\Quartz\lib\net40\Quartz.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Mvc3-Base\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ClientRouteMapRegistrar.cs" />
+    <Compile Include="Controllers\GisGkhExecuteController.cs" />
+    <Compile Include="DomainService\ExportAppealCR\ExportAppealCRService.cs" />
+    <Compile Include="DomainService\ExportAppealCR\IExportAppealCRService.cs.cs" />
+    <Compile Include="DomainService\ExportInspectionPlans\ExportInspectionPlansService.cs" />
+    <Compile Include="DomainService\ExportInspectionPlans\IExportInspectionPlansService.cs" />
+    <Compile Include="DomainService\ExportExaminations\ExportExaminationsService.cs" />
+    <Compile Include="DomainService\ExportExaminations\IExportExaminationsService.cs" />
+    <Compile Include="DomainService\ExportAppeal\ExportAppealService.cs" />
+    <Compile Include="DomainService\ExportAppeal\IExportAppealService.cs.cs" />
+    <Compile Include="DomainService\ExportDataProviderNsiItems\ExportDataProviderNsiItemsService.cs" />
+    <Compile Include="DomainService\ExportDataProviderNsiItems\IExportDataProviderNsiItemsService.cs" />
+    <Compile Include="DomainService\ExportNsiPagingItems\ExportNsiPagingItemsService.cs" />
+    <Compile Include="DomainService\ExportNsiPagingItems\IExportNsiPagingItemsService.cs" />
+    <Compile Include="DomainService\ExportDecreesAndDocumentsData\ExportDecreesAndDocumentsDataService.cs" />
+    <Compile Include="DomainService\ExportDecreesAndDocumentsData\IExportDecreesAndDocumentsDataService.cs" />
+    <Compile Include="DomainService\ExportLicense\ExportLicenseService.cs" />
+    <Compile Include="DomainService\ExportLicense\IExportLicenseService.cs" />
+    <Compile Include="DomainService\ImportAnswerCR\IImportAnswerCRService.cs" />
+    <Compile Include="DomainService\ImportAnswerCR\ImportAnswerCRService.cs" />
+    <Compile Include="DomainService\ImportExaminations\IImportExaminationsService.cs" />
+    <Compile Include="DomainService\ImportExaminations\ImportExaminationsService.cs" />
+    <Compile Include="DomainService\ImportDecreesAndDocumentsData\IImportDecreesAndDocumentsDataService.cs" />
+    <Compile Include="DomainService\ImportDecreesAndDocumentsData\ImportDecreesAndDocumentsDataService.cs" />
+    <Compile Include="DomainService\ImportAnswer\IImportAnswerService.cs" />
+    <Compile Include="DomainService\ImportAnswer\ImportAnswerService.cs" />
+    <Compile Include="DomainService\ImportRegionalProgramWork\IImportRegionalProgramWorkService.cs" />
+    <Compile Include="DomainService\ImportRegionalProgramWork\ImportRegionalProgramWorkService.cs" />
+    <Compile Include="DomainService\ImportRegionalProgram\ImportRegionalProgramService.cs" />
+    <Compile Include="DomainService\ImportRegionalProgram\IImportRegionalProgramService.cs" />
+    <Compile Include="DomainService\ImportPaymentDocumentData\ImportPaymentDocumentDataService.cs" />
+    <Compile Include="DomainService\ImportPaymentDocumentData\IImportPaymentDocumentDataService.cs" />
+    <Compile Include="DomainService\ExportPaymentDocumentData\ExportPaymentDocumentDataService.cs" />
+    <Compile Include="DomainService\ExportPaymentDocumentData\IExportPaymentDocumentDataService.cs" />
+    <Compile Include="DomainService\ExportPlanWork\ExportPlanWorkService.cs" />
+    <Compile Include="DomainService\ExportPlanWork\IExportPlanWorkService.cs" />
+    <Compile Include="DomainService\ImportPlanWork\IImportPlanWorkService.cs" />
+    <Compile Include="DomainService\ImportPlanWork\ImportPlanWorkService.cs" />
+    <Compile Include="DomainService\ImportPlan\ImportPlanService.cs" />
+    <Compile Include="DomainService\ImportPlan\IImportPlanService.cs" />
+    <Compile Include="DomainService\FileService .cs" />
+    <Compile Include="DomainService\IFileService.cs" />
+    <Compile Include="DomainService\ImportDecisionsFormingFund\ImportDecisionsFormingFundService.cs" />
+    <Compile Include="DomainService\ImportDecisionsFormingFund\IImportDecisionsFormingFundService.cs" />
+    <Compile Include="DomainService\ExportDecisionsFormingFund\IExportDecisionsFormingFundService.cs" />
+    <Compile Include="DomainService\ExportDecisionsFormingFund\ExportDecisionsFormingFundService.cs" />
+    <Compile Include="DomainService\ImportAccountData\ImportAccountDataService.cs" />
+    <Compile Include="DomainService\ImportAccountData\IImportAccountDataService.cs" />
+    <Compile Include="DomainService\ExportBriefApartmentHouse\ExportBriefApartmentHouseService.cs" />
+    <Compile Include="DomainService\ExportBriefApartmentHouse\IExportBriefApartmentHouseService.cs" />
+    <Compile Include="DomainService\ExportPlan\ExportPlanService.cs" />
+    <Compile Include="DomainService\ExportPlan\IExportPlanService.cs" />
+    <Compile Include="DomainService\ExportRegionalProgramWork\ExportRegionalProgramWorkService.cs" />
+    <Compile Include="DomainService\ExportRegionalProgramWork\IExportRegionalProgramWorkService.cs" />
+    <Compile Include="DomainService\ExportRegionalProgram\ExportRegionalProgramService.cs" />
+    <Compile Include="DomainService\ExportRegionalProgram\IExportRegionalProgramService.cs" />
+    <Compile Include="DomainService\ExportAccountData\ExportAccountDataService.cs" />
+    <Compile Include="DomainService\ExportAccountData\IExportAccountDataService.cs" />
+    <Compile Include="DomainService\ExportNsiItems\ExportNsiItemsService.cs" />
+    <Compile Include="DomainService\ExportNsiItems\IExportNsiItemsService.cs" />
+    <Compile Include="DomainService\ExportNsiList\ExportNsiListService.cs" />
+    <Compile Include="DomainService\ExportNsiList\IExportNsiListService.cs" />
+    <Compile Include="DomainService\ExportOrgRegistry\ExportOrgRegistryService.cs" />
+    <Compile Include="DomainService\ExportOrgRegistry\IExportOrgRegistryService.cs" />
+    <Compile Include="DomainService\ExportHouseData\ExportHouseDataService.cs" />
+    <Compile Include="DomainService\ExportHouseData\IExportHouseDataService.cs" />
+    <Compile Include="DomainService\GISGKHService.cs" />
+    <Compile Include="DomainService\IGISGKHService.cs" />
+    <Compile Include="Entities\Dicts\AttachmentField.cs" />
+    <Compile Include="Entities\Dicts\NsiDataProviderList.cs" />
+    <Compile Include="Entities\Dicts\OkeiRefField.cs" />
+    <Compile Include="Entities\Dicts\NsiField.cs" />
+    <Compile Include="Entities\Dicts\IntegerField.cs" />
+    <Compile Include="Entities\Dicts\FloatField.cs" />
+    <Compile Include="Entities\Dicts\FiasAddressRefField.cs" />
+    <Compile Include="Entities\Dicts\EnumField.cs" />
+    <Compile Include="Entities\Dicts\DateField.cs" />
+    <Compile Include="Entities\Dicts\BooleanField.cs" />
+    <Compile Include="Entities\Dicts\StringField.cs" />
+    <Compile Include="Entities\Dicts\NsiRefField.cs" />
+    <Compile Include="Entities\Dicts\NsiItem.cs" />
+    <Compile Include="Entities\GisGkhDownloads.cs" />
+    <Compile Include="Entities\GisGkhPayDoc.cs" />
+    <Compile Include="Entities\GisGkhPremises.cs" />
+    <Compile Include="Entities\GisGkhVersionRecord.cs" />
+    <Compile Include="Entities\GisGkhRequests.cs" />
+    <Compile Include="Entities\GisGkhRegionalProgramCR.cs" />
+    <Compile Include="Entities\GisGkhRequestsFile.cs" />
+    <Compile Include="Enums\GisGkhDataProviderNsiType.cs" />
+    <Compile Include="Enums\GisGkhExaminationState.cs" />
+    <Compile Include="Enums\GisGkhPlanType.cs" />
+    <Compile Include="Enums\GisGkhFileType.cs" />
+    <Compile Include="Enums\GisGkhTypeRequest.cs" />
+    <Compile Include="Enums\GisGkhRequestState.cs" />
+    <Compile Include="ExecutionAction\ImportAccDataAction.cs" />
+    <Compile Include="ExecutionAction\ExportAccDataAction.cs" />
+    <Compile Include="ExecutionAction\ExportLegalAccOwnersAction.cs" />
+    <Compile Include="ExecutionAction\ExportDecisionsFormingFundAction.cs" />
+    <Compile Include="ExecutionAction\ExportOrgAction.cs" />
+    <Compile Include="ExecutionAction\ImportBillsAccMass.cs" />
+    <Compile Include="ExecutionAction\MatchAppealContragentAction.cs" />
+    <Compile Include="ExecutionAction\ImportPersAccMass.cs" />
+    <Compile Include="ExecutionAction\ExportROAction.cs" />
+    <Compile Include="File\FileDownloadResult.cs" />
+    <Compile Include="File\FileLoadResult.cs" />
+    <Compile Include="File\FileUploadResult.cs" />
+    <Compile Include="File\IFileDownloader.cs" />
+    <Compile Include="File\IFileUploader.cs" />
+    <Compile Include="File\Impl\BaseFileDownloader.cs" />
+    <Compile Include="File\Impl\BaseFileUploader.cs" />
+    <Compile Include="File\Impl\FileDownloader.cs" />
+    <Compile Include="File\Impl\FileUploader.cs" />
+    <Compile Include="File\Impl\SimpleFileUploader.cs" />
+    <Compile Include="File\Impl\WebUtilsService.cs" />
+    <Compile Include="Interceptors\Dict\NsiListInterceptor.cs" />
+    <Compile Include="Interceptors\GisGkhRequestsInterceptor.cs" />
+    <Compile Include="Map\Dict\AttachmentFieldMap.cs" />
+    <Compile Include="Map\GisGkhDownloadsMap.cs" />
+    <Compile Include="Map\Dict\StringFieldMap.cs" />
+    <Compile Include="Map\Dict\OkeiRefFieldMap.cs" />
+    <Compile Include="Map\Dict\NsiRefFieldMap.cs" />
+    <Compile Include="Map\Dict\NsiFieldMap.cs" />
+    <Compile Include="Map\Dict\IntegerFieldMap.cs" />
+    <Compile Include="Map\Dict\FloatFieldMap.cs" />
+    <Compile Include="Map\Dict\FiasAddressRefFieldMap.cs" />
+    <Compile Include="Map\Dict\EnumFieldMap.cs" />
+    <Compile Include="Map\Dict\DateFieldMap.cs" />
+    <Compile Include="Map\Dict\NsiItemMap.cs" />
+    <Compile Include="Map\Dict\BooleanFieldMap.cs" />
+    <Compile Include="Map\Dict\NsiListMap.cs" />
+    <Compile Include="Map\GisGkhPayDocMap.cs" />
+    <Compile Include="Map\GisGkhVersionRecordMap.cs" />
+    <Compile Include="Map\GisGkhRequestsFileMap.cs" />
+    <Compile Include="Map\GisGkhPremisesMap.cs" />
+    <Compile Include="Map\GisGkhRegionalProgramCRMap.cs" />
+    <Compile Include="Map\GisGkhRequestsMap.cs" />
+    <Compile Include="Migrations\2019\Version_1\UpdateSchema.cs" />
+    <Compile Include="Migrations\2020\Version_2020012800\UpdateSchema.cs" />
+    <Compile Include="Migrations\2020\Version_2020012100\UpdateSchema.cs" />
+    <Compile Include="Migrations\2019\Version_2019111100\UpdateSchema.cs" />
+    <Compile Include="Migrations\2019\Version_2019072900\UpdateSchema.cs" />
+    <Compile Include="Migrations\2019\Version_2019072400\UpdateSchema.cs" />
+    <Compile Include="Migrations\2019\Version_2019072200\UpdateSchema.cs" />
+    <Compile Include="Migrations\2019\Version_2019061400\UpdateSchema.cs" />
+    <Compile Include="Migrations\2019\Version_2019061300\UpdateSchema.cs" />
+    <Compile Include="Migrations\2019\Version_2019061000\UpdateSchema.cs" />
+    <Compile Include="Migrations\2020\Version_2020091100\UpdateSchema.cs" />
+    <Compile Include="Migrations\2020\Version_2020060200\UpdateSchema.cs" />
+    <Compile Include="Migrations\2020\Version_2020032400\UpdateSchema.cs" />
+    <Compile Include="Migrations\2020\Version_2020032300\UpdateSchema.cs" />
+    <Compile Include="Migrations\2020\Version_2020030300\UpdateSchema.cs" />
+    <Compile Include="Module.cs" />
+    <Compile Include="Module.ResourcePart.cs" />
+    <Compile Include="NavigationProvider.cs" />
+    <Compile Include="PermissionMap.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResourceManifest.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResourceManifest.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ResourceManifest.Part.cs" />
+    <Compile Include="StateChange\CitizenSuggestionChangeStateForGisGkhCloseRule.cs" />
+    <Compile Include="StateChange\CitizenSuggestionChangeStateForGisGkhInWorkRule.cs" />
+    <Compile Include="StateChange\AppealChangeStateForGisGkhRedirectRule.cs" />
+    <Compile Include="StateChange\AppealChangeStateForGisGkhRollOverRule.cs" />
+    <Compile Include="StateChange\AppealChangeStateForGisGkhCloseRule.cs" />
+    <Compile Include="StateChange\AppealChangeStateForGisGkhInWorkRule.cs" />
+    <Compile Include="Tasks\ImportAccData\ImportAccDataTaskExecutor.cs" />
+    <Compile Include="Tasks\ImportAccData\ImportAccDataTaskProvider.cs" />
+    <Compile Include="Tasks\ExportOrg\ExportOrgTaskExecutor.cs" />
+    <Compile Include="Tasks\ExportOrg\ExportOrgTaskProvider.cs" />
+    <Compile Include="Tasks\ImportBillsAccMass\ImportBillsAccMassTaskExecutor.cs" />
+    <Compile Include="Tasks\ImportBillsAccMass\ImportBillsAccMassTaskProvider.cs" />
+    <Compile Include="Tasks\MatchAppealContragent\MatchAppealContragentTaskExecutor.cs" />
+    <Compile Include="Tasks\MatchAppealContragent\MatchAppealContragentTaskProvider.cs" />
+    <Compile Include="Tasks\ImportPersAccMass\ImportPersAccMassTaskExecutor.cs" />
+    <Compile Include="Tasks\ImportPersAccMass\ImportPersAccMassTaskProvider.cs" />
+    <Compile Include="Tasks\ImportPaymentDocuments\ImportPaymentDocumentsTaskExecutor.cs" />
+    <Compile Include="Tasks\ImportPaymentDocuments\ImportPaymentDocumentsTaskProvider.cs" />
+    <Compile Include="Tasks\ExportLegalAccOwners\ExportLegalAccOwnersTaskExecutor.cs" />
+    <Compile Include="Tasks\ExportLegalAccOwners\ExportLegalAccOwnersTaskProvider.cs" />
+    <Compile Include="Tasks\ExportDecisionsFormingFund\ExportDecisionsFormingFundTaskExecutor.cs" />
+    <Compile Include="Tasks\ExportDecisionsFormingFund\ExportDecisionsFormingFundTaskProvider.cs" />
+    <Compile Include="Tasks\ExportAccData\ExportAccDataTaskExecutor.cs" />
+    <Compile Include="Tasks\ExportAccData\ExportAccDataTaskProvider.cs" />
+    <Compile Include="Tasks\ExportRO\ExportROTaskExecutor.cs" />
+    <Compile Include="Tasks\ExportRO\ExportROTaskProvider.cs" />
+    <Compile Include="Tasks\ProcessGisGkhAnswers\ProcessGisGkhAnswersTaskExecutor.cs" />
+    <Compile Include="Tasks\ProcessGisGkhAnswers\ProcessGisGkhAnswersTaskProvider.cs" />
+    <Compile Include="Utils\DecimalExtension.cs" />
+    <Compile Include="Utils\XmlNsPrefixer.cs" />
+    <Compile Include="ViewModel\NsiItemViewModel.cs" />
+    <Compile Include="ViewModel\NsiListViewModel.cs" />
+    <Compile Include="ViewModel\GisGkhRequestsViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\controller\GisGkhIntegration.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\gisGkh\TaskGridModel.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\gisGkh\TaskGridStore.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\gisGkh\TaskGrid.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bars.Gkh.Decisions.Nso\Bars.Gkh.Decisions.Nso.csproj">
+      <Project>{70db05c7-b019-4353-a72c-6a60f46963ea}</Project>
+      <Name>Bars.Gkh.Decisions.Nso</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bars.Gkh.Overhaul.Hmao\Bars.Gkh.Overhaul.Hmao.csproj">
+      <Project>{390e291f-c1cf-4bf8-a205-4e78b40618b6}</Project>
+      <Name>Bars.Gkh.Overhaul.Hmao</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bars.Gkh.Overhaul\Bars.Gkh.Overhaul.csproj">
+      <Project>{A2C479EB-2700-4AF0-92D9-BC15EBB80945}</Project>
+      <Name>Bars.Gkh.Overhaul</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bars.Gkh.RegOperator\Bars.Gkh.RegOperator.csproj">
+      <Project>{8f66a00d-2773-4a04-8fe5-56f532d10e0b}</Project>
+      <Name>Bars.Gkh.RegOperator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bars.GkhCalendar\Bars.GkhCalendar.csproj">
+      <Project>{9de7e6ba-32cd-452f-828b-5ef9007a16f2}</Project>
+      <Name>Bars.GkhCalendar</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bars.GkhCR\Bars.GkhCR.csproj">
+      <Project>{16841fbf-162a-4641-9a52-a8975fe6bae3}</Project>
+      <Name>Bars.GkhCR</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bars.GkhGJI\Bars.GkhGji.csproj">
+      <Project>{0e792744-cc64-41c1-a5f2-3f6e3c00470c}</Project>
+      <Name>Bars.GkhGji</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bars.Gkh\Bars.Gkh.csproj">
+      <Project>{2495a42b-7ec1-44d3-b7a7-1f90a2c44c85}</Project>
+      <Name>Bars.Gkh</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GisGkhLibrary\GisGkhLibrary.csproj">
+      <Project>{577bff62-ff66-4a44-9735-d7a5b19d80eb}</Project>
+      <Name>GisGkhLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\FIAS\Bars.B4.Modules.FIAS\Bars.B4.Modules.FIAS.csproj">
+      <Project>{6A9E84EC-5B9E-441F-95E5-493B52081D92}</Project>
+      <Name>Bars.B4.Modules.FIAS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Regions\Base\Bars.GkhGji.Regions.BaseChelyabinsk\Bars.GkhGji.Regions.BaseChelyabinsk.csproj">
+      <Project>{dd6422f9-1366-4761-b252-a590e9f61d1f}</Project>
+      <Name>Bars.GkhGji.Regions.BaseChelyabinsk</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Dicts\NsiList.cs" />
+    <None Include="ResourceManifest.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ResourceManifest.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\gisGkh\EditWindow.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="content\img\btnSend.png" />
+    <EmbeddedResource Include="content\img\btnSign.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\gisGkh\Panel.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\gisGkh\DictGrid.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\gisGkh\DictGridStore.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\gisGkh\DictGridModel.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\gisGkh\DictWindow.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\gisGkh\DictItemStore.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\gisGkh\DictItemModel.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\gisGkh\DictItemGrid.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\gisGkh\SignWindow.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\gisGkh\Certificate.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\cryptopro\jsxmlsigner.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\cryptopro\xadessigner.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\gisGkh\ROForGisGkhExportStore.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\gisGkh\ROForGisGkhExportModel.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\gisGkh\MassSignWindow.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\gisGkh\MOForGisGkhExportModel.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\gisGkh\MOForGisGkhExportStore.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\gisGkh\ProgramForGisGkhExportStore.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\gisGkh\ProgramForGisGkhExportModel.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\gisGkh\ContragentForGisGkhExportStore.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\gisGkh\ContragentForGisGkhExportModel.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\gisGkh\RoomMatchingPanel.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\gisGkh\RoomGrid.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\gisGkh\RoomGridStore.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\gisGkh\RoomGridModel.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\gisGkh\PremisesGrid.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\gisGkh\PremisesGridStore.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\model\gisGkh\PremisesGridModel.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\view\gisGkh\ROGrid.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\gisGkh\TaskSignStore.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libs\B4\store\gisGkh\DownloadGridStore.js" />
+    <EmbeddedResource Include="libs\B4\model\gisGkh\DownloadGridModel.js" />
+    <EmbeddedResource Include="libs\B4\model\gisGkh\ResolutionForGisGkhModel.js" />
+    <EmbeddedResource Include="libs\B4\store\gisGkh\ResolutionForGisGkhStore.js" />
+    <EmbeddedResource Include="libs\B4\model\gisGkh\DisposalForGisGkhModel.js" />
+    <EmbeddedResource Include="libs\B4\store\gisGkh\DisposalForGisGkhStore.js" />
+    <EmbeddedResource Include="libs\B4\view\gisGkh\DownloadGrid.js" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
