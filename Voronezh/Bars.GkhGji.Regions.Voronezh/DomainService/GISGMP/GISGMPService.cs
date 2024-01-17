@@ -486,7 +486,9 @@ namespace Bars.GkhGji.Regions.Voronezh.DomainService
                     var code = response.MessagePrimaryContent.Element(reqNamespace + "ImportChargesResponse")?.Element(comNamespace + "ImportProtocol")?.Attribute("code")?.Value;
                     var value = response.MessagePrimaryContent.Element(reqNamespace + "ImportChargesResponse")?.Element(comNamespace + "ImportProtocol")?.Attribute("description")?.Value;
 
-                    if (code == "0" || code == "5")
+                    if (code != "0")
+                        SetErrorState(requestData, $"ГИС ГМП вернул ошибку: {value}");
+                    else
                     {
                         // проставляем флаг квитирования всем платежам с УИНом начисления, т.к. они автоматически сквитируются в ГИС ГМП и сопоставляем все эти платежи с начислением
                         var payments = PayRegDomain.GetAll()
@@ -506,10 +508,6 @@ namespace Bars.GkhGji.Regions.Voronezh.DomainService
                             return true;
                         }
                         else return false;
-                    } 
-                    else
-                    {
-                        SetErrorState(requestData, $"ГИС ГМП вернул ошибку: {value}");
                     }
                 }
                 return false;
@@ -1025,8 +1023,7 @@ namespace Bars.GkhGji.Regions.Voronezh.DomainService
                 {
                     Meaning = GetMeaning(requestData.GisGmpChargeType).ToString(),
                     Reason = requestData.Reason,
-                    ChangeDate = DateTime.Now,
-                    ChangeDateSpecified = true
+                    ChangeDate = DateTime.Now
                 }
             });
             return chargesList.ToArray();

@@ -6,7 +6,7 @@
     width: 600,
     bodyPadding: 5,
     itemId: 'protocol197AddWindow',
-    title: 'Протокол на рассмотрение',
+    title: 'Протокол для рассмотрения',
     closeAction: 'hide',
     trackResetOnLoad: true,
 

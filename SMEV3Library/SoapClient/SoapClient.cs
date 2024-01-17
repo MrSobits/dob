@@ -3,7 +3,6 @@ using SMEV3Library.Exceptions;
 using SMEV3Library.SoapHttpClient.Enums;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -173,6 +172,8 @@ namespace SMEV3Library.SoapHttpClient
                     {
                         
                     }
+
+
                     var responseString = await responseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
 
                     httpResponse.StatusCode = responseMessage.StatusCode;
@@ -218,9 +219,8 @@ namespace SMEV3Library.SoapHttpClient
             string action = null)
         {
             var httpResponse = new HTTPResponse();
-            endpoint = new Uri("http://sgmp-web99p.tech.samregion.ru:8080/gmp-proxy_multi_dob/ws/SMEVMessageExchangePortTypeImpl");
-            //endpoint = new Uri("https://sgmp-app.samregion.ru/gmp-proxy_multi_dob/ws/SMEVMessageExchangePortTypeImpl");
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            endpoint = new Uri("https://sgmp-app.samregion.ru/gmp-proxy_multi_dob/ws/SMEVMessageExchangePortTypeImpl");
+            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             try
             {
                 if (endpoint == null)

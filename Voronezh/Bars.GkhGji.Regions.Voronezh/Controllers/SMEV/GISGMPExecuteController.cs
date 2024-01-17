@@ -70,7 +70,7 @@
         public ActionResult SendCalcRequest(BaseParams baseParams, Int64 taskId)
         {
             GisGmp smevRequestData = GisGmpDomain.Get(taskId);
-            if(smevRequestData==null)
+            if (smevRequestData == null)
                 return JsFailure("Запрос не сохранен");
 
             if (smevRequestData.RequestState == RequestState.Queued)
@@ -90,14 +90,14 @@
             try
             {
                 var taskInfo = _taskManager.CreateTasks(new SendCalcRequestTaskProvider(_container), baseParams).Data.Descriptors.FirstOrDefault();
-                if(taskInfo == null)
+                if (taskInfo == null)
                     return JsFailure("Сбой создания задачи");
                 else
-                    return JsSuccess($"Задача на отправку начисления поставлена в очередь с id {taskInfo.TaskId}"); 
+                    return JsSuccess($"Задача на отправку начисления поставлена в очередь с id {taskInfo.TaskId}");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                return JsFailure("Ошибка при отправке начисления: "+e.Message);
+                return JsFailure("Ошибка при отправке начисления: " + e.Message);
             }
         }
 
@@ -316,9 +316,9 @@
             BaseChelyabinsk.Entities.Protocol197.Protocol197 entity = Protocol197Domain.Get(protocolData);
 
             try
-            {   
+            {
                 if (entity != null && entity.TypeDocumentGji == TypeDocumentGji.Protocol197)
-                {                  
+                {
                     var children = DocumentGjiChildrenDomain.GetAll()
                         .Where(x => x.Parent != null && x.Parent.Id == protocolData)
                         .Where(x => x.Children != null && x.Children.TypeDocumentGji == TypeDocumentGji.Resolution).FirstOrDefault();
@@ -367,8 +367,8 @@
                                    .FirstOrDefault(x => x.Protocol197 == entity).ArticleLaw.KBK;
                         }
                         catch
-                        { 
-                        
+                        {
+
                         }
 
                         if (resol.Municipality != null)

@@ -186,11 +186,6 @@
                     .Select(x => x.ZonalInspection.GisGmpId)
                     .FirstOrDefault();
 
-                if (!string.IsNullOrEmpty(entity.Protocol.UIN))
-                {
-                    return entity.Protocol.UIN;
-                }
-
                 string s1 = Convert.ToInt32(originatorId, 16).ToString().PadLeft(8, '0');
                 string s2 = (entity.Protocol?.DocumentDate?.ToString("yyyyMMdd") ?? "00000000");
                 string s3 = "";
