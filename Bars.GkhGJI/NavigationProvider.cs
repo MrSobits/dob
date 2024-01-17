@@ -47,7 +47,7 @@ namespace Bars.GkhGji
             // реестр обращений пока невозможно перевести на роуты, пожтому пока вернул черещ Котроллер
             root.Add("Административная комиссия").Add("Реестр обращений").Add("Реестр обращений", "B4.controller.AppealCits").AddRequiredPermission("GkhGji.AppealCitizens.View").WithIcon("appealCits");
 
-            root.Add("Административная комиссия").Add("Документы").Add("Постановления комиссии", "resolpros").AddRequiredPermission("GkhGji.DocumentsGji.ResolPros.View").WithIcon("resolPros");
+            root.Add("Административная комиссия").Add("Документы").Add("Постановления прокуратуры", "resolpros").AddRequiredPermission("GkhGji.DocumentsGji.ResolPros.View").WithIcon("resolPros");
             //root.Add("Административная комиссия").Add("Документы").Add("Протоколы Комиссии", "protocolmvd").AddRequiredPermission("GkhGji.DocumentsGji.ProtocolMvd.View");
             //root.Add("Административная комиссия").Add("Документы").Add("Протоколы МЖК", "protocolmhc").AddRequiredPermission("GkhGji.DocumentsGji.ProtocolMhc.View");
             //root.Add("Административная комиссия").Add("Документы").Add("Протоколы РСО", "protocolrso").AddRequiredPermission("GkhGji.DocumentsGji.ProtocolRSO.View");

@@ -75,7 +75,7 @@
                 {
                     xtype: 'gridcolumn',
                     dataIndex: 'InspectorPosition',
-                    text: 'Должности составителей',
+                    text: 'Должности инспекторов',
                     filter: {
                         xtype: 'b4combobox',
                         operand: CondExpr.operands.icontains,

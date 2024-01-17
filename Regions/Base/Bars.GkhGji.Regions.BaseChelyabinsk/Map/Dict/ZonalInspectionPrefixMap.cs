@@ -31,6 +31,11 @@
         public const string UINPrefix = "UIN_PREFIX";
 
         /// <summary>
+        /// Префикс для номера дела
+        /// </summary>
+        public const string NumerationPrefix = "NUMERATION_PREFIX";
+
+        /// <summary>
         /// Зональная инспекция
         /// </summary>
         public const string ZonalInspection = "ZONAL_INSPECTION_ID";
@@ -46,6 +51,7 @@
             this.Property(x => x.ProtocolPrefix, "ProtocolPrefix").Column(ZonalInspectionPrefixMap.ProtocolPrefix);
             this.Property(x => x.PrescriptionPrefix, "PrescriptionPrefix").Column(ZonalInspectionPrefixMap.PrescriptionPrefix);
             this.Property(x => x.UINPrefix, "UINPrefix").Column(ZonalInspectionPrefixMap.UINPrefix);
+            Property(x => x.NumerationPrefix, "Префикс нумерации документов").Column(NumerationPrefix);
             this.Reference(x => x.ZonalInspection, "ZonalInspection").Column(ZonalInspectionPrefixMap.ZonalInspection).NotNull().Fetch();
         }
     }

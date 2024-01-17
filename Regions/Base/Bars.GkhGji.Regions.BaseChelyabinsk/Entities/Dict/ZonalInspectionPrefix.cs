@@ -31,5 +31,10 @@
         /// Префикс УИН
         /// </summary>
         public virtual string UINPrefix { get; set; }
+
+        /// <summary>
+        /// Префикс для номера дела
+        /// </summary>
+        public virtual string NumerationPrefix { get; set; }
     }
 }

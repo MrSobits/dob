@@ -17,18 +17,18 @@
     using Bars.B4.Modules.States;
 
     public class Protocol197ServiceInterceptor : DocumentGjiInterceptor<Protocol197>
-	{
+    {
         public IGkhUserManager UserManager { get; set; }
         public override IDataResult BeforeCreateAction(IDomainService<Protocol197> service, Protocol197 entity)
         {
-			var domainServiceInspection = this.Container.Resolve<IDomainService<BaseDefault>>();
+            var domainServiceInspection = this.Container.Resolve<IDomainService<BaseDefault>>();
             var domainStage = this.Container.Resolve<IDomainService<InspectionGjiStage>>();
             var personDocService = this.Container.Resolve<IDomainService<PhysicalPersonDocType>>();
 
             try
             {
                 var inspectionNum = GetNextNum();
-				var newInspection = new BaseDefault()
+                var newInspection = new BaseDefault()
                 {
                     TypeBase = TypeBase.Protocol197,
                     InspectionNum = inspectionNum,
@@ -46,7 +46,7 @@
 
                 domainStage.Save(newStage);
 
-				entity.TypeDocumentGji = TypeDocumentGji.Protocol197;
+                entity.TypeDocumentGji = TypeDocumentGji.Protocol197;
                 entity.Inspection = newInspection;
                 entity.Stage = newStage;
                 entity.CaseNumber = inspectionNum.ToString();
@@ -99,7 +99,7 @@
 
                 return base.BeforeCreateAction(service, entity);
             }
-            finally 
+            finally
             {
                 this.Container.Release(domainServiceInspection);
                 this.Container.Release(domainStage);
@@ -203,7 +203,7 @@
                     entity.ComissionMeeting = comission;
                 }
                 else
-                {            
+                {
 
                     comission = new ComissionMeeting
                     {
@@ -211,7 +211,7 @@
                         ComissionName = $"Комиссия от {entity.DateOfProceedings.Value.ToString("dd.MM.yyyy")}",
                         Description = "Создано из протокола",
                         ZonalInspection = zonal,
-                        CommissionNumber = "б/н"                        
+                        CommissionNumber = "б/н"
                     };
                     servStateProvider.SetDefaultState(comission);
                     ComissionMeetingDomain.Save(comission);
@@ -231,7 +231,7 @@
                 {
                     ComissionDocumentDecision = ComissionDocumentDecision.NotSet,
                     ComissionMeeting = entity.ComissionMeeting,
-                    DocumentGji = new DocumentGji {Id = entity.Id},
+                    DocumentGji = new DocumentGji { Id = entity.Id },
                     Description = "Добавлено из протокола"
                 });
             }
@@ -239,7 +239,7 @@
             var PersonService = Container.Resolve<IDomainService<IndividualPerson>>();
             if (entity.IndividualPerson == null && !string.IsNullOrEmpty(entity.Fio) || (entity.IndividualPerson != null && entity.IndividualPerson.Fio != entity.Fio))
             {
-                
+
                 try
                 {
                     var existsPerson = PersonService.GetAll()
@@ -249,7 +249,7 @@
                     {
                         IndividualPerson person = new IndividualPerson();
                         person.Fio = entity.Fio;
-                        person.PlaceResidence = entity.FiasRegistrationAddress != null? entity.FiasRegistrationAddress.AddressName:"";
+                        person.PlaceResidence = entity.FiasRegistrationAddress != null ? entity.FiasRegistrationAddress.AddressName : "";
                         person.ActuallyResidence = entity.FiasFactAddress != null ? entity.FiasFactAddress.AddressName : "";
                         person.FiasRegistrationAddress = entity.FiasRegistrationAddress;
                         person.FiasFactAddress = entity.FiasFactAddress;
@@ -263,7 +263,7 @@
                         person.DateBirth = entity.DateBirth;
                         person.PassportNumber = entity.PhysicalPersonDocumentNumber;
                         person.PassportSeries = entity.PhysicalPersonDocumentSerial;
-                        person.DepartmentCode = entity.DepartmentCode.HasValue? entity.DepartmentCode.Value.ToString():"";
+                        person.DepartmentCode = entity.DepartmentCode.HasValue ? entity.DepartmentCode.Value.ToString() : "";
                         person.DateIssue = entity.DateIssue;
                         person.PassportIssued = entity.PassportIssued;
                         person.INN = entity.INN;
@@ -291,13 +291,13 @@
                 }
 
             }
-            else if(entity.IndividualPerson != null)
+            else if (entity.IndividualPerson != null)
             {
                 var person = PersonService.Get(entity.IndividualPerson.Id);
 
                 person.PassportNumber = entity.PhysicalPersonDocumentNumber;
                 person.PassportSeries = entity.PhysicalPersonDocumentSerial;
-              
+
                 if (entity.FiasFactAddress != null)
                 {
                     person.FiasFactAddress = entity.FiasFactAddress;
@@ -330,7 +330,7 @@
                 {
                     if (entity.Contragent != null)
                     {
-                       // entity.FiasPlaceAddress = entity.Contragent.FiasJuridicalAddress;
+                        // entity.FiasPlaceAddress = entity.Contragent.FiasJuridicalAddress;
                     }
                 }
                 else if (entity.PlaceOffense == PlaceOffense.PlaceFact)
@@ -450,57 +450,57 @@
         }
 
         public override IDataResult BeforeDeleteAction(IDomainService<Protocol197> service, Protocol197 entity)
-		{
-			var annexService = this.Container.Resolve<IDomainService<Protocol197Annex>>();
-			var lawService = this.Container.Resolve<IDomainService<Protocol197ArticleLaw>>();
-			var violationService = this.Container.Resolve<IDomainService<Protocol197Violation>>();
-			var activitiyDirectionService = this.Container.Resolve<IDomainService<Protocol197ActivityDirection>>();
-			var surveySubjectReqService = this.Container.Resolve<IDomainService<Protocol197SurveySubjectRequirement>>();
-			var longTextService = this.Container.Resolve<IDomainService<Protocol197LongText>>();
+        {
+            var annexService = this.Container.Resolve<IDomainService<Protocol197Annex>>();
+            var lawService = this.Container.Resolve<IDomainService<Protocol197ArticleLaw>>();
+            var violationService = this.Container.Resolve<IDomainService<Protocol197Violation>>();
+            var activitiyDirectionService = this.Container.Resolve<IDomainService<Protocol197ActivityDirection>>();
+            var surveySubjectReqService = this.Container.Resolve<IDomainService<Protocol197SurveySubjectRequirement>>();
+            var longTextService = this.Container.Resolve<IDomainService<Protocol197LongText>>();
 
-			try
-			{
-				var result = base.BeforeDeleteAction(service, entity);
+            try
+            {
+                var result = base.BeforeDeleteAction(service, entity);
 
-				if (!result.Success)
-				{
-					return this.Failure(result.Message);
-				}
+                if (!result.Success)
+                {
+                    return this.Failure(result.Message);
+                }
 
-				annexService.GetAll().Where(x => x.Protocol197.Id == entity.Id)
-					.Select(x => x.Id).ForEach(x => annexService.Delete(x));
+                annexService.GetAll().Where(x => x.Protocol197.Id == entity.Id)
+                    .Select(x => x.Id).ForEach(x => annexService.Delete(x));
 
-				lawService.GetAll().Where(x => x.Protocol197.Id == entity.Id)
-					.Select(x => x.Id).ForEach(x => lawService.Delete(x));
+                lawService.GetAll().Where(x => x.Protocol197.Id == entity.Id)
+                    .Select(x => x.Id).ForEach(x => lawService.Delete(x));
 
-				violationService.GetAll().Where(x => x.Document.Id == entity.Id)
-					.Select(x => x.Id).ForEach(x => violationService.Delete(x));
+                violationService.GetAll().Where(x => x.Document.Id == entity.Id)
+                    .Select(x => x.Id).ForEach(x => violationService.Delete(x));
 
-				activitiyDirectionService.GetAll().Where(x => x.Protocol197.Id == entity.Id)
-					.Select(x => x.Id).ForEach(x => activitiyDirectionService.Delete(x));
+                activitiyDirectionService.GetAll().Where(x => x.Protocol197.Id == entity.Id)
+                    .Select(x => x.Id).ForEach(x => activitiyDirectionService.Delete(x));
 
-				surveySubjectReqService.GetAll().Where(x => x.Protocol197.Id == entity.Id)
-					.Select(x => x.Id).ForEach(x => surveySubjectReqService.Delete(x));
+                surveySubjectReqService.GetAll().Where(x => x.Protocol197.Id == entity.Id)
+                    .Select(x => x.Id).ForEach(x => surveySubjectReqService.Delete(x));
 
-				longTextService.GetAll().Where(x => x.Protocol197.Id == entity.Id)
-					.Select(x => x.Id).ForEach(x => longTextService.Delete(x));
+                longTextService.GetAll().Where(x => x.Protocol197.Id == entity.Id)
+                    .Select(x => x.Id).ForEach(x => longTextService.Delete(x));
 
-				return result;
-			}
-			finally
-			{
-				this.Container.Release(annexService);
-				this.Container.Release(lawService);
-				this.Container.Release(violationService);
-				this.Container.Release(activitiyDirectionService);
-				this.Container.Release(surveySubjectReqService);
-			}
-		}
+                return result;
+            }
+            finally
+            {
+                this.Container.Release(annexService);
+                this.Container.Release(lawService);
+                this.Container.Release(violationService);
+                this.Container.Release(activitiyDirectionService);
+                this.Container.Release(surveySubjectReqService);
+            }
+        }
 
-		public override IDataResult AfterDeleteAction(IDomainService<Protocol197> service, Protocol197 entity)
-		{
-			return this.Success();
-		}
+        public override IDataResult AfterDeleteAction(IDomainService<Protocol197> service, Protocol197 entity)
+        {
+            return this.Success();
+        }
 
 
         private int GetNextNum()
@@ -523,5 +523,5 @@
                                 .Select(x => x.ZonalInspection.GisGmpId)
                                 .FirstOrDefault();
         }
-	}
+    }
 }

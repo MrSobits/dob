@@ -39,7 +39,7 @@ namespace Bars.GkhGji.Regions.Voronezh.ExecutionAction
             var DocumentGjiChildrenDomain = Container.Resolve<IDomainService<DocumentGjiChildren>>();
 
             var resNotInLaw = ResolutionDomain.GetAll().Where(x => !x.InLawDate.HasValue && x.DocumentDate > DateTime.Now.AddYears(-1)).ToList();
-            foreach(var res in resNotInLaw)
+            foreach (var res in resNotInLaw)
             {
                 var prot197_id = DocumentGjiChildrenDomain.GetAll()
                     .Where(x => x.Children.Id == res.Id)
@@ -82,21 +82,21 @@ namespace Bars.GkhGji.Regions.Voronezh.ExecutionAction
                         }
                     }
                 }
-               
+
                 if (startDate.HasValue && res.InLawDate.HasValue)
                 {
                     var prodCalendarContainer = this.Container.Resolve<IDomainService<ProdCalendar>>().GetAll()
-                    .Where(x => x.ProdDate >= startDate.Value && x.ProdDate <= startDate.Value.AddDays(15)).Where(x=> !x.WorkDay).Select(x => x.ProdDate).ToList();
+                    .Where(x => x.ProdDate >= startDate.Value && x.ProdDate <= startDate.Value.AddDays(15)).Where(x => !x.WorkDay).Select(x => x.ProdDate).ToList();
 
                     var prodCalendarWorkContainer = this.Container.Resolve<IDomainService<ProdCalendar>>().GetAll()
-                    .Where(x => x.ProdDate >= startDate.Value && x.ProdDate <= startDate.Value.AddDays(15)).Where(x=> x.WorkDay).Select(x => x.ProdDate).ToList();
+                    .Where(x => x.ProdDate >= startDate.Value && x.ProdDate <= startDate.Value.AddDays(15)).Where(x => x.WorkDay).Select(x => x.ProdDate).ToList();
 
                     DateTime newControlDate = res.InLawDate.Value;
 
                     //int sartudaysCount = CountDays(DayOfWeek.Saturday, appDate.Value, appDate.Value.AddDays(28));
                     //int sundaysCount = CountDays(DayOfWeek.Sunday, appDate.Value, appDate.Value.AddDays(28));
                     //newControlDate = appDate.Value.AddDays(28 + sartudaysCount + sundaysCount);
-                                       
+
                     if (prodCalendarContainer.Contains(newControlDate))
                     {
                         for (int i = 0; i <= prodCalendarContainer.Count; i++)
@@ -119,7 +119,7 @@ namespace Bars.GkhGji.Regions.Voronezh.ExecutionAction
                             newControlDate = newControlDate.AddDays(0);
                         }
                         else
-                        newControlDate = newControlDate.AddDays(2);
+                            newControlDate = newControlDate.AddDays(2);
                     }
                     else if (newControlDate.DayOfWeek == DayOfWeek.Sunday)
                     {
@@ -128,7 +128,7 @@ namespace Bars.GkhGji.Regions.Voronezh.ExecutionAction
                             newControlDate = newControlDate.AddDays(0);
                         }
                         else
-                        newControlDate = newControlDate.AddDays(1);
+                            newControlDate = newControlDate.AddDays(1);
                     }
 
                     if (prodCalendarContainer.Contains(newControlDate))
@@ -149,7 +149,7 @@ namespace Bars.GkhGji.Regions.Voronezh.ExecutionAction
                     res.InLawDate = newControlDate.AddDays(1);
                     dueDate = res.InLawDate;
                 }
-                
+
                 if (prot197 != null)
                 {
                     if (prot197.DateOfViolation.HasValue && !res.DueDate.HasValue && res.PenaltyAmount > 0)
@@ -157,7 +157,7 @@ namespace Bars.GkhGji.Regions.Voronezh.ExecutionAction
                         res.DueDate = prot197.DateOfViolation.Value.AddDays(60);
                     }
                 }
-                
+
                 if (res.InLawDate.HasValue && res.Paided == Gkh.Enums.YesNoNotSet.NotSet)
                 {
                     if (res.PenaltyAmount > 0 && DateTime.Now > res.InLawDate.Value.AddDays(60))
@@ -168,7 +168,7 @@ namespace Bars.GkhGji.Regions.Voronezh.ExecutionAction
                             res.Paided = Gkh.Enums.YesNoNotSet.No;
                             res.Protocol205Date = res.InLawDate.Value.AddDays(61);
                         }
-                        else if(payfineSum >= res.PenaltyAmount)
+                        else if (payfineSum >= res.PenaltyAmount)
                         {
                             var payfinedate = ResolutionPayFineDomain.GetAll().Where(x => x.Resolution.Id == res.Id && x.Amount.HasValue).Max(x => x.DocumentDate);
                             if (payfinedate.HasValue)
@@ -177,7 +177,7 @@ namespace Bars.GkhGji.Regions.Voronezh.ExecutionAction
                                 res.PaymentDate = payfinedate;
                             }
                         }
-                        
+
                     }
                 }
 

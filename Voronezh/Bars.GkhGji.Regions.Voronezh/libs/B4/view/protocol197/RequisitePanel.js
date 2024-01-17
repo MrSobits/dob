@@ -125,7 +125,7 @@
                                     name: 'Executant',
                                     allowBlank: false,
                                     editable: false,
-                                    fieldLabel: 'Тип нарушителя',
+                                    fieldLabel: 'Тип исполнителя',
                                     fields: ['Id', 'Name', 'Code'],
                                     url: '/ExecutantDocGji/List',
                                     queryMode: 'local',

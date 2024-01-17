@@ -229,6 +229,7 @@
     <Compile Include="Migrations\Version_2018041700\UpdateSchema.cs" />
     <Compile Include="Migrations\Version_2017112200\UpdateSchema.cs" />
     <Compile Include="Migrations\Version_2023020500\UpdateSchema.cs" />
+    <Compile Include="Migrations\Version_2024011700\UpdateSchema.cs" />
     <Compile Include="Migrations\Version_2023031300\UpdateSchema.cs" />
     <Compile Include="Migrations\Version_2023020700\UpdateSchema.cs" />
     <Compile Include="Migrations\Version_2022120100\UpdateSchema.cs" />

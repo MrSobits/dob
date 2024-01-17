@@ -11,6 +11,7 @@
         { name: 'ProtocolPrefix' },
         { name: 'PrescriptionPrefix' },
         { name: 'UINPrefix' },
-        { name: 'ZonalInspection' }
+        { name: 'ZonalInspection' },
+        { name: 'NumerationPrefix' }
     ]
 });

@@ -123,7 +123,7 @@ namespace Bars.GkhGji.Regions.Voronezh.DomainService
                 string messageId = GetTimeStampUuid();
 
                 var requestResult = _SMEV3Service.SendRequestAsyncSGIO(request, messageId, null, true).GetAwaiter().GetResult();
-                requestData.MessageId = messageId;
+                requestData.MessageId = requestResult.MessageId;
                 PayRegRequestsDomain.Update(requestData);
              
                 //Больше не сохраняем, т.к. их будет слишком много

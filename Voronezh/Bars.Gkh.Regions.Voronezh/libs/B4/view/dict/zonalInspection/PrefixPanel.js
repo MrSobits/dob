@@ -4,7 +4,7 @@
         'B4.store.dict.ZonalInspectionPrefix'
     ],
 
-    title: 'Префиксные номера отдела',
+    title: 'Префиксы',
     itemId: 'zonalInspectionPrefixPanel',
     alias: 'widget.zonalinspectionprefixpanel',
 
@@ -43,6 +43,10 @@
                         {
                             name: 'UINPrefix',
                             fieldLabel: 'УИН'
+                        },
+                        {
+                            name: 'NumerationPrefix',
+                            fieldLabel: 'Префикс для номера дела'
                         }
                     ]
                 }
