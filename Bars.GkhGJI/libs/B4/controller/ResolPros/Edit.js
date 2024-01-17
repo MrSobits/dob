@@ -12,7 +12,8 @@
         'B4.aspects.permission.ResolProsState',
         'B4.Ajax',
         'B4.Url',
-        'B4.aspects.GjiDocumentCreateButton'
+        'B4.aspects.GjiDocumentCreateButton',
+        'B4.aspects.GkhBlobText'
     ],
 
     models: [
@@ -43,7 +44,8 @@
         'resolpros.AnnexGrid',
         'resolpros.ArticleLawGrid',
         'resolpros.RealityObjectGrid',
-        'SelectWindow.MultiSelectWindow'
+        'SelectWindow.MultiSelectWindow',
+        'documentsgjiregister.ResolutionGrid'
     ],
 
     mainView: 'resolpros.EditPanel',
@@ -82,6 +84,23 @@
                     //и обновляем панель
                     asp.controller.getAspect('resolProsEditPanelAspect').setData(entityId);
                 }
+            }
+        },
+        {
+            xtype: 'gkhblobtextaspect',
+            name: 'resolProsBlobTextAspect',
+            fieldSelector: '#taAdditionalInfo',
+            editPanelAspectName: 'resolProsEditPanelAspect',
+            controllerName: 'ResolPros',
+            valueFieldName: 'Description',
+            previewLength: 1000,
+            autoSavePreview: true,
+            previewField: 'Description',
+            getParentPanel: function () {
+                return this.componentQuery('#resolProsEditPanel');
+            },
+            getParentRecordId: function () {
+                return this.controller.params.documentId;
             }
         },
         {   /*
@@ -146,6 +165,11 @@
                 
                 // обновляем кнопку Сформирвоать
                 this.controller.getAspect('resolProsCreateButtonAspect').setData(rec.get('Id'));
+
+                // Добавляем карандаш к текстареа
+                this.controller.getAspect('resolProsBlobTextAspect').doInjection();
+                var taDescription = panel.down('#taAdditionalInfo');
+                taDescription.setValue(rec.get('Description'));
             },
 
             setTypeExecutantPermission: function (typeExec) {

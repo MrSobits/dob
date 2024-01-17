@@ -22,7 +22,11 @@
         'B4.view.resolpros.ArticleLawGrid',
         'B4.view.resolpros.RealityObjectGrid',
         'B4.view.GjiDocumentCreateButton',
-        'B4.enums.TypeDocumentGji'
+        'B4.enums.TypeDocumentGji',
+        'B4.form.FiasSelectAddress',
+        'B4.store.dict.SocialStatus',
+        'B4.enums.FamilyStatus',
+        'B4.ux.form.field.TabularTextArea'
     ],
 
     initComponent: function() {
@@ -170,8 +174,7 @@
                                     border: false,
                                     layout: 'hbox',
                                     defaults: {
-                                        labelAlign: 'right',
-                                        flex: 1
+                                        labelAlign: 'right'
                                     },
                                     items: [
                                         {
@@ -181,7 +184,7 @@
                                             fieldLabel: 'Дата поступления',
                                             format: 'd.m.Y',
                                             itemId: 'dfDateSupplyResolPros',
-                                            maxWidth: 400
+                                            flex: 1
                                         },
                                         {
                                             xtype: 'b4selectfield',
@@ -189,6 +192,7 @@
                                             itemId: 'actCheckSelectField',
                                             fieldLabel: 'Акт проверки',
                                             labelWidth: 150,
+                                            flex: 1.5,
                                             isGetOnlyIdProperty: false,
                                             editable: false,
                                             textProperty: 'DocumentNumber',
@@ -205,6 +209,14 @@
                                             ]
                                         }
                                     ]
+                                },
+                                {
+                                    xtype: 'tabtextarea',
+                                    labelWidth: 280,
+                                    fieldLabel: 'Обстоятельства дела',
+                                    name: 'AdditionalInfo',
+                                    itemId: 'taAdditionalInfo',
+                                    maxLength: 2000
                                 },
                                 {
                                     xtype: 'fieldset',
@@ -257,6 +269,7 @@
                                         },
                                         {
                                             xtype: 'container',
+                                            margin: '0 0 10 0',
                                             layout: 'hbox',
                                             defaults: {
                                                 labelAlign: 'right',
@@ -284,6 +297,7 @@
                                         },
                                         {
                                             xtype: 'container',
+                                            margin: '0 0 10 0',
                                             layout: 'hbox',
                                             defaults: {
                                                 labelAlign: 'right',
@@ -300,7 +314,265 @@
                                                     labelWidth: 120
                                                 },
                                                 {
-                                                    xtype: 'component'
+                                                    xtype: 'b4selectfield',
+                                                    name: 'PhysicalPersonDocType',
+                                                    labelWidth: 150,
+                                                    fieldLabel: 'Вид документа ФЛ',
+                                                    store: 'B4.store.dict.PhysicalPersonDocType',
+                                                    editable: false,
+                                                    itemId: 'dfPhysicalPersonDocType',
+                                                    allowBlank: true,
+                                                    columns: [
+                                                        { text: 'Код', dataIndex: 'Code', flex: 0.3, filter: { xtype: 'textfield' } },
+                                                        { text: 'Наименование', dataIndex: 'Name', flex: 1, filter: { xtype: 'textfield' } }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            xtype: 'container',
+                                            margin: '0 0 10 0',
+                                            layout: 'hbox',
+                                            defaults: {
+                                                labelWidth: 120,
+                                                labelAlign: 'right',
+                                                disabled: false,
+                                                flex: 0.5
+                                            },
+                                            items: [
+                                                {
+                                                    xtype: 'textfield',
+                                                    name: 'PhysicalPersonDocumentSerial',
+                                                    itemId: 'dfPhysicalPersonDocumentSerial',
+                                                    fieldLabel: 'Серия документа ФЛ',
+                                                    allowBlank: true,
+                                                    maxLength: 20
+                                                },
+                                                {
+                                                    xtype: 'textfield',
+                                                    name: 'PhysicalPersonDocumentNumber',
+                                                    itemId: 'dfPhysicalPersonDocumentNumber',
+                                                    fieldLabel: 'Номер документа ФЛ',
+                                                    allowBlank: true,
+                                                    maxLength: 20
+                                                },
+                                                {
+                                                    xtype: 'checkbox',
+                                                    itemId: 'dfPhysicalPersonIsNotRF',
+                                                    name: 'PhysicalPersonIsNotRF',
+                                                    fieldLabel: 'Не является гражданином РФ',
+                                                    labelWidth: 180,
+                                                    allowBlank: true
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            xtype: 'container',
+                                            margin: '0 0 10 0',
+                                            layout: 'hbox',
+                                            defaults: {
+                                                labelAlign: 'right',
+                                                labelWidth: 120,
+                                                flex: 0.5
+                                            },
+                                            items: [
+                                                {
+                                                    xtype: 'textfield',
+                                                    name: 'PassportIssued',
+                                                    itemId: 'dfPassportIssued',
+                                                    fieldLabel: 'Паспорт выдан',
+                                                    maxLength: 300
+                                                },
+                                                {
+                                                    xtype: 'datefield',
+                                                    name: 'DateIssue',
+                                                    itemId: 'dfDateIssue',
+                                                    fieldLabel: 'Дата выдачи',
+                                                    allowBlank: true,
+                                                    maxLength: 20
+                                                },
+                                                {
+                                                    xtype: 'textfield',
+                                                    name: 'DepartmentCode',
+                                                    itemId: 'dfDepartmentCode',
+                                                    fieldLabel: 'Код подразделения',
+                                                    maxLength: 20
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            xtype: 'container',
+                                            padding: '0 0 10 0',
+                                            layout: {
+                                                type: 'hbox',
+                                                align: 'stretch'
+                                            },
+                                            defaults: {
+                                                labelAlign: 'right'
+                                            },
+                                            items: [
+                                                {
+                                                    xtype: 'datefield',
+                                                    fieldLabel: 'Дата рождения',
+                                                    labelWidth: 120,
+                                                    name: 'DateBirth',
+                                                    itemId: 'tfDateBirth',
+                                                    flex: 1
+                                                },
+                                                {
+                                                    xtype: 'textfield',
+                                                    fieldLabel: 'Место рождения',
+                                                    labelWidth: 150,
+                                                    name: 'BirthPlace',
+                                                    itemId: 'tfBirthPlace',
+                                                    flex: 1
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            xtype: 'container',
+                                            margin: '0 0 10 0',
+                                            layout: 'hbox',
+                                            defaults: {
+                                                labelWidth: 180,
+                                                labelAlign: 'right',
+                                                flex: 1
+                                            },
+                                            items: [
+                                                {
+                                                    xtype: 'checkbox',
+                                                    name: 'IsPlaceResidenceOutState',
+                                                    itemId: 'cbIsPlaceResidenceOutState',
+                                                    flex: 0.5,
+                                                    fieldLabel: 'Регистрация за пределами субъекта'
+                                                },
+                                                {
+                                                    xtype: 'b4fiasselectaddress',
+                                                    flex: 3,
+                                                    labelWidth: 220,
+                                                    labelAlign: 'right',
+                                                    name: 'FiasRegistrationAddress',
+                                                    itemId: 'protocolFiasRegistrationAddressField',
+                                                    fieldLabel: 'Адрес регистрации нарушителя',
+                                                    fieldsRegex: {
+                                                        tfHousing: {
+                                                            regex: /^\d+$/,
+                                                            regexText: 'В это поле можно вводить только цифры'
+                                                        },
+                                                        tfBuilding: {
+                                                            regex: /^\d+$/,
+                                                            regexText: 'В это поле можно вводить только цифры'
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            xtype: 'container',
+                                            margin: '0 0 10 0',
+                                            layout: 'hbox',
+                                            defaults: {
+                                                labelWidth: 180,
+                                                labelAlign: 'right',
+                                                flex: 1
+                                            },
+                                            items: [
+                                                {
+                                                    xtype: 'checkbox',
+                                                    name: 'IsActuallyResidenceOutState',
+                                                    itemId: 'cbIsActuallyResidenceOutState',
+                                                    flex: 0.5,
+                                                    fieldLabel: 'Место фактического пребывания за пределами субъекта'
+                                                },
+                                                {
+                                                    xtype: 'b4fiasselectaddress',
+                                                    flex: 3,
+                                                    labelAlign: 'right',
+                                                    name: 'FiasFactAddress',
+                                                    labelWidth: 220,
+                                                    itemId: 'protocolFiaFactAddressField',
+                                                    fieldLabel: 'Адрес факт. места жительства',
+                                                    fieldsRegex: {
+                                                        tfHousing: {
+                                                            regex: /^\d+$/,
+                                                            regexText: 'В это поле можно вводить только цифры'
+                                                        },
+                                                        tfBuilding: {
+                                                            regex: /^\d+$/,
+                                                            regexText: 'В это поле можно вводить только цифры'
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            xtype: 'container',
+                                            margin: '0 0 10 0',
+                                            layout: 'hbox',
+                                            defaults: {
+                                                labelWidth: 120,
+                                                labelAlign: 'right'
+                                            },
+                                            items: [
+                                                {
+                                                    xtype: 'b4enumcombo',
+                                                    name: 'FamilyStatus',
+                                                    fieldLabel: 'Семейное положение',
+                                                    itemId: 'ecFamilyStatus',
+                                                    width: 450,
+                                                    minWidth: 450,
+                                                    enumName: B4.enums.FamilyStatus
+                                                },
+                                                {
+                                                    xtype: 'textfield',
+                                                    name: 'Job',
+                                                    itemId: 'tfJob',
+                                                    labelWidth: 80,
+                                                    flex: 1,
+                                                    fieldLabel: 'Место работы',
+                                                    maxLength: 1000,
+                                                    allowBlank: true,
+                                                },
+                                                {
+                                                    xtype: 'textfield',
+                                                    name: 'PhoneNumber',
+                                                    itemId: 'tfPhoneNumber',
+                                                    maxLength: 100,
+                                                    flex: 1,
+                                                    fieldLabel: 'Контактный телефон',
+                                                    allowBlank: true
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            xtype: 'container',
+                                            margin: '0 0 10 0',
+                                            layout: 'hbox',
+                                            defaults: {
+                                                labelWidth: 120,
+                                                labelAlign: 'right'
+                                            },
+                                            items: [
+                                                {
+                                                    xtype: 'b4selectfield',
+                                                    itemId: 'sfSocialStatus',
+                                                    name: 'SocialStatus',
+                                                    flex: 1,
+                                                    fieldLabel: 'Социальный статус',
+                                                    store: 'B4.store.dict.SocialStatus',
+                                                    editable: false
+                                                },
+                                                {
+                                                    xtype: 'numberfield',
+                                                    hideTrigger: true,
+                                                    keyNavEnabled: false,
+                                                    mouseWheelEnabled: false,
+                                                    maxValue: 20,
+                                                    flex: 1,
+                                                    labelWidth: 150,
+                                                    itemId: 'nfDependentsNumber',
+                                                    name: 'DependentsNumber',
+                                                    fieldLabel: 'Количество иждевенцев'
                                                 },
                                             ]
                                         }

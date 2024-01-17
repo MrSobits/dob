@@ -113,6 +113,7 @@
         public override IDataResult Get(IDomainService<T> domainService, BaseParams baseParams)
         {
             var servDocRef = Container.Resolve<IDomainService<DocumentGjiReference>>();
+            var resolProsLongTextDomain = Container.Resolve<IDomainService<ResolProsLongText>>();
 
             try
             {
@@ -138,6 +139,7 @@
             finally 
             {
                 Container.Release(servDocRef);
+                Container.Release(resolProsLongTextDomain);
             }
         }
     }

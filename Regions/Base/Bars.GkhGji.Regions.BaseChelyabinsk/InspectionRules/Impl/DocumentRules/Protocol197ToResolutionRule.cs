@@ -90,6 +90,7 @@
 
             //учитывать номер
             int docnum = protocol197.Inspection.InspectionNum.HasValue ? protocol197.Inspection.InspectionNum.Value : GetNextNumber();
+            int num = 0;
             if (protocol197.IndividualPerson != null)
             {
                 resolution = new Resolution()
@@ -110,6 +111,16 @@
                     PhysicalPersonDocumentNumber = protocol197.PhysicalPersonDocumentNumber,
                     PhysicalPersonDocumentSerial = protocol197.PhysicalPersonDocumentSerial,
                     PhysicalPersonIsNotRF = protocol197.PhysicalPersonIsNotRF,
+                    PlaceResidence = protocol197.PlaceResidence,
+                    ActuallyResidence = protocol197.ActuallyResidence,
+                    BirthPlace = protocol197.BirthPlace,
+                    DateBirth = protocol197.DateBirth,
+                    PassportNumber = Int32.TryParse(protocol197.PhysicalPersonDocumentNumber, out num) ? Convert.ToInt32(protocol197.PhysicalPersonDocumentNumber) : 0,
+                    PassportSeries = Int32.TryParse(protocol197.PhysicalPersonDocumentSerial, out num) ? Convert.ToInt32(protocol197.PhysicalPersonDocumentSerial) : 0,
+                    PassportIssued = protocol197.PassportIssued,
+                    INN = protocol197.INN,
+                    DepartmentCode = protocol197.DepartmentCode,
+                    DateIssue = protocol197.DateIssue,
                     TypeInitiativeOrg = TypeInitiativeOrgGji.HousingInspection,
                     Sanction = new SanctionGji { Id = 2, Name = "Административный штраф" },
                     Paided = YesNoNotSet.NotSet,
@@ -137,6 +148,18 @@
                     PhysicalPersonDocumentNumber = protocol197.PhysicalPersonDocumentNumber,
                     PhysicalPersonDocumentSerial = protocol197.PhysicalPersonDocumentSerial,
                     PhysicalPersonIsNotRF = protocol197.PhysicalPersonIsNotRF,
+                    PlaceResidence = protocol197.PlaceResidence,
+                    ActuallyResidence = protocol197.ActuallyResidence,
+                    BirthPlace = protocol197.BirthPlace,
+                    DateBirth = protocol197.DateBirth,
+                    PassportNumber = Int32.TryParse(protocol197.PhysicalPersonDocumentNumber, out num) ? Convert.ToInt32(protocol197.PhysicalPersonDocumentNumber) : 0,
+                    PassportSeries = Int32.TryParse(protocol197.PhysicalPersonDocumentSerial, out num) ? Convert.ToInt32(protocol197.PhysicalPersonDocumentSerial) : 0,
+                    PassportIssued = protocol197.PassportIssued,
+                    INN = protocol197.INN,
+                    DepartmentCode = protocol197.DepartmentCode,
+                    DateIssue = protocol197.DateIssue,
+                    Job = protocol197.Job,
+                    FamilyStatus = protocol197.FamilyStatus,
                     TypeInitiativeOrg = TypeInitiativeOrgGji.HousingInspection,
                     Sanction = new SanctionGji {Id = 2, Name = "Административный штраф" },
                     Paided = YesNoNotSet.NotSet,

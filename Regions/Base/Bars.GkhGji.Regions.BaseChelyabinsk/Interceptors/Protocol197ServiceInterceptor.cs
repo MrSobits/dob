@@ -23,6 +23,7 @@
         {
 			var domainServiceInspection = this.Container.Resolve<IDomainService<BaseDefault>>();
             var domainStage = this.Container.Resolve<IDomainService<InspectionGjiStage>>();
+            var personDocService = this.Container.Resolve<IDomainService<PhysicalPersonDocType>>();
 
             try
             {
@@ -49,6 +50,7 @@
                 entity.Inspection = newInspection;
                 entity.Stage = newStage;
                 entity.CaseNumber = inspectionNum.ToString();
+                entity.PhysicalPersonDocType = personDocService.GetAll().Where(x => x.Name == "Паспорт гражданина Российской Федерации").Select(x => x).FirstOrDefault();
 
                 if (entity.DocumentNum != null)
                 {

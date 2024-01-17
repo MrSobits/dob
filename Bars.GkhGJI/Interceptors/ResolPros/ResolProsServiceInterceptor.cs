@@ -7,6 +7,7 @@
     using Bars.B4;
     using Bars.GkhGji.Entities;
     using Bars.GkhGji.Enums;
+    using GkhUtils = Gkh.Utils.Utils;
 
     public class ResolProsServiceInterceptor : ResolProsServiceInterceptor<ResolPros>
     {
@@ -59,8 +60,17 @@
 
         public override IDataResult BeforeUpdateAction(IDomainService<T> service, T entity)
         {
-            // перед обновлением сохраняем или удаляем связь с Актом проверки который передан в прокуратуруы
+            // Перед обновлением сохраняем или удаляем связь с Актом проверки который передан в прокуратуруы
             var domainDocumentRef = Container.Resolve<IDomainService<DocumentGjiReference>>();
+
+            if (entity.FiasRegistrationAddress != null)
+            {
+                GkhUtils.SaveFiasAddress(this.Container, entity.FiasRegistrationAddress);
+            }
+            if (entity.FiasFactAddress != null)
+            {
+                GkhUtils.SaveFiasAddress(this.Container, entity.FiasFactAddress);
+            }
 
             try
             {
@@ -103,6 +113,7 @@
             var annexService = this.Container.Resolve<IDomainService<ResolProsAnnex>>();
             var lawService = this.Container.Resolve<IDomainService<ResolProsArticleLaw>>();
             var resolProsRealityObjectService = Container.Resolve<IDomainService<ResolProsRealityObject>>();
+            var longTextService = Container.Resolve<IDomainService<ResolProsLongText>>();
 
             try
             {
@@ -137,6 +148,12 @@
                     resolProsRealityObjectService.Delete(value);
                 }
 
+                var longTexts = longTextService.GetAll().Where(x => x.ResolPros.Id == entity.Id).Select(x => x.Id).ToList();
+                foreach (var text in longTexts)
+                {
+                    longTextService.Delete(text);
+                }
+
                 // Короче поскольку над оудалит ьдокумент то Основание проверки данного документа также адо будет удалить
                 // Следовательно запоминаем Id оснвоания чтобы в AfterDelete совершить данный акт удаления
                 if (entity.Inspection != null)
@@ -151,6 +168,7 @@
                 Container.Release(annexService);
                 Container.Release(lawService);
                 Container.Release(resolProsRealityObjectService);
+                Container.Release(longTextService);
             }
 
         }

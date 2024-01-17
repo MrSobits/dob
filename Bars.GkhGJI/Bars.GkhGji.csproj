@@ -339,6 +339,7 @@
     <Compile Include="Entities\ProtocolRSO\ProtocolRSOArticleLaw.cs" />
     <Compile Include="Entities\ProtocolRSO\ProtocolRSODefinition.cs" />
     <Compile Include="Entities\ProtocolRSO\ProtocolRSORealityObject.cs" />
+    <Compile Include="Entities\ResolPros\ResolProsLongText.cs" />
     <Compile Include="Entities\Resolution\ResolutionLongText.cs" />
     <Compile Include="Entities\SpecialAccountOwner\SPAccOwnerRealityObject.cs" />
     <Compile Include="Entities\SpecialAccountOwner\SpecialAccountOwner.cs" />
@@ -390,6 +391,7 @@
     <Compile Include="FormatDataExport\ProxySelectors\Impl\DisposalFilesSelectorService.cs" />
     <Compile Include="FormatDataExport\ProxySelectors\Impl\PreceptFilesSelectorService.cs" />
     <Compile Include="FormatDataExport\ProxySelectors\Impl\ProtocolFilesSelectorService.cs" />
+    <Compile Include="Import\Appeal\ImportAppeal.cs" />
     <Compile Include="InspectionRules\Impl\SMEVRule.cs" />
     <Compile Include="InspectionRules\ISMEVRule.cs" />
     <Compile Include="InspectionRules\Impl\DocumentRules\ProtocolRSOToResolutionRule.cs" />
@@ -519,7 +521,6 @@
     <Compile Include="Enums\TypeProlongation.cs" />
     <Compile Include="ExecutionAction\NormativeDocInitializationAction.cs" />
     <Compile Include="Export\ProtocolMhcDataExport.cs" />
-    <Compile Include="Import\Appeal\ImportAppeal.cs" />
     <Compile Include="InspectionRules\Impl\DocumentRules\DisposalToActCheckWithoutRoRule.cs" />
     <Compile Include="InspectionRules\Impl\DocumentRules\ProtocolMhcToResolutionRule.cs" />
     <Compile Include="Interceptors\ActCheck\ActCheckRealityObjectInterceptor.cs" />
@@ -635,6 +636,7 @@
     <Compile Include="Map\ProtocolRSO\ProtocolRSODefinitionMap.cs" />
     <Compile Include="Map\ProtocolRSO\ProtocolRSOMap.cs" />
     <Compile Include="Map\ProtocolRSO\ProtocolRSORealityObjectMap.cs" />
+    <Compile Include="Map\ResolPros\ResolProsLongTextMap.cs" />
     <Compile Include="Map\ResolutionRospotrebnadzor\ResolutionRospotrebnadzorViolationMap.cs" />
     <Compile Include="Map\ResolutionRospotrebnadzor\ResolutionRospotrebnadzorArticleLawMap.cs" />
     <Compile Include="Map\ResolutionRospotrebnadzor\ResolutionRospotrebnadzorAnnexMap.cs" />
@@ -765,6 +767,7 @@
     <Compile Include="Migrations\2020\Version_2020051800\UpdateSchema.cs" />
     <Compile Include="Migrations\2020\Version_2020050700\UpdateSchema.cs" />
     <Compile Include="Migrations\2020\Version_2020121800\UpdateSchema.cs" />
+    <Compile Include="Migrations\2023\Version_2024010900\UpdateSchema.cs" />
     <Compile Include="Migrations\2023\Version_2023042400\UpdateSchema.cs" />
     <Compile Include="Migrations\2023\Version_2023040300\UpdateSchema.cs" />
     <Compile Include="Migrations\2023\Version_2023021700\UpdateSchema.cs" />

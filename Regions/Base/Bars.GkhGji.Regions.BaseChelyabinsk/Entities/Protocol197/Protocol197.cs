@@ -328,6 +328,7 @@
 		/// Тип нарушителя
 		/// </summary>
 		public virtual TypeViolator TypeViolator { get; set; }
+
 		/// <summary>
 		/// Протокол - реквизиты - Тип адреса - Выбор из ФИАС
 		/// </summary>

@@ -5,6 +5,7 @@
 
     using Bars.B4;
     using Bars.B4.DataAccess;
+    using Bars.B4.Modules.Analytics.Reports.Params;
     using Bars.Gkh.Enums;
     using Bars.GkhGji.Entities;
     using Bars.GkhGji.Enums;
@@ -80,7 +81,6 @@
             #region Формируем предписание
             var resolPros = ResolProsDomain.GetAll()
                                     .Where(x => x.Id == document.Id)
-                                    .Select(x => new { x.Executant, x.Contragent, x.PhysicalPerson, x.PhysicalPersonInfo, x.UIN, x.PhysicalPersonPosition })
                                     .FirstOrDefault();
 
             if (resolPros == null)
@@ -90,6 +90,7 @@
 
             Resolution resolution = null;
 
+            int num = 0;
             if (!string.IsNullOrEmpty(resolPros.PhysicalPerson))
             {
                 resolution = new Resolution()
@@ -104,6 +105,21 @@
                     Patronymic = resolPros.PhysicalPerson.Split(' ').Length > 2 ? resolPros.PhysicalPerson.Split(' ')[2] : "",
                     PhysicalPerson = resolPros.PhysicalPerson,
                     PhysicalPersonInfo = resolPros.PhysicalPersonInfo,
+                    PhysicalPersonDocType = resolPros.PhysicalPersonDocType,
+                    PhysicalPersonDocumentNumber = resolPros.PhysicalPersonDocumentNumber,
+                    PhysicalPersonDocumentSerial = resolPros.PhysicalPersonDocumentSerial,
+                    PhysicalPersonIsNotRF = resolPros.PhysicalPersonIsNotRF,
+                    PlaceResidence = resolPros.FiasRegistrationAddress != null ? resolPros.FiasRegistrationAddress.AddressName : "",
+                    ActuallyResidence = resolPros.FiasFactAddress != null ? resolPros.FiasFactAddress.AddressName : "",
+                    BirthPlace = resolPros.BirthPlace,
+                    DateBirth = resolPros.DateBirth,
+                    PassportNumber = Int32.TryParse(resolPros.PhysicalPersonDocumentNumber, out num) ? Convert.ToInt32(resolPros.PhysicalPersonDocumentNumber) : 0,
+                    PassportSeries = Int32.TryParse(resolPros.PhysicalPersonDocumentSerial, out num) ? Convert.ToInt32(resolPros.PhysicalPersonDocumentSerial) : 0,
+                    PassportIssued = resolPros.PassportIssued,
+                    DepartmentCode = resolPros.DepartmentCode,
+                    DateIssue = resolPros.DateIssue,
+                    Job = resolPros.Job,
+                    FamilyStatus = resolPros.FamilyStatus,
                     TypeInitiativeOrg = TypeInitiativeOrgGji.HousingInspection,
                     Paided = YesNoNotSet.NotSet,
                     GisUin = resolPros.UIN
@@ -117,7 +133,23 @@
                     TypeDocumentGji = TypeDocumentGji.Resolution,
                     Contragent = resolPros.Contragent,
                     Executant = resolPros.Executant,
+                    Position = resolPros.PhysicalPersonPosition,
                     PhysicalPersonInfo = resolPros.PhysicalPersonInfo,
+                    PhysicalPersonDocType = resolPros.PhysicalPersonDocType,
+                    PhysicalPersonDocumentNumber = resolPros.PhysicalPersonDocumentNumber,
+                    PhysicalPersonDocumentSerial = resolPros.PhysicalPersonDocumentSerial,
+                    PhysicalPersonIsNotRF = resolPros.PhysicalPersonIsNotRF,
+                    PlaceResidence = resolPros.FiasRegistrationAddress != null ? resolPros.FiasRegistrationAddress.AddressName : "",
+                    ActuallyResidence = resolPros.FiasFactAddress != null ? resolPros.FiasFactAddress.AddressName : "",
+                    BirthPlace = resolPros.BirthPlace,
+                    DateBirth = resolPros.DateBirth,
+                    PassportNumber = Int32.TryParse(resolPros.PhysicalPersonDocumentNumber, out num) ? Convert.ToInt32(resolPros.PhysicalPersonDocumentNumber) : 0,
+                    PassportSeries = Int32.TryParse(resolPros.PhysicalPersonDocumentSerial, out num) ? Convert.ToInt32(resolPros.PhysicalPersonDocumentSerial) : 0,
+                    PassportIssued = resolPros.PassportIssued,
+                    DepartmentCode = resolPros.DepartmentCode,
+                    DateIssue = resolPros.DateIssue,
+                    Job = resolPros.Job,
+                    FamilyStatus = resolPros.FamilyStatus,
                     TypeInitiativeOrg = TypeInitiativeOrgGji.HousingInspection,
                     Paided = YesNoNotSet.NotSet,
                     GisUin = resolPros.UIN

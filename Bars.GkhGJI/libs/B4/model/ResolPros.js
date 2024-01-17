@@ -21,6 +21,24 @@ Ext.define('B4.model.ResolPros', {
         { name: 'ProsecutorOffice' },
         { name: 'Description' }, 
         { name: 'UIN' },
-        { name: 'TypeDocumentGji', defaultValue: 80 }
+        { name: 'TypeDocumentGji', defaultValue: 80 },
+        { name: 'PhysicalPersonDocumentNumber' },
+        { name: 'PhysicalPersonIsNotRF' },
+        { name: 'PhysicalPersonDocumentSerial' },
+        { name: 'PhysicalPersonDocType' },
+        { name: 'BirthPlace' },
+        { name: 'Job' },
+        { name: 'DateBirth' },
+        { name: 'PassportIssued' },
+        { name: 'DepartmentCode' },
+        { name: 'DateIssue' },
+        { name: 'FamilyStatus' },
+        { name: 'DependentsNumber' },
+        { name: 'SocialStatus' },
+        { name: 'IsPlaceResidenceOutState' },
+        { name: 'IsActuallyResidenceOutState' },
+        { name: 'PhoneNumber' },
+        { name: 'FiasRegistrationAddress' },
+        { name: 'FiasFactAddress' }
     ]
 });

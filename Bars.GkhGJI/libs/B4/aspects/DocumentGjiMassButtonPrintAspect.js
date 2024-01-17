@@ -51,13 +51,11 @@
     },
 
     loadReportStore: function (typeform) {    
-        debugger;
         this.reptype = typeform;
         this.reportStore.load();
     },
 
     onBeforeLoadReportStore: function (store, operation) {
-        debugger;
         operation.params = {};
         operation.params.codeForm = this.codeForm;
         operation.params.reptype = this.reptype;
