@@ -51,7 +51,7 @@
             root.Add("Административная комиссия").Add("Межведомственное взаимодействие").Add("Сведения из ФГИС ЕГРН", "smevegrn").AddRequiredPermission("GkhGji.SMEV.SMEVEGRN.View");
 
             //root.Add("Справочники").Add("Комиссии").Add("Коды регионов", "regioncode").AddRequiredPermission("GkhGji.Dict.RegionCode.View");
-            //root.Add("Справочники").Add("Комиссии").Add("Отделы прокуратуры", "prosecutoroffice").AddRequiredPermission("GkhGji.Dict.ProsecutorOffice.View");
+            root.Add("Справочники").Add("Комиссии").Add("Отделы прокуратуры", "prosecutoroffice").AddRequiredPermission("GkhGji.Dict.ProsecutorOffice.View");
             //root.Add("Справочники").Add("Комиссии").Add("Тип исполнения обращения", "appealexecutiontype").AddRequiredPermission("GkhGji.Dict.AppealExecutionType.View");
             //root.Add("Справочники").Add("Комиссии").Add("Идентификаторы ССТУ", "sstutransferorg").AddRequiredPermission("GkhGji.Dict.SSTUTransferOrg.View");
             root.Add("Справочники").Add("Комиссии").Add("Коды документов физических лиц", "fldoctype").AddRequiredPermission("GkhGji.Dict.FLDocType.View");

@@ -118,13 +118,16 @@
                             xtype: 'buttongroup',
                             columns: 3,
                             items: [
+                                //{
+                                //    xtype: 'button',
+                                //    text: 'Запросить из СМЭВ',
+                                //    tooltip: 'Запросить список отделов прокуратуры по коду региона',
+                                //    iconCls: 'icon-accept',
+                                //    width: 150,
+                                //    itemId: 'btnGetProsecutorOffice'
+                                //},
                                 {
-                                    xtype: 'button',
-                                    text: 'Запросить из СМЭВ',
-                                    tooltip: 'Запросить список отделов прокуратуры по коду региона',
-                                    iconCls: 'icon-accept',
-                                    width: 150,
-                                    itemId: 'btnGetProsecutorOffice'
+                                    xtype: 'b4addbutton'
                                 },
                                 {
                                     xtype: 'b4updatebutton'
