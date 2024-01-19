@@ -363,8 +363,20 @@
                         }
                         try
                         {
-                            kbk = Protocol197ArticleLawDomain.GetAll()
-                                   .FirstOrDefault(x => x.Protocol197 == entity).ArticleLaw.KBK;
+                            var artLaw = Protocol197ArticleLawDomain.GetAll()
+                                   .FirstOrDefault(x => x.Protocol197 == entity)
+                                   .ArticleLaw;
+                            if (artLaw.OmsRegion == OmsRegionBelonging.Region)
+                            {
+                                kbk = artLaw.KBK;
+                            }
+                            else
+                            {
+                                if (entity.ZonalInspection != null)
+                                {
+                                    kbk = entity.ZonalInspection.kbk;
+                                }
+                            }
                         }
                         catch
                         {
