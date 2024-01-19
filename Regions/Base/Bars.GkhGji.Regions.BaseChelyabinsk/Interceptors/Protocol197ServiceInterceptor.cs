@@ -15,6 +15,9 @@
     using Bars.Gkh.Entities;
     using Bars.Gkh.Authentification;
     using Bars.B4.Modules.States;
+    using Bars.GkhGji.Contracts.Meta;
+    using Bars.GkhGji.Regions.BaseChelyabinsk.Entities.Dicts;
+    using Inspector = Gkh.Entities.Inspector;
 
     public class Protocol197ServiceInterceptor : DocumentGjiInterceptor<Protocol197>
     {
@@ -24,16 +27,33 @@
             var domainServiceInspection = this.Container.Resolve<IDomainService<BaseDefault>>();
             var domainStage = this.Container.Resolve<IDomainService<InspectionGjiStage>>();
             var personDocService = this.Container.Resolve<IDomainService<PhysicalPersonDocType>>();
+            var zonalInspInspectorService = this.Container.Resolve<IDomainService<ZonalInspectionInspector>>();
+            var zonalInspPrefixService = this.Container.Resolve<IDomainService<ZonalInspectionPrefix>>();
+
+            var thisInspector = this.Container.Resolve<IGkhUserManager>().GetActiveOperator().Inspector;
+
+            var thisZonalInsp = zonalInspInspectorService.GetAll().Where(x => x.Inspector == thisInspector).FirstOrDefault().ZonalInspection;
+
+            var prefix = zonalInspPrefixService.GetAll().Where(x => x.ZonalInspection == thisZonalInsp).FirstOrDefault().NumerationPrefix;
 
             try
             {
-                var inspectionNum = GetNextNum();
+                int inspectionNum = 0;
                 var newInspection = new BaseDefault()
                 {
-                    TypeBase = TypeBase.Protocol197,
-                    InspectionNum = inspectionNum,
-                    InspectionNumber = inspectionNum.ToString()
+                    TypeBase = TypeBase.Protocol197
                 };
+                if (!string.IsNullOrEmpty(prefix))
+                {
+                    inspectionNum = GetNextNumPrefix(thisZonalInsp);
+                }
+                else
+                {
+                    inspectionNum = GetNextNum();
+                }
+
+                newInspection.InspectionNum = inspectionNum;
+                newInspection.InspectionNumber = GetFullNumber(inspectionNum, prefix);
 
                 domainServiceInspection.Save(newInspection);
 
@@ -49,7 +69,7 @@
                 entity.TypeDocumentGji = TypeDocumentGji.Protocol197;
                 entity.Inspection = newInspection;
                 entity.Stage = newStage;
-                entity.CaseNumber = inspectionNum.ToString();
+                entity.CaseNumber = newInspection.InspectionNumber;
                 entity.PhysicalPersonDocType = personDocService.GetAll().Where(x => x.Name == "Паспорт гражданина Российской Федерации").Select(x => x).FirstOrDefault();
 
                 if (entity.DocumentNum != null)
@@ -103,6 +123,9 @@
             {
                 this.Container.Release(domainServiceInspection);
                 this.Container.Release(domainStage);
+                this.Container.Release(personDocService);
+                this.Container.Release(zonalInspInspectorService);
+                this.Container.Release(zonalInspPrefixService);
             }
         }
 
@@ -502,18 +525,66 @@
             return this.Success();
         }
 
-
         private int GetNextNum()
         {
-            var domainServiceInspection = this.Container.Resolve<IDomainService<BaseDefault>>();
-            var maxnum = domainServiceInspection.GetAll()
+            var domainServiceInspection = this.Container.Resolve<IDomainService<InspectionGji>>();
+
+            var maxNum = domainServiceInspection.GetAll()
                 .Where(x => x.InspectionNum.HasValue)
                 .Max(x => x.InspectionNum);
-            if (maxnum.HasValue)
+
+            if (maxNum.HasValue)
             {
-                return maxnum.Value + 1;
+                return maxNum.Value + 1;
             }
+
             return 1;
+        }
+
+        private int GetNextNumPrefix(ZonalInspection thisZonalInsp)
+        {
+            var thisZonalInspInspections = Container.Resolve<IDomainService<InspectionGjiZonalInspection>>().GetAll()
+                .Where(x => x.ZonalInspection == thisZonalInsp).Select(x => x.Inspection).ToList();
+
+            var domainServiceInspection = this.Container.Resolve<IDomainService<InspectionGji>>();
+
+            var lastInspYear = domainServiceInspection.GetAll().OrderByDescending(x => x.Id).FirstOrDefault().ObjectCreateDate.Year;
+            if (DateTime.Now.Year - lastInspYear == 1)
+            {
+                return 1;
+            }
+            else
+            {
+                var maxNum = domainServiceInspection.GetAll()
+                .Where(x => x.InspectionNum.HasValue)
+                .Where(x => x.ObjectCreateDate.Year == DateTime.Now.Year)
+                .Where(x => thisZonalInspInspections.Contains(x))
+                .Max(x => x.InspectionNum);
+
+                if (maxNum.HasValue)
+                {
+                    return maxNum.Value + 1;
+                }
+
+                return 1;
+            }
+        }
+
+        private string GetFullNumber(int inspNum, string prefix)
+        {
+            if (!string.IsNullOrEmpty(prefix))
+            {
+                switch (prefix)
+                {
+                    case "/":
+                        return inspNum.ToString() + "/" + DateTime.Now.Year.ToString().Substring(2, 2);
+                    case " ":
+                        return inspNum.ToString();
+                    default:
+                        return inspNum.ToString() + prefix;
+                }
+            }
+            return inspNum.ToString();
         }
 
         private string GetUIN()

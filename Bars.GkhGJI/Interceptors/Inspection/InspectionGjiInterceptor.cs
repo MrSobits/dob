@@ -6,6 +6,8 @@
     using Bars.B4;
     using Bars.B4.Modules.States;
     using Bars.B4.Utils;
+    using Bars.Gkh.Authentification;
+    using Bars.Gkh.Entities;
     using Bars.GkhGji.Contracts.Reminder;
     using Bars.GkhGji.Entities;
     using Bars.GkhGji.InspectionRules;
@@ -120,10 +122,31 @@
 
         public override IDataResult AfterCreateAction(IDomainService<T> service, T entity)
         {
-            this.CreateReminders(entity);
-        //    this.SendRequests(entity);
+            var zonalInspInspectorService = this.Container.Resolve<IDomainService<ZonalInspectionInspector>>();
+            var zonalInspInspectionsGjiService = Container.Resolve<IDomainService<InspectionGjiZonalInspection>>();
+            try
+            {
+                this.CreateReminders(entity);
+                //this.SendRequests(entity);
 
-            return this.Success();
+                var thisInspector = this.Container.Resolve<IGkhUserManager>().GetActiveOperator().Inspector;
+                var thisZonalInsp = zonalInspInspectorService.GetAll().Where(x => x.Inspector == thisInspector).FirstOrDefault().ZonalInspection;
+
+                var newZonalInspInspection = new InspectionGjiZonalInspection
+                {
+                    Inspection = entity,
+                    ZonalInspection = thisZonalInsp
+                };
+
+                zonalInspInspectionsGjiService.Save(newZonalInspInspection);
+
+                return this.Success();
+            }
+            finally
+            {
+                this.Container.Release(zonalInspInspectorService);
+                this.Container.Release(zonalInspInspectionsGjiService);
+            }
         }
 
         private void CreateReminders(T entity)
