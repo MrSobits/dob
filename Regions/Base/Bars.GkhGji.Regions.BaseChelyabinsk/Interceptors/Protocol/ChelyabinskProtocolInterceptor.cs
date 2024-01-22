@@ -127,7 +127,15 @@
                     }
                 }
                 //автоподстановка суд.участка по адресу места совершения правонарушения
-                var violationHouseInt = int.Parse(violationHouse);
+                Int32 violationHouseInt = 0;
+                try
+                {
+                    violationHouseInt = int.Parse(violationHouse);
+                }
+                catch
+                {
+                    
+                }
                 Utils.SaveFiasAddress(this.Container, entity.FiasPlaceAddress);
                 int checkedMath = 0;
                 long? jurId = null;
