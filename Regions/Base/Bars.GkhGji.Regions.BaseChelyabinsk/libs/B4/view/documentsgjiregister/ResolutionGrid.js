@@ -32,34 +32,49 @@
             };
 
         var renderer = function (val, meta, rec) {
-
-            var sanction = rec.get('Sanction');
-            var penaltyAmount = rec.get('PenaltyAmount');
-            if (penaltyAmount == null) {
-                return val;
-            }
-            var sumPays = rec.get('SumPays');
-            if (sumPays == null) {
-                sumPays = 0;
-            }
-            var dueDate = rec.get('DueDate');
-            var paymentDate = rec.get('PaymentDate');
-            var hasProtocol = rec.get('HasProtocol');
-
-            if (sanction == 'Административный штраф')
-            {
-                if ((penaltyAmount - sumPays) > 0 && new Date() > new Date(dueDate) && hasProtocol == false) {
-                    meta.style = 'background: red;';
-                    meta.tdAttr = 'data-qtip="Истек срок оплаты штрафа"';
+            var inLawDate = rec.get('InLawDate');
+            if (inLawDate != null) {
+                var sanction = rec.get('Sanction');
+                var penaltyAmount = rec.get('PenaltyAmount');
+                if (penaltyAmount == null) {
+                    return val;
                 }
-                else if (penaltyAmount - sumPays <= 0 && new Date(paymentDate) > new Date(dueDate)) {
-                    meta.style = 'background: yellow;';
-                    meta.tdAttr = 'data-qtip="Штраф оплачен с опозданием"';
+                var sumPays = rec.get('SumPays');
+                if (sumPays == null) {
+                    sumPays = 0;
+                }
+                var dueDate = rec.get('DueDate');
+                var paymentDate = rec.get('PaymentDate');
+                var hasProtocol = rec.get('HasProtocol');
+
+                if (sanction == 'Административный штраф') {
+
+                    if ((penaltyAmount - sumPays) > 0 && new Date() > new Date(dueDate) && hasProtocol == false) {
+                        meta.style = 'background: red;';
+                        meta.tdAttr = 'data-qtip="Истек срок оплаты штрафа"';
+                    }
+                    else if (penaltyAmount - sumPays <= 0 && new Date(paymentDate) > new Date(dueDate)) {
+                        meta.style = 'background: yellow;';
+                        meta.tdAttr = 'data-qtip="Штраф оплачен с опозданием"';
+                    }
+
                 }
             }
 
             return val;
         };
+
+        var renderTypeInitOrg = function (val, meta, rec) {
+            if (val == 10) {
+                return 'Административная комиссия';
+            }
+            else if (val == 20) {
+                return 'Суд';
+            }
+            else if (val == 30) {
+                return 'Роспотребнадзор';
+            }
+        }
 
         //поскольку требуется чтобы в енуме Тип Основания небыло постановления прокуратуры
         //то получаем енум и формируем из его item-ов новый енум но без постановления прокуратуры
@@ -139,13 +154,17 @@
                     dataIndex: 'ConcederationResult',
                     width: 160,
                     text: 'Результат рассмотрения',
-                    filter: { xtype: 'textfield' }
+                    filter: { xtype: 'textfield' },
+                    renderer: function (val, meta, rec) {
+                        return renderer(val, meta, rec);
+                    }
                 },
                 {
                     xtype: 'booleancolumn',
                     dataIndex: 'SentToOSP',
                     text: 'Отправлено в ССП',
-                    renderer: function (val) {
+                    renderer: function (val, meta, rec) {
+                        renderer(val, meta, rec);
                         return val ? "Да" : "Нет";
                     },
                     filter: { xtype: 'b4dgridfilteryesno' }
@@ -154,7 +173,8 @@
                     xtype: 'booleancolumn',
                     dataIndex: 'HasProtocol',
                     text: 'Создан протокол',
-                    renderer: function (val) {
+                    renderer: function (val, meta, rec) {
+                        renderer(val, meta, rec);
                         return val ? "Да" : "Нет";
                     },
                     filter: { xtype: 'b4dgridfilteryesno' }
@@ -173,7 +193,11 @@
                     dataIndex: 'TypeInitiativeOrg',
                     text: 'Кем вынесено',
                     flex: 0.5,
-                    filter: true
+                    filter: true,
+                    renderer: function (val, meta, rec) {
+                        renderer(val, meta, rec);
+                        return renderTypeInitOrg(val, meta, rec);
+                    }
                 },
                 {
                     xtype: 'gridcolumn',
@@ -198,6 +222,9 @@
                         valueField: 'Name',
                         emptyItem: { Name: '-' },
                         url: '/Position/List'
+                    },
+                    renderer: function (val, meta, rec) {
+                        return renderer(val, meta, rec);
                     }
                 },
                 {
@@ -214,6 +241,9 @@
                         valueField: 'Name',
                         emptyItem: { Name: '-' },
                         url: '/Municipality/ListMoAreaWithoutPaging'
+                    },
+                    renderer: function (val, meta, rec) {
+                        return renderer(val, meta, rec);
                     }
                 },
                 {
@@ -221,14 +251,20 @@
                     dataIndex: 'MoSettlement',
                     width: 160,
                     text: 'Муниципальное образование',
-                    filter: { xtype: 'textfield' }
+                    filter: { xtype: 'textfield' },
+                    renderer: function (val, meta, rec) {
+                        return renderer(val, meta, rec);
+                    }
                 },
                 {
                     xtype: 'gridcolumn',
                     dataIndex: 'PlaceName',
                     width: 160,
                     text: 'Населенный пункт',
-                    filter: { xtype: 'textfield' }
+                    filter: { xtype: 'textfield' },
+                    renderer: function (val, meta, rec) {
+                        return renderer(val, meta, rec);
+                    }
                 },
                 {
                     xtype: 'gridcolumn',
@@ -244,7 +280,10 @@
                     xtype: 'gridcolumn',
                     dataIndex: 'PhysicalPerson',
                     text: 'ФИО нарушителя',
-                    filter: { xtype: 'textfield' }
+                    filter: { xtype: 'textfield' },
+                    renderer: function (val, meta, rec) {
+                        return renderer(val, meta, rec);
+                    }
                 },
                 {
                     xtype: 'gridcolumn',
@@ -288,7 +327,7 @@
                     filter: { xtype: 'datefield', operand: CondExpr.operands.eq },
                     renderer: function (val, meta, rec) {
                         renderer(val, meta, rec);
-                        return Ext.Date.format(new Date(val), 'd.m.Y');
+                        return val ? Ext.Date.format(new Date(val), 'd.m.Y') : "";
                     }
                 },
                 {
@@ -296,8 +335,11 @@
                     dataIndex: 'InLawDate',
                     text: 'Дата вступления в силу',
                     width: 80,
-                    format: 'd.m.Y',
-                    filter: { xtype: 'datefield', operand: CondExpr.operands.eq }
+                    filter: { xtype: 'datefield', operand: CondExpr.operands.eq },
+                    renderer: function (val, meta, rec) {
+                        renderer(val, meta, rec);
+                        return val ? Ext.Date.format(new Date(val), 'd.m.Y') : "";
+                    }
                 },
                 {
                     xtype: 'gridcolumn',
@@ -330,14 +372,20 @@
                     text: 'Штраф оплачен',
                     flex: 1,
                     filter: true,
+                    renderer: function (val, meta, rec) {
+                        return renderer(val, meta, rec);
+                    }
                 },
                 {
                     xtype: 'datecolumn',
                     dataIndex: 'DueDate',
                     text: 'Оплатить до',
                     width: 80,
-                    format: 'd.m.Y',
-                    filter: { xtype: 'datefield', operand: CondExpr.operands.eq }
+                    filter: { xtype: 'datefield', operand: CondExpr.operands.eq },
+                    renderer: function (val, meta, rec) {
+                        renderer(val, meta, rec);
+                        return val ? Ext.Date.format(new Date(val), 'd.m.Y') : "";
+                    }
                 },
                 {
                     xtype: 'gridcolumn',
@@ -358,8 +406,11 @@
                     dataIndex: 'PaymentDate',
                     text: 'Дата оплаты',
                     width: 80,
-                    format: 'd.m.Y',
-                    filter: { xtype: 'datefield', operand: CondExpr.operands.eq }
+                    filter: { xtype: 'datefield', operand: CondExpr.operands.eq },
+                    renderer: function (val, meta, rec) {
+                        renderer(val, meta, rec);
+                        return val ? Ext.Date.format(new Date(val), 'd.m.Y') : "";
+                    }
                 },
                 {
                     xtype: 'gridcolumn',
@@ -368,6 +419,9 @@
                     text: 'Статьи закона',
                     filter: {
                         xtype: 'textfield'
+                    },
+                    renderer: function (val, meta, rec) {
+                        return renderer(val, meta, rec);
                     }
                 },
                 {
@@ -376,7 +430,10 @@
                     text: 'Дата неоплаты',
                     width: 80,
                     filter: { xtype: 'datefield', operand: CondExpr.operands.eq },
-                    format: 'd.m.Y',
+                    renderer: function (val, meta, rec) {
+                        renderer(val, meta, rec);
+                        return val ? Ext.Date.format(new Date(val), 'd.m.Y') : "";
+                    }
                 }
             ],
             plugins: [Ext.create('B4.ux.grid.plugin.HeaderFilters')],

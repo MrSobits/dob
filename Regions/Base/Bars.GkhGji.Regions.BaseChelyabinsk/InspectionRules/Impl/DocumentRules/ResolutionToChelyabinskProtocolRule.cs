@@ -109,6 +109,9 @@
 
             ChelyabinskProtocol protocol = new ChelyabinskProtocol();
 
+            var thisInspector = this.Container.Resolve<IGkhUserManager>().GetActiveOperator().Inspector;
+            var thisZonalInsp = this.Container.Resolve<IDomainService<ZonalInspectionInspector>>().GetAll().Where(x => x.Inspector == thisInspector).FirstOrDefault().ZonalInspection;
+
             if (resolution.IndividualPerson != null)
             {
                 protocol = new ChelyabinskProtocol()
@@ -242,18 +245,26 @@
             #endregion
 
             #region Формируем Инспекторов тянем их из родительского документа
-            var listInspectors = new List<DocumentGjiInspector>();
-            var inspectorIds = this.DocumentInspectorDomain.GetAll().Where(x => x.DocumentGji.Id == p197.Id)
-                    .Select(x => x.Inspector.Id).Distinct().ToList();
-
-            foreach (var id in inspectorIds)
+            var listInspectors = new List<DocumentGjiInspector>
             {
-                listInspectors.Add(new DocumentGjiInspector
+                new DocumentGjiInspector
                 {
                     DocumentGji = protocol,
-                    Inspector = new Inspector { Id = id }
-                });
-            }
+                    Inspector = new Inspector { Id = thisInspector.Id }
+                }
+            };
+            //var listInspectors = new List<DocumentGjiInspector>();
+            //var inspectorIds = this.DocumentInspectorDomain.GetAll().Where(x => x.DocumentGji.Id == p197.Id)
+            //        .Select(x => x.Inspector.Id).Distinct().ToList();
+
+            //foreach (var id in inspectorIds)
+            //{
+            //    listInspectors.Add(new DocumentGjiInspector
+            //    {
+            //        DocumentGji = protocol,
+            //        Inspector = new Inspector { Id = id }
+            //    });
+            //}
             #endregion
 
             #region Формируем Статью закона
@@ -330,20 +341,18 @@
                 .FirstOrDefault(x => x.Inspector == inspector)?.ZonalInspection;
             string pref = ZonalInspectionPrefixDomain.GetAll().FirstOrDefault(x => x.ZonalInspection == zonal)?.ProtocolPrefix;
 
-            var maxnuber = ProtocolDomain.GetAll()
+            var maxNumber = ProtocolDomain.GetAll()
                 .Where(x => x.DocumentNumber.StartsWith($"{pref}20.25/"))
+                .Where(x => x.ObjectCreateDate.Year == DateTime.Now.Year)
                 .Where(x => x.DocumentNum.HasValue)
                 .Max(x => x.DocumentNum);
 
-            if (maxnuber.HasValue && maxnuber > 0)
+            if (maxNumber.HasValue && maxNumber > 0)
             {
-                return maxnuber.Value + 1;
+                return maxNumber.Value + 1;
             }
 
-            else
-            {
-                return 1;
-            }
+            return 1;
         }
     }
 }
