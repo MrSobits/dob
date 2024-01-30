@@ -61,8 +61,8 @@ namespace Bars.GkhGji.Regions.Voronezh.ExecutionAction
                 taskManager.CreateTasks(new SendPaymentRequestTaskProvider(Container), baseParams);
 
                 //ставим задачу на проверку ответов СГИО
-                baseParams.Params.Clear();
-                taskManager.CreateTasks(new GetRPGUAnswersTaskProvider(Container), baseParams);
+                //baseParams.Params.Clear();
+                //taskManager.CreateTasks(new GetRPGUAnswersTaskProvider(Container), baseParams);
                 return new BaseDataResult(true, "Задача успешно поставлена");
             }
             catch (Exception e)

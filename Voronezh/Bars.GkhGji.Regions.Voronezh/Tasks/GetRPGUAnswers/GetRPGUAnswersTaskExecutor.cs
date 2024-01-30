@@ -1,5 +1,6 @@
 ﻿using Bars.B4;
 using Bars.B4.Modules.Tasks.Common.Service;
+using Bars.GkhGji.Regions.BaseChelyabinsk.Entities;
 using Bars.GkhGji.Regions.Voronezh.DomainService;
 using Bars.GkhGji.Regions.Voronezh.Entities;
 using SMEV3Library.Services;
@@ -54,38 +55,44 @@ namespace Bars.GkhGji.Regions.Voronezh.Tasks.GetSMEVAnswers
             SMEV3Library.Entities.GetResponseResponse.GetResponseResponse responseResult;
             try
             {
-                for (uint i = 0; i < 60; i++)
-                {                    
-                    do
+                long gisGmpCount = 0;
+                long payRegCount = 0;
+
+                do
+                {
+                    indicator?.Report(null, 0, $"Запрос ответа");
+
+                    responseResult = _SMEV3Service.GetResponseAsyncSGIO("urn:GetResponse", null, null, true).GetAwaiter().GetResult();
+
+                    //Если сервер прислал ошибку, возвращаем как есть
+                    //if (responseResult.FaultXML != null)
+                    //    break;
+
+                    //Если результатов пока нет, возврат
+                    //if (!responseResult.isAnswerPresent)
+                    //    break;
+
+                    indicator?.Report(null, 0, $"Обработка ответа");
+
+                    string processedResult = null;
+
+                    if (TryGISGMPAnswerProcessed(responseResult, ref processedResult))
                     {
-                        indicator?.Report(null, 0, $"Запрос ответа {i}");
-
-                        responseResult = _SMEV3Service.GetResponseAsyncSGIO("urn:GetResponse", null, null, true).GetAwaiter().GetResult();
-
-                        //Если сервер прислал ошибку, возвращаем как есть
-                        //if (responseResult.FaultXML != null)
-                        //    break;
-
-                        //Если результатов пока нет, возврат
-                        if (!responseResult.isAnswerPresent)
-                            break;
-
-                        indicator?.Report(null, 0, $"Обработка ответа {i}");
-
-                        string processedResult = null;
-
-                        if (TryGISGMPAnswerProcessed(responseResult, ref processedResult))
-                        {
-                            processLog.Add($"Сообщение {responseResult.OriginalMessageId} - обработано как ГИС ГМП - {processedResult}");
-                        }
-
-                        if (TryPAYREGAnswerProcessed(responseResult, ref processedResult))
-                        {
-                            processLog.Add($"Сообщение {responseResult.OriginalMessageId} - обработано как оплата из ГИС ГМП - {processedResult}");
-                        }
+                        gisGmpCount++; 
                     }
-                    while (true);
+
+                    if (TryPAYREGAnswerProcessed(responseResult, ref processedResult))
+                    {
+                        payRegCount++;
+                    }
+
+                    if (DateTime.Now.Hour == 20)
+                        break;
                 }
+                while (true);
+
+                processLog.Add($"{gisGmpCount} сообщений обработано как начисления ГИС ГМП");
+                processLog.Add($"{payRegCount} сообщений обработано как оплаты ГИС ГМП");
                 return new BaseDataResult(processLog);
             }
             catch (HttpRequestException e)

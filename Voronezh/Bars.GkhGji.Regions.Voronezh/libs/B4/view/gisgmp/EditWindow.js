@@ -76,16 +76,15 @@
                                             iconCls: 'icon-accept',
                                             width: 200,
                                             itemId: 'sendCalculateButton'
-                                        },
-                                        {
-                                            xtype: 'button',
-                                            text: 'Проверить ответ',
-                                            tooltip: 'Проверить ответ',
-                                            iconCls: 'icon-accept',
-                                            width: 200,
-                                            itemId: 'getCalculateStatusButton'
                                         }
-                                        
+                                        //{
+                                        //    xtype: 'button',
+                                        //    text: 'Проверить ответ',
+                                        //    tooltip: 'Проверить ответ',
+                                        //    iconCls: 'icon-accept',
+                                        //    width: 200,
+                                        //    itemId: 'getCalculateStatusButton'
+                                        //}
                                     ]
                                 },
                                 {
