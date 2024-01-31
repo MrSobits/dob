@@ -79,10 +79,8 @@
                 entity.TaxDocDate = "0";// (entity.Protocol?.DocumentDate?.ToString("dd.MM.yyyy") ?? entity.CalcDate.ToShortDateString());
 
                 entity.PaymentType = "0";
-                //
-                entity.UIN = GetUIN(entity);
+                entity.UIN = !string.IsNullOrEmpty(entity.Protocol.UIN) ? entity.Protocol.UIN : GetUIN(entity);
                 entity.AltPayerIdentifier = CreateAltPayerIdentifier(entity);
-                //
                 entity.RequestState = RequestState.Formed;
                 return Success();
             }
@@ -129,7 +127,7 @@
                 entity.AltPayerIdentifier = CreateAltPayerIdentifier(entity);
                 if (entity.GisGmpChargeType == GisGmpChargeType.First)
                 {
-                    entity.UIN = GetUIN(entity);
+                    entity.UIN = !string.IsNullOrEmpty(entity.Protocol.UIN) ? entity.Protocol.UIN : GetUIN(entity);
                 }
                 return Success();
             }
