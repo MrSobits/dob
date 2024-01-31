@@ -486,28 +486,34 @@ namespace Bars.GkhGji.Regions.Voronezh.DomainService
                     var code = response.MessagePrimaryContent.Element(reqNamespace + "ImportChargesResponse")?.Element(comNamespace + "ImportProtocol")?.Attribute("code")?.Value;
                     var value = response.MessagePrimaryContent.Element(reqNamespace + "ImportChargesResponse")?.Element(comNamespace + "ImportProtocol")?.Attribute("description")?.Value;
 
-                    if (code != "0")
-                        SetErrorState(requestData, $"ГИС ГМП вернул ошибку: {value}");
-                    else
+                    if (value == "Успешно")
                     {
-                        // проставляем флаг квитирования всем платежам с УИНом начисления, т.к. они автоматически сквитируются в ГИС ГМП и сопоставляем все эти платежи с начислением
+                        //проставляем флаг квитирования всем платежам с УИНом начисления, т.к. они автоматически сквитируются в ГИС ГМП и сопоставляем все эти платежи с начислением
                         var payments = PayRegDomain.GetAll()
                                 .Where(x => x.SupplierBillID == requestData.UIN);
-                        if (payments != null)
+                        foreach (PayReg payment in payments)
                         {
-                            foreach (PayReg payment in payments)
-                            {
-                                payment.GisGmp = requestData;
-                                payment.Reconcile = Gkh.Enums.YesNoNotSet.Yes;
-                                PayRegDomain.Update(payment);
-                            }
-                            //изменяем статус
-                            requestData.RequestState = RequestState.ResponseReceived;
-                            requestData.Answer = value;
-                            GisGmpDomain.Update(requestData);
-                            return true;
+                            payment.GisGmp = requestData;
+                            payment.Reconcile = Gkh.Enums.YesNoNotSet.Yes;
+                            PayRegDomain.Update(payment);
                         }
-                        else return false;
+                        //изменяем статус
+                        requestData.RequestState = RequestState.ResponseReceived;
+                        requestData.Answer = value;
+                        GisGmpDomain.Update(requestData);
+                        return true;
+                    }
+                    else if (value.Contains("уже присутствуют"))
+                    {
+                        //изменяем статус
+                        requestData.RequestState = RequestState.ResponseReceived;
+                        requestData.Answer = value;
+                        GisGmpDomain.Update(requestData);
+                        return true;
+                    }
+                    else
+                    {
+                        SetErrorState(requestData, $"ГИС ГМП вернул ошибку: {value}");
                     }
                 }
                 return false;

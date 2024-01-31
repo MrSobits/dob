@@ -47,7 +47,7 @@
 
                     entity.Inspector = thisOperator.Inspector;
                 }
-//#endif
+                //#endif
                 entity.CalcDate = DateTime.Now;
                 entity.ObjectCreateDate = DateTime.Now;
                 entity.ObjectEditDate = DateTime.Now;
@@ -64,7 +64,7 @@
                         if (entity.Protocol.DocumentDate.Value < new DateTime(2020, 1, 1))
                         {
                             entity.KBK = "07811610123010111140";
-                        }                       
+                        }
                     }
                 }
                 if (entity.TypeLicenseRequest == TypeLicenseRequest.First && entity.ManOrgLicenseRequest != null)
@@ -74,12 +74,19 @@
                 }
                 if ((entity.TypeLicenseRequest == TypeLicenseRequest.Copy || entity.TypeLicenseRequest == TypeLicenseRequest.Reissuance) && entity.LicenseReissuance != null)
                 {
-                    entity.TaxDocNumber = entity.LicenseReissuance.RegisterNum.HasValue? entity.LicenseReissuance.RegisterNum.Value.ToString(): entity.LicenseReissuance.Id.ToString();
+                    entity.TaxDocNumber = entity.LicenseReissuance.RegisterNum.HasValue ? entity.LicenseReissuance.RegisterNum.Value.ToString() : entity.LicenseReissuance.Id.ToString();
                 }
                 entity.TaxDocDate = "0";// (entity.Protocol?.DocumentDate?.ToString("dd.MM.yyyy") ?? entity.CalcDate.ToShortDateString());
 
                 entity.PaymentType = "0";
-                entity.UIN = !string.IsNullOrEmpty(entity.Protocol.UIN) ? entity.Protocol.UIN : GetUIN(entity);
+                if (entity.Protocol != null)
+                {
+                    entity.UIN = !string.IsNullOrEmpty(entity.Protocol.UIN) ? entity.Protocol.UIN : GetUIN(entity);
+                }
+                else
+                {
+                    entity.UIN = GetUIN(entity);
+                }
                 entity.AltPayerIdentifier = CreateAltPayerIdentifier(entity);
                 entity.RequestState = RequestState.Formed;
                 return Success();
@@ -127,7 +134,14 @@
                 entity.AltPayerIdentifier = CreateAltPayerIdentifier(entity);
                 if (entity.GisGmpChargeType == GisGmpChargeType.First)
                 {
-                    entity.UIN = !string.IsNullOrEmpty(entity.Protocol.UIN) ? entity.Protocol.UIN : GetUIN(entity);
+                    if (entity.Protocol != null)
+                    {
+                        entity.UIN = !string.IsNullOrEmpty(entity.Protocol.UIN) ? entity.Protocol.UIN : GetUIN(entity);
+                    }
+                    else
+                    {
+                        entity.UIN = GetUIN(entity);
+                    }
                 }
                 return Success();
             }
