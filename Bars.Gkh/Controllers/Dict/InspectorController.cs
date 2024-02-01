@@ -16,6 +16,11 @@
             var result = (BaseDataResult)Container.Resolve<IInspectorService>().SubcribeToInspectors(baseParams);
             return result.Success ? JsonNetResult.Success : JsonNetResult.Failure(result.Message);
         }
+        public ActionResult SubcribeToZonalInsps(BaseParams baseParams)
+        {
+            var result = (BaseDataResult)Container.Resolve<IInspectorService>().SubcribeToZonalInsps(baseParams);
+            return result.Success ? JsonNetResult.Success : JsonNetResult.Failure(result.Message);
+        }
 
         public ActionResult GetInfo(BaseParams baseParams)
         {

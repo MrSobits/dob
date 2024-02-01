@@ -597,6 +597,7 @@
     <Compile Include="Migrations\Version_2019031400\UpdateSchema.cs" />
     <Compile Include="Migrations\Version_2018092600\UpdateSchema.cs" />
     <Compile Include="Migrations\Version_2017112200\UpdateSchema.cs" />
+    <Compile Include="Migrations\Version_2024012900\UpdateSchema.cs" />
     <Compile Include="Migrations\Version_2023071800\UpdateSchema.cs" />
     <Compile Include="Migrations\Version_2023070700\UpdateSchema.cs" />
     <Compile Include="Migrations\Version_2023060800\UpdateSchema.cs" />

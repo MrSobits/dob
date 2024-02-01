@@ -46,6 +46,7 @@
         { name: 'PersonalAcc' },
         { name: 'BankName' },
         { name: 'CorrespAcc' },
-        { name: 'GisGmpId' }
+        { name: 'GisGmpId' },
+        { name: 'UseUFC' }
     ]
 });

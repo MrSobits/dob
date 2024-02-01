@@ -139,6 +139,7 @@ namespace Bars.GkhGji.Regions.Voronezh.DomainService
                 .Select(x => new
                 {
                     x.Id,
+                    KBK = GetKBK(x.Id),
                     x.DocumentDate,
                     x.DocumentNumber,
                     ComissionName = GetComissionName(x.Id),
@@ -171,6 +172,20 @@ namespace Bars.GkhGji.Regions.Voronezh.DomainService
                 .FirstOrDefault();
 
             return comissionName;
+        }
+
+        private string GetKBK(long resolId)
+        {
+            var prot197Id = DocumentGjiChildrenDomain.GetAll()
+                .Where(x => x.Children.Id == resolId)
+                .Where(x => x.Parent.TypeDocumentGji == TypeDocumentGji.Protocol197)
+                .Select(x => x.Parent.Id)
+                .FirstOrDefault();
+
+            return Protocol197Domain.GetAll()
+                .Where(x => x.Id == prot197Id)
+                .Select(x => x.ComissionMeeting.ZonalInspection.kbk)
+                .FirstOrDefault();
         }
 
         private void CalcBalance(Resolution resolution)

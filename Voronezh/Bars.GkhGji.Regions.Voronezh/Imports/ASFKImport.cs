@@ -295,6 +295,7 @@
                             bdoperDomain.Save(new BDOPER
                             {
                                 ASFK = (ASFK)asfkDomain.Get(asfkId),
+                                RelatedASFKId = asfkId,
                                 GUID = strings[i + 46],
                                 Sum = Convert.ToDecimal(strings[i + 6], CultureInfo.InvariantCulture),
                                 InnPay = strings[i + 11],

@@ -340,20 +340,33 @@
         
         public IQueryable<ViewResolution> GetViewList()
         {
-            var userManager = Container.Resolve<IGkhUserManager>();
-            Operator thisOperator = userManager.GetActiveOperator();
+            Operator thisOperator = Container.Resolve<IGkhUserManager>().GetActiveOperator();
             var zonalDomain = this.Container.Resolve<IDomainService<ZonalInspectionInspector>>();
+
             if (thisOperator?.Inspector == null)
             {
                 return null;
             }
+
+            if (thisOperator?.Inspector.NotMemberPosition.Name == "Администратор доходов")
+            {
+                var zonalInspSubIds = Container.Resolve<IDomainService<InspectorZonalInspSubscription>>().GetAll()
+                .Where(x => x.Inspector.Id == thisOperator.Inspector.Id)
+                .Select(x => x.ZonalInspection.Id)
+                .ToList();
+
+                if (zonalInspSubIds.Count() > 0)
+                {
+                    return Container.Resolve<IDomainService<ViewResolution>>().GetAll()
+                        .Where(x => zonalInspSubIds.Contains(x.ZonalInspectionId));
+                }
+            }
+
             var zonalId = zonalDomain.GetAll().FirstOrDefault(x => x.Inspector == thisOperator.Inspector).ZonalInspection?.Id;
             if (!zonalId.HasValue)
             {
                 return null;
             }
-
-
             return Container.Resolve<IDomainService<ViewResolution>>().GetAll().Where(x => x.ZonalInspectionId == zonalId);
         }
 

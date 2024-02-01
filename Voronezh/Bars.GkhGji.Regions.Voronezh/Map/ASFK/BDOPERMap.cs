@@ -23,6 +23,9 @@ namespace Bars.GkhGji.Regions.Voronezh.Map
             Property(x => x.KppPay, "KppPay").Column("KPP_PAY");
             Property(x => x.NamePay, "NamePay").Column("NAME_PAY");
             Property(x => x.Purpose, "Purpose").Column("PURPOSE");
+            Property(x => x.KodDocAdb, "KodDocAdb").Column("KOD_DOC_ADB");
+            Property(x => x.Kbk, "Kbk").Column("KBK");
+            Property(x => x.RelatedASFKId, "ID выписки (ASFK) на случай смены").Column("RELATED_ASFK_ID");
         }
     }
 }

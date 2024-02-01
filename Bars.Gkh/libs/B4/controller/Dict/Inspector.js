@@ -2,7 +2,6 @@
     extend: 'B4.base.Controller',
 
     requires: [
-       
         'B4.aspects.GkhGridMultiSelectWindow',
         'B4.aspects.GridEditWindow',
         'B4.aspects.permission.dict.Inspector',
@@ -11,9 +10,14 @@
         'B4.store.dict.ZonalInspectionForSelected'
     ],
 
-    models: ['dict.Inspector', 'dict.InspectorSubscription', 'dict.ZonalInspection'],
+    models: ['dict.Inspector',
+        'dict.InspectorSubscription',
+        'dict.ZonalInspection',
+        'dict.InspectorZonalInspSubscription'
+    ],
     stores: ['dict.Inspector',
         'dict.InspectorSubscription',
+        'dict.InspectorZonalInspSubscription',
         'dict.InspectorForSelect',
         'dict.InspectorForSelected',
         'dict.ZonalInspection',
@@ -23,7 +27,8 @@
         'dict.inspector.Grid',
         'SelectWindow.MultiSelectWindow',
         'dict.inspector.EditWindow',
-        'dict.inspector.SubcriptionGrid'
+        'dict.inspector.SubcriptionGrid',
+        'dict.inspector.ZonalInspSubscriptionGrid'
     ],
 
     mixins: {
@@ -73,6 +78,7 @@
                 
                 aftersetformdata: function (asp, record, form) {
                     asp.controller.setCurrentId(record.getId());
+                    asp.controller.getStore('dict.InspectorZonalInspSubscription').load();
                     asp.controller.getStore('dict.InspectorSubscription').load();
                     
                     var inpectorId = record.getId();
@@ -164,6 +170,54 @@
             }
         },
         {
+            xtype: 'gkhgridmultiselectwindowaspect',
+            name: 'inspectorZonalInspSubscriptionAspect',
+            gridSelector: '#inspectorZonalInspSubscriptionGrid',
+            storeName: 'dict.InspectorZonalInspSubscription',
+            modelName: 'dict.InspectorZonalInspSubscription',
+            multiSelectWindow: 'SelectWindow.MultiSelectWindow',
+            multiSelectWindowSelector: '#inspectorZonalInspSubscriptionMultiSelectWindow',
+            storeSelect: 'dict.ZonalInspectionForSelect',
+            storeSelected: 'dict.inspector.ZonalInspection',
+            titleSelectWindow: 'Выбор комиссий для отслеживания',
+            titleGridSelect: 'Комиссии',
+            titleGridSelected: 'Выбранные комиссии',
+            columnsGridSelect: [
+                { header: 'Наименование', xtype: 'gridcolumn', dataIndex: 'Name', flex: 1, filter: { xtype: 'textfield' } }
+            ],
+            columnsGridSelected: [
+                { header: 'Наименование', xtype: 'gridcolumn', dataIndex: 'Name', flex: 1, filter: { xtype: 'textfield' } }
+            ],
+            listeners: {
+                getdata: function (asp, records) {
+                    var recordIds = [];
+
+                    records.each(function (rec) {
+                        recordIds.push(rec.get('Id'));
+                    });
+
+                    if (recordIds[0] > 0) {
+                        asp.controller.mask('Сохранение', asp.controller.getMainComponent());
+                        B4.Ajax.request(B4.Url.action('SubcribeToZonalInsps', 'Inspector', {
+                            zonalInspsIds: Ext.encode(recordIds),
+                            inspectorId: asp.controller.inpectorId
+                        })).next(function () {
+                            asp.controller.getStore(asp.storeName).load();
+                            asp.controller.unmask();
+                            Ext.Msg.alert('Сохранено!', 'Подписки сохранены успешно');
+                            return true;
+                        }).error(function () {
+                            asp.controller.unmask();
+                        });
+                    } else {
+                        Ext.Msg.alert('Ошибка!', 'Необходимо выбрать комиссии');
+                        return false;
+                    }
+                    return true;
+                }
+            }
+        },
+        {
             /*
             множественный выбор Жил инспекций
            аспект взаимодействия триггер-поля инспекторы с массовой формой выбора зон жи
@@ -243,6 +297,7 @@
     init: function () {
       
         this.getStore('dict.InspectorSubscription').on('beforeload', this.onBeforeLoad, this);
+        this.getStore('dict.InspectorZonalInspSubscription').on('beforeload', this.onBeforeLoad, this);
 
         this.callParent(arguments);
     },
@@ -261,14 +316,18 @@
     setCurrentId: function (id) {
      
         this.inpectorId = id;
-        var store = this.getStore('dict.InspectorSubscription');
-        store.removeAll();
+        var storeSub = this.getStore('dict.InspectorSubscription');
+        var storeZonalInspSub = this.getStore('dict.InspectorZonalInspSubscription');
+        storeSub.removeAll();
+        storeZonalInspSub.removeAll();
         
         var editwindow = Ext.ComponentQuery.query(this.editWindowSelector)[0];
         editwindow.down('#inspectorSubcriptionGrid').setDisabled(!id);
+        editwindow.down('#inspectorZonalInspSubscriptionGrid').setDisabled(!id);
 
         if (id) {
-            store.load();
+            storeSub.load();
+            storeZonalInspSub.load();
         }
     }
 });

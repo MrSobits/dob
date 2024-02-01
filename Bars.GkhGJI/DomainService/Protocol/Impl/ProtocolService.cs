@@ -340,12 +340,27 @@
                 {
                     return null;
                 }
+
+                if (thisOperator?.Inspector.NotMemberPosition.Name == "Администратор доходов")
+                {
+                    var zonalInspSubIds = Container.Resolve<IDomainService<InspectorZonalInspSubscription>>().GetAll()
+                    .Where(x => x.Inspector.Id == thisOperator.Inspector.Id)
+                    .Select(x => x.ZonalInspection.Id)
+                    .ToList();
+
+                    if (zonalInspSubIds.Count() > 0)
+                    {
+                        return serviceViewProtocol.GetAll()
+                            .WhereIf(municipalityList.Count > 0, x => x.MunicipalityId.HasValue && municipalityList.Contains(x.MunicipalityId.Value))
+                            .Where(x => zonalInspSubIds.Contains(x.ZonalInspectionId));
+                    }
+                }
+
                 var zonalId = zonalDomain.GetAll().FirstOrDefault(x => x.Inspector == thisOperator.Inspector).ZonalInspection?.Id;
                 if (!zonalId.HasValue)
                 {
                     return null;
                 }
-
                 return serviceViewProtocol.GetAll()
                         .WhereIf(municipalityList.Count > 0, x => x.MunicipalityId.HasValue && municipalityList.Contains(x.MunicipalityId.Value))
                         .Where(x => x.ZonalInspectionId == zonalId);

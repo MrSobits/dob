@@ -6,6 +6,8 @@
     {
         IDataResult SubcribeToInspectors(BaseParams baseParams);
 
+        IDataResult SubcribeToZonalInsps(BaseParams baseParams);
+
         IDataResult GetInfo(BaseParams baseParams);
 
         IDataResult AddZonalInspection(BaseParams baseParams);

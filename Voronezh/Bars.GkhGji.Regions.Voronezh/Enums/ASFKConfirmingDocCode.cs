@@ -7,7 +7,7 @@ namespace Bars.GkhGji.Regions.Voronezh.Enums
     /// </summary>
     public enum ASFKConfirmingDocCode
     {
-        [Display("Нет данных")]
+        [Display("Платежное поручение")]
         NoValue = 0,
 
         [Display("Извещение о поступлении в иностранной валюте")]

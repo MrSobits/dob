@@ -42,13 +42,33 @@
         /// <returns>Результат проверки</returns>
         public override IDataResult BeforeDeleteAction(IDomainService<Inspector> service, Inspector entity)
         {
+            var inspSubDomain = Container.Resolve<IDomainService<InspectorSubscription>>();
+            var inspZonalInspSubDomain = Container.Resolve<IDomainService<InspectorZonalInspSubscription>>();
             var operatorInspector = Container.Resolve<IDomainService<Operator>>().GetAll().Count(x => x.Inspector.Id == entity.Id);
 
             if (operatorInspector >= 1)
             {
                 return Failure("Существуют связанные записи в таблице: Операторы");
             }
-            
+
+            var inspSubscription = inspSubDomain.GetAll()
+                .Where(x => x.SignedInspector.Id == entity.Id)
+                .ToList();
+
+            foreach (var sub in inspSubscription)
+            {
+                inspSubDomain.Delete(sub);
+            }
+
+            var inspZonalInspSubscription = inspZonalInspSubDomain.GetAll()
+                .Where(x => x.Inspector.Id == entity.Id)
+                .ToList();
+
+            foreach (var zonalSub in inspZonalInspSubscription)
+            {
+                inspZonalInspSubDomain.Delete(zonalSub);
+            }
+
             return Success();
         }
 

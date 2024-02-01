@@ -48,6 +48,41 @@
             }
         }
 
+        public IDataResult SubcribeToZonalInsps(BaseParams baseParams)
+        {
+            try
+            {
+                var inspectorId = baseParams.Params.GetAs<long>("inspectorId");
+                var zonalInspsIds = baseParams.Params.GetAs<int[]>("zonalInspsIds");
+
+                var inspZonalInspSubService = Container.Resolve<IDomainService<InspectorZonalInspSubscription>>();
+
+                // получаем у контроллера источники что бы не добавлять их повторно
+                var exsisting =
+                    inspZonalInspSubService.GetAll()
+                                                .Where(x => x.Inspector.Id == inspectorId)
+                                                .Select(x => x.ZonalInspection.Id)
+                                                .ToList();
+
+                foreach (var newId in zonalInspsIds.Where(id => !exsisting.Contains(id)))
+                {
+                    var newInspZonalInspSubscription = new InspectorZonalInspSubscription
+                    {
+                        Inspector = new Inspector { Id = inspectorId },
+                        ZonalInspection = new ZonalInspection { Id = newId }
+                    };
+
+                    inspZonalInspSubService.Save(newInspZonalInspSubscription);
+                }
+
+                return new BaseDataResult { Success = true };
+            }
+            catch (ValidationException exc)
+            {
+                return new BaseDataResult { Success = false, Message = exc.Message };
+            }
+        }
+
         public IDataResult GetInfo(BaseParams baseParams)
         {
             try

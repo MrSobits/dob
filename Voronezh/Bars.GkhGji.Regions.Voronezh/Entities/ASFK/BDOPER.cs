@@ -54,5 +54,20 @@ namespace Bars.GkhGji.Regions.Voronezh.Entities.ASFK
         /// Назначение платежа
         /// </summary>
         public virtual string Purpose { get; set; }
+
+        /// <summary>
+        /// Код документа АДБ
+        /// </summary>
+        public virtual ASFKADBDocCode KodDocAdb { get; set; }
+
+        /// <summary>
+        /// КБК
+        /// </summary>
+        public virtual string Kbk { get; set; }
+
+        /// <summary>
+        /// ID выписки (ASFK) на случай смены
+        /// </summary>
+        public virtual long RelatedASFKId { get; set; }
     }
 }

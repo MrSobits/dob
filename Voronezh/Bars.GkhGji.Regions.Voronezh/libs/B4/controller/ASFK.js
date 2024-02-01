@@ -187,6 +187,12 @@
                     dataIndex: 'ComissionName',
                     flex: 1,
                     filter: { xtype: 'textfield' }
+                },
+                {
+                    text: 'КБК',
+                    dataIndex: 'KBK',
+                    flex: 1,
+                    filter: { xtype: 'textfield' }
                 }
             ],
             columnsGridSelected: [

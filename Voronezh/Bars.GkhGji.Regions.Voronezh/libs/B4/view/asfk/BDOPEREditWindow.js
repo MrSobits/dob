@@ -22,7 +22,9 @@
         'B4.store.asfk.BDOPER',
         'B4.view.asfk.BDOPERGrid',
         'B4.ux.button.Add',
-        'B4.ux.button.Update'
+        'B4.ux.button.Update',
+        'B4.enums.ASFKADBDocCode',
+        'B4.store.asfk.ASFK'
     ],
 
     initComponent: function () {
@@ -81,6 +83,53 @@
                                     name: 'KppPay',
                                     hideTrigger: true,
                                     fieldLabel: 'КПП плательщика'
+                                },
+                                {
+                                    xtype: 'b4enumcombo',
+                                    fieldLabel: 'Тип операции',
+                                    enumName: 'B4.enums.ASFKADBDocCode',
+                                    name: 'KodDocAdb'
+                                },
+                                {
+                                    xtype: 'textfield',
+                                    name: 'Kbk',
+                                    enforceMaxLength: true,
+                                    maxLength: 20,
+                                    hideTrigger: true,
+                                    fieldLabel: 'КБК'
+                                },
+                                {
+                                    xtype: 'b4selectfield',
+                                    name: 'ASFK',
+                                    store: 'B4.store.asfk.ASFK',
+                                    textProperty: 'GuidVT',
+                                    fieldLabel: 'Связанная выписка',
+                                    editable: false,
+                                    columns: [
+                                        {
+                                            text: 'GUID',
+                                            flex: 1,
+                                            dataIndex: 'GuidVT',
+                                            filter: { xtype: 'textfield' }
+                                        },
+                                        {
+                                            xtype: 'datecolumn',
+                                            text: 'Дата выписки',
+                                            flex: 1,
+                                            format: 'd.m.Y',
+                                            dataIndex: 'DateOtch',
+                                            filter: {
+                                                xtype: 'datefield',
+                                                format: 'd.m.Y'
+                                            }
+                                        },
+                                        {
+                                            text: 'Сумма',
+                                            flex: 1,
+                                            dataIndex: 'SumInItogV',
+                                            filter: { xtype: 'textfield' }
+                                        }
+                                    ]
                                 }
                             ]
                         }

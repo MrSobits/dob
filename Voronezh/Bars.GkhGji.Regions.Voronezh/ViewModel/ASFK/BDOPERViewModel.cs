@@ -2,6 +2,7 @@
 {
     using B4;
     using Bars.GkhGji.Regions.Voronezh.Entities.ASFK;
+    using Bars.GkhGji.Regions.Voronezh.Enums;
     using System.Linq;
 
     public class BDOPERViewModel : BaseViewModel<BDOPER>
@@ -17,13 +18,17 @@
                 .Select(x => new 
                 { 
                     x.Id,
+                    x.ASFK,
                     x.IsPayFineAdded,
                     x.GUID,
                     x.Sum,
                     x.InnPay,
                     x.KppPay,
                     x.NamePay,
-                    x.Purpose
+                    x.Kbk,
+                    x.KodDocAdb,
+                    x.Purpose,
+                    x.RelatedASFKId
                 })
                 .Filter(loadParams, Container);
 

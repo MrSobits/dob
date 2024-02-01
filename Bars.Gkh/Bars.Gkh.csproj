@@ -322,6 +322,7 @@
     <Compile Include="Entities\CSCalculation\CSCalculationRow.cs" />
     <Compile Include="Entities\CSCalculation\CSCalculation.cs" />
     <Compile Include="Entities\CSCalculation\CSFormula.cs" />
+    <Compile Include="Entities\Dicts\InspectorZonalInspSubscription.cs" />
     <Compile Include="Entities\Dicts\PhysicalPersonDocType.cs" />
     <Compile Include="Entities\Dicts\SocialStatus.cs" />
     <Compile Include="Entities\Dicts\Subdivision.cs" />
@@ -410,6 +411,7 @@
     <Compile Include="Map\CSCalculation\CSCalculationMap.cs" />
     <Compile Include="Map\CSCalculation\CSCalculationRow.cs" />
     <Compile Include="Map\CSCalculation\CSFormulaMap.cs" />
+    <Compile Include="Map\Dict\InspectorZonalInspSubscriptionMap.cs" />
     <Compile Include="Map\Dict\PhysicalPersonDocTypeMap.cs" />
     <Compile Include="Map\Dict\SocialStatusMap.cs" />
     <Compile Include="Map\Dict\SubdivisionMap.cs" />
@@ -524,6 +526,7 @@
     <Compile Include="Migrations\2023\Version_2023041200\UpdateSchema.cs" />
     <Compile Include="Migrations\2023\Version_2023020900\UpdateSchema.cs" />
     <Compile Include="Migrations\2023\Version_2023020700\UpdateSchema.cs" />
+    <Compile Include="Migrations\2024\Version_2024012900\UpdateSchema.cs" />
     <Compile Include="Modules\ClaimWork\Entities\FlattenedClaimWork.cs" />
     <Compile Include="Modules\ClaimWork\Enums\ZVSPCourtDecision.cs" />
     <Compile Include="Modules\ClaimWork\Enums\DebtCalcMethod.cs" />
@@ -881,6 +884,7 @@
     <Compile Include="ViewModel\CSCalculation\TarifNormativeViewModel.cs" />
     <Compile Include="ViewModel\CSCalculation\CSCalculationViewModel.cs" />
     <Compile Include="ViewModel\CSCalculation\CSCalculationRowViewModel.cs" />
+    <Compile Include="ViewModel\Dict\InspectorZonalInspSubscriptionViewModel.cs" />
     <Compile Include="ViewModel\Dict\LivingSquareCostViewModel.cs" />
     <Compile Include="ViewModel\Dict\QualifyTestSettingsViewModel.cs" />
     <Compile Include="ViewModel\Dict\QualifyTestQuestionsViewModel.cs" />
@@ -5791,6 +5795,9 @@
     <EmbeddedResource Include="libs\B4\store\dict\IndividualPersonToResolution.js" />
     <EmbeddedResource Include="libs\B4\model\dict\IndividualPersonToResolution.js" />
     <EmbeddedResource Include="libs\B4\view\PreviewFileWindow.js" />
+    <EmbeddedResource Include="libs\B4\model\dict\InspectorZonalInspSubscription.js" />
+    <EmbeddedResource Include="libs\B4\store\dict\InspectorZonalInspSubscription.js" />
+    <EmbeddedResource Include="libs\B4\view\dict\inspector\ZonalInspSubscriptionGrid.js" />
     <Content Include="resources\TechPassportDecs.xml">
       <SubType>Designer</SubType>
     </Content>

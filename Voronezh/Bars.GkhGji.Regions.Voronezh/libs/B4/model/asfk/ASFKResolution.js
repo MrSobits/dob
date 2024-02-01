@@ -8,6 +8,7 @@ Ext.define('B4.model.asfk.ASFKResolution', {
     },
     fields: [
         { name: 'Id' },
+        { name: 'KBK' },
         { name: 'DocumentDate' },
         { name: 'DocumentNumber'},
         { name: 'ComissionName'},

@@ -1073,7 +1073,7 @@ namespace Bars.GkhGji.Regions.Voronezh.DomainService
 
             return new ImportChargesProxy.Payee
             {
-                name = zonaInsp.Name,
+                name = zonaInsp.UseUFC && !string.IsNullOrEmpty(zonaInsp.UFC) ? zonaInsp.UFC : zonaInsp.Name,
                 inn = zonaInsp.inn,
                 kpp = zonaInsp.kpp,
                 ogrn = zonaInsp.ogrn,

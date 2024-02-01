@@ -671,6 +671,7 @@
             this.Container.RegisterAltDataController<ProtocolMKDIniciator>();
             this.Container.RegisterAltDataController<TypeProject>();
             this.Container.RegisterAltDataController<InspectorSubscription>();
+            this.Container.RegisterAltDataController<InspectorZonalInspSubscription>();
             this.Container.RegisterAltDataController<CSCalculation>();
             this.Container.RegisterAltDataController<CSCalculationRow>();
             this.Container.RegisterAltDataController<ProblemPlace>();
@@ -1430,6 +1431,7 @@
             this.Container.RegisterViewModel<Inspector, InspectorViewModel>();
             this.Container.RegisterViewModel<ZonalInspection, ZonalInspectionViewModel>();
             this.Container.RegisterViewModel<InspectorSubscription, InspectorSubscriptionViewModel>();
+            this.Container.RegisterViewModel<InspectorZonalInspSubscription, InspectorZonalInspSubscriptionViewModel>();
             this.Container.RegisterViewModel<Institutions, InstitutionsViewModel>();
             this.Container.RegisterViewModel<Municipality, MunicipalityViewModel>();
             this.Container.RegisterViewModel<MunicipalitySourceFinancing, MunicipalitySourceFinancingViewModel>();

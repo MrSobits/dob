@@ -59,6 +59,7 @@ namespace Bars.Gkh.Map
             Property(x => x.BankName, "BankName").Column("BANKNAME");
             Property(x => x.CorrespAcc, "CorrespAcc").Column("CORRACC");
             Property(x => x.GisGmpId, "GisGmpId").Column("GISGMPID");
+            Property(x => x.UseUFC, "Использовать УФК в ГИС ГМП вместо названия комиссии").Column("USE_UFC");
         }
     }
 }

@@ -483,6 +483,7 @@ namespace Bars.Gkh
             this.AddResource(container, "libs/B4/model/Dict/IndividualPersonToResolution.js");
             this.AddResource(container, "libs/B4/model/Dict/Inspector.js");
             this.AddResource(container, "libs/B4/model/Dict/InspectorSubscription.js");
+            this.AddResource(container, "libs/B4/model/Dict/InspectorZonalInspSubscription.js");
             this.AddResource(container, "libs/B4/model/Dict/Institutions.js");
             this.AddResource(container, "libs/B4/model/Dict/KindEquipment.js");
             this.AddResource(container, "libs/B4/model/Dict/KindRisk.js");
@@ -760,6 +761,7 @@ namespace Bars.Gkh
             this.AddResource(container, "libs/B4/store/Dict/InspectorForSelect.js");
             this.AddResource(container, "libs/B4/store/Dict/InspectorForSelected.js");
             this.AddResource(container, "libs/B4/store/Dict/InspectorSubscription.js");
+            this.AddResource(container, "libs/B4/store/Dict/InspectorZonalInspSubscription.js");
             this.AddResource(container, "libs/B4/store/Dict/Institutions.js");
             this.AddResource(container, "libs/B4/store/Dict/KindEquipment.js");
             this.AddResource(container, "libs/B4/store/Dict/KindRisk.js");
@@ -1220,6 +1222,7 @@ namespace Bars.Gkh
             this.AddResource(container, "libs/B4/view/Dict/Inspector/EditWindow.js");
             this.AddResource(container, "libs/B4/view/Dict/Inspector/Grid.js");
             this.AddResource(container, "libs/B4/view/Dict/Inspector/SubcriptionGrid.js");
+            this.AddResource(container, "libs/B4/view/Dict/Inspector/ZonalInspSubscriptionGrid.js");
             this.AddResource(container, "libs/B4/view/Dict/Institutions/EditWindow.js");
             this.AddResource(container, "libs/B4/view/Dict/Institutions/Grid.js");
             this.AddResource(container, "libs/B4/view/Dict/KindEquipment/EditWindow.js");

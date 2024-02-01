@@ -7,7 +7,7 @@ namespace Bars.GkhGji.Regions.Voronezh.Enums
     /// </summary>
     public enum ASFKADBDocCode
     {
-        [Display("Нет данных")]
+        [Display("Платежное поручение")]
         NoValue = 0,
 
         [Display("Заявка на возврат")]

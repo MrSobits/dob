@@ -17,7 +17,6 @@
     {
         public override IDataResult AfterCreateAction(IDomainService<BDOPER> service, BDOPER entity)
         {
-            var bdoperDomain = this.Container.ResolveDomain<BDOPER>();
             var vtoperDomain = this.Container.ResolveDomain<VTOPER>();
             var resolDomain = this.Container.ResolveDomain<Resolution>();
             var resolPayFineDomain = this.Container.ResolveDomain<ResolutionPayFine>();
@@ -131,7 +130,6 @@
 
                             entity.Resolution = resolDomain.Get(resolutionId);
                             entity.IsPayFineAdded = true;
-                            bdoperDomain.Update(entity);
                             CalcBalance(resolDomain.Get(resolutionId));
                         }
                         //Ищем по плательщику, если нарушителя нет
@@ -148,11 +146,14 @@
 
                             entity.Resolution = resolDomain.Get(resolutionId);
                             entity.IsPayFineAdded = true;
-                            bdoperDomain.Update(entity);
                             CalcBalance(resolDomain.Get(resolutionId));
                         }
                     }
                 }
+
+                entity.Kbk = vtoper.Kbk;
+                entity.KodDocAdb = vtoper.KodDocAdb;
+                service.Update(entity);
             }
             catch (Exception ex)
             {
@@ -161,7 +162,6 @@
             finally
             {
                 Container.Release(vtoperDomain);
-                Container.Release(bdoperDomain);
                 Container.Release(resolDomain);
                 Container.Release(resolPayFineDomain);
                 Container.Release(indPersonDomain);
@@ -173,6 +173,7 @@
         public override IDataResult BeforeDeleteAction(IDomainService<BDOPER> service, BDOPER entity)
         {
             var vtoperDomain = this.Container.ResolveDomain<VTOPER>();
+            var asfkDomain = this.Container.Resolve<IDomainService<ASFK>>();
             var resolDomain = this.Container.ResolveDomain<Resolution>();
             var resolPayFineDomain = this.Container.ResolveDomain<ResolutionPayFine>();
             var indPersonDomain = this.Container.ResolveDomain<IndividualPerson>();
@@ -183,6 +184,12 @@
 
             try
             {
+                var relatedASFK = asfkDomain.GetAll()
+                    .Where(x => x.Id == entity.ASFK.Id)
+                    .FirstOrDefault();
+                relatedASFK.SumInItogV -= entity.Sum;
+                asfkDomain.Update(relatedASFK);
+
                 if (entity.IsPayFineAdded == true)
                 {
                     var relatedPayFine = resolPayFineDomain.GetAll()
@@ -194,12 +201,8 @@
                     .FirstOrDefault();
 
                     resolPayFineDomain.Delete(relatedPayFine.Id);
-                    entity.Resolution = null;
-                    entity.IsPayFineAdded = false;
-                    service.Update(entity);
+                    CalcBalance(resolDomain.Get(entity.Resolution.Id));
                 }
-
-                CalcBalance(resolDomain.Get(entity.Resolution.Id));
             }
             catch (Exception ex)
             {
@@ -213,7 +216,52 @@
                 Container.Release(indPersonDomain);
             }
 
-            return this.Success();
+            return base.BeforeDeleteAction(service, entity);
+        }
+
+        public override IDataResult BeforeUpdateAction(IDomainService<BDOPER> service, BDOPER entity)
+        {
+            var vtoperDomain = this.Container.ResolveDomain<VTOPER>();
+            var asfkDomain = this.Container.ResolveDomain<ASFK>();
+            try
+            {
+                var vtoper = vtoperDomain.GetAll()
+                    .Where(x => x.GUID == entity.GUID)
+                    .FirstOrDefault();
+
+                if (vtoper.Kbk != entity.Kbk || vtoper.KodDocAdb != entity.KodDocAdb)
+                {
+                    vtoper.KodDocAdb = entity.KodDocAdb;
+                    vtoper.Kbk = entity.Kbk;
+                    vtoperDomain.Update(vtoper);
+                }
+
+                var currentASFK = asfkDomain.GetAll()
+                    .Where(x => x.Id == entity.ASFK.Id)
+                    .FirstOrDefault();
+
+                if (currentASFK.Id != entity.RelatedASFKId)
+                {
+                    var relatedASFK = asfkDomain.GetAll()
+                    .Where(x => x.Id == entity.RelatedASFKId)
+                    .FirstOrDefault();
+
+                    relatedASFK.SumInItogV -= entity.Sum;
+                    currentASFK.SumInItogV += entity.Sum;
+
+                    entity.RelatedASFKId = currentASFK.Id;
+
+                    asfkDomain.Update(relatedASFK);
+                    asfkDomain.Update(currentASFK);
+                }
+
+                return base.BeforeUpdateAction(service, entity);
+            }
+            finally
+            {
+                Container.Release(vtoperDomain);
+                Container.Release(asfkDomain);
+            }
         }
 
         private void CalcBalance(Resolution resolution)

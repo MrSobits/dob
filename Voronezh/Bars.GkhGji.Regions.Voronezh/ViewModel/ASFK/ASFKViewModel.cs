@@ -1,6 +1,7 @@
 ﻿namespace Bars.GkhGji.Regions.Voronezh.ViewModel
 {
     using B4;
+    using Bars.Gkh.Domain.CollectionExtensions;
     using Bars.GkhGji.Regions.Voronezh.Entities.ASFK;
     using System.Linq;
 
@@ -10,8 +11,8 @@
         {
             var loadParams = GetLoadParam(baseParams);
             var data = domainService.GetAll()
-                .Select(x => new 
-                { 
+                .Select(x => new
+                {
                     x.Id,
                     x.NumVer,
                     x.Former,
@@ -24,7 +25,7 @@
                     x.NameUbp,
                     x.GuidVT,
                     x.LsAdb,
-                    x.DateOtch,                  
+                    x.DateOtch,
                     x.DateOld,
                     x.VidOtch,
                     x.KodTofkVT,
@@ -55,13 +56,30 @@
                     x.SumEndOut,
                     x.SumEndZach,
                     x.SumEndNOut,
-                    x.SumEndNZach
+                    x.SumEndNZach,
+                    DistributedSum = GetDistrSum(x.Id)
                 })
                 .Filter(loadParams, Container);
 
             int totalCount = data.Count();
 
             return new ListDataResult(data.Order(loadParams).Paging(loadParams).ToList(), data.Count());
+        }
+
+        private decimal GetDistrSum(long asfkId)
+        {
+            var bdoperDomain = Container.Resolve<IDomainService<BDOPER>>();
+            try
+            {
+                return bdoperDomain.GetAll()
+                    .Where(x => x.ASFK.Id == asfkId)
+                    .Where(x => x.IsPayFineAdded == true)
+                    .SafeSum(x => x.Sum);
+            }
+            finally
+            {
+                Container.Release(bdoperDomain);
+            }
         }
     }
 }

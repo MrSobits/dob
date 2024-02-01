@@ -50,6 +50,7 @@ Ext.define('B4.model.asfk.ASFK', {
         { name: 'SumEndOut' },
         { name: 'SumEndZach' },
         { name: 'SumEndNOut' },
-        { name: 'SumEndNZach' }
+        { name: 'SumEndNZach' },
+        { name: 'DistributedSum' }
     ]
 });

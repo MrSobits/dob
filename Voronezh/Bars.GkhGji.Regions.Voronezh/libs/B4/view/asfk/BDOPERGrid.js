@@ -27,6 +27,13 @@
                     scope: me
                 },
                 {
+                    xtype: 'gridcolumn',
+                    dataIndex: 'Kbk',
+                    flex: 1,
+                    text: 'КБК',
+                    filter: { xtype: 'textfield' }
+                },
+                {
                     xtype: 'booleancolumn',
                     dataIndex: 'IsPayFineAdded',
                     text: 'Найдено постановление',
@@ -76,6 +83,10 @@
                     flex: 0.5,
                     text: 'КПП плательщика',
                     filter: { xtype: 'textfield' }
+                },
+                {
+                    xtype: 'b4deletecolumn',
+                    scope: me
                 }
             ],
             plugins: [Ext.create('B4.ux.grid.plugin.HeaderFilters')],

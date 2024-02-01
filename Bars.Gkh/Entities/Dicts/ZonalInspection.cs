@@ -195,5 +195,10 @@
         /// ID комиссии в ГИС ГМП
         /// </summary>
         public virtual string GisGmpId { get; set; }
+
+        /// <summary>
+        /// Использовать УФК в ГИС ГМП вместо названия комиссии
+        /// </summary>
+        public virtual bool UseUFC { get; set; }
     }
 }

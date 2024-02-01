@@ -214,6 +214,10 @@
                         {
                             xtype: 'inspectorsubcriptiongrid',
                             flex: 1
+                        },
+                        {
+                            xtype: 'inspectorzonalinspsubscriptiongrid',
+                            flex: 1
                         }
                     ]
                 }

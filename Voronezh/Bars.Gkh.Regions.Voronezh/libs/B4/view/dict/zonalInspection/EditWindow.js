@@ -18,7 +18,7 @@ Ext.define('B4.view.dict.zonalinspection.EditWindow', {
     mixins: [ 'B4.mixins.window.ModalMask' ],
     layout: 'fit',
     width: 900,
-    height: 575,
+    height: 600,
     itemId: 'zonalInspectionEditWindow',
     title: 'Комиссия',
     closeAction: 'hide',
@@ -288,6 +288,24 @@ Ext.define('B4.view.dict.zonalinspection.EditWindow', {
                                                                                     xtype: 'textfield',
                                                                                     name: 'kpp',
                                                                                     fieldLabel: 'КПП',
+                                                                                }
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            xtype: 'container',
+                                                                            margin: '0 0 0 0',
+                                                                            columnWidth: 1,
+                                                                            layout: 'anchor',
+                                                                            defaults: {
+                                                                                anchor: '100%',
+                                                                                labelWidth: 600,
+                                                                                labelAlign: 'right'
+                                                                            },
+                                                                            items: [
+                                                                                {
+                                                                                    xtype: 'checkbox',
+                                                                                    name: 'UseUFC',
+                                                                                    fieldLabel: 'Использовать УФК в качестве наименования получателя (ГИС ГМП)'
                                                                                 }
                                                                             ]
                                                                         }
