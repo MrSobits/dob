@@ -1029,7 +1029,8 @@ namespace Bars.GkhGji.Regions.Voronezh.DomainService
                 {
                     Meaning = GetMeaning(requestData.GisGmpChargeType).ToString(),
                     Reason = requestData.Reason,
-                    ChangeDate = DateTime.Now
+                    ChangeDate = DateTime.Now,
+                    ChangeDateSpecified = true
                 }
             });
             return chargesList.ToArray();
