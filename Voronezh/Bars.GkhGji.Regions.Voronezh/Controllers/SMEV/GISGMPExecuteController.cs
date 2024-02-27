@@ -412,7 +412,7 @@
             if (typeVal == PayerType.Juridical)
             {
                 payerstate = GISGMPPayerStatusDomain.GetAll()
-                    .FirstOrDefault(x => x.Code == "01");
+                    .FirstOrDefault(x => x.Code == "08");
             }
             if (typeVal == PayerType.IP)
             {

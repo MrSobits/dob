@@ -608,12 +608,12 @@
             if (typeVal == PayerType.Physical)
             {
                 payerstate = GISGMPPayerStatusDomain.GetAll()
-                    .FirstOrDefault(x => x.Code == "13");
+                    .FirstOrDefault(x => x.Code == "24");
             }
             if (typeVal == PayerType.Juridical)
             {
                 payerstate = GISGMPPayerStatusDomain.GetAll()
-                    .FirstOrDefault(x => x.Code == "01");
+                    .FirstOrDefault(x => x.Code == "08");
             }
             if (typeVal == PayerType.IP)
             {
