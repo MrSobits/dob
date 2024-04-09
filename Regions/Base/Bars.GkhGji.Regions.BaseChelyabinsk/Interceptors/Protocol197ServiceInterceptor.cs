@@ -72,50 +72,7 @@
                 entity.CaseNumber = newInspection.InspectionNumber;
                 entity.PhysicalPersonDocType = personDocService.GetAll().Where(x => x.Name == "Паспорт гражданина Российской Федерации").Select(x => x).FirstOrDefault();
 
-                if (entity.DocumentNum != null)
-                {
-                    string UIN = GetUIN();
-                    //string UIN = "39645f";
-                    if (UIN != null)
-                    {
-                        string s1 = Convert.ToInt32(UIN, 16).ToString().PadLeft(8, '0');
-                        string s2 = (entity.DocumentDate?.ToString("yyyyMMdd") ?? "00000000");
-                        string s3 = "";
-                        if (entity.Inspection.InspectionNumber.Contains("-"))
-                        {
-                            if (entity.Inspection.InspectionNumber.Split('-').Count() > 2)
-                            {
-                                s3 = (entity.Inspection.InspectionNumber.Split('-')[1] + entity.Inspection.InspectionNumber.Split('-')[2]).PadRight(8, '0');
-                            }
-                            else if (entity.Inspection.InspectionNumber.Split('-').Count() == 2)
-                            {
-                                s3 = entity.Inspection.InspectionNumber.Split('-')[1].PadRight(8, '0');
-                            }
-                            else
-                            {
-                                s3 = entity.Inspection.InspectionNumber.Replace("-", "").PadRight(8, '0');
-                            }
-                        }
-                        else
-                        {
-                            s3 = entity.Inspection.InspectionNumber.PadRight(8, '0');
-                        }
-                        s3 = s3.Replace('/', '1');
-                        s3 = s3.Replace('\\', '0');
-                        s3 = s3.Replace('№', '4');
-                        char[] charsS3 = s3.ToCharArray();
-                        for (int i = 0; i < s3.Length; i++)
-                        {
-                            if (!char.IsDigit(charsS3[i]))
-                            {
-                                s3 = s3.Replace(charsS3[i], '0');
-                            }
-                        }
-                        entity.UIN = (s1 + s2 + s3).Substring(0, 24);
-                        entity.UIN += CheckSum(entity.UIN);
-
-                    }
-                }
+                entity.UIN = CreateNewUIN(entity);
 
                 return base.BeforeCreateAction(service, entity);
             }
@@ -436,37 +393,9 @@
                 }
             }
 
-            if (entity.DocumentNumber != null)
+            if (entity.Inspection.InspectionNumber != null && string.IsNullOrEmpty(entity.UIN))
             {
-                string UIN = GetUIN();
-                //string UIN = "39645f";
-                if (UIN != null)
-                {
-                    string s1 = Convert.ToInt32(UIN, 16).ToString().PadLeft(8, '0');
-                    string s2 = (entity.DocumentDate?.ToString("yyyyMMdd") ?? "00000000");
-                    string s3 = "";
-                    if (entity.Inspection.InspectionNumber.Contains("-"))
-                    {
-                        if (entity.Inspection.InspectionNumber.Split('-').Count() > 2)
-                        {
-                            s3 = (entity.Inspection.InspectionNumber.Split('-')[1] + entity.Inspection.InspectionNumber.Split('-')[2]).PadRight(8, '0');
-                        }
-                        else if (entity.Inspection.InspectionNumber.Split('-').Count() == 2)
-                        {
-                            s3 = entity.Inspection.InspectionNumber.Split('-')[1].PadRight(8, '0');
-                        }
-                        else
-                        {
-                            s3 = entity.Inspection.InspectionNumber.Replace("-", "").PadRight(8, '0');
-                        }
-                    }
-                    else
-                    {
-                        s3 = entity.Inspection.InspectionNumber.PadRight(8, '0');
-                    }
-                    entity.UIN = (s1 + s2 + s3).Substring(0, 24);
-                    entity.UIN += CheckSum(entity.UIN);
-                }
+                entity.UIN = CreateNewUIN(entity);
             }
 
             return Success();
@@ -593,6 +522,52 @@
                                 .Where(x => x.Inspector == this.Container.Resolve<IGkhUserManager>().GetActiveOperator().Inspector)
                                 .Select(x => x.ZonalInspection.GisGmpId)
                                 .FirstOrDefault();
+        }
+
+        private string CreateNewUIN(Protocol197 entity)
+        {
+            string UIN = GetUIN();
+            //string UIN = "39645f";
+            if (UIN != null)
+            {
+                string s1 = Convert.ToInt32(UIN, 16).ToString().PadLeft(8, '0');
+                string s2 = (entity.DocumentDate?.ToString("yyyyMMdd") ?? "00000000");
+                string s3 = "";
+                if (entity.Inspection.InspectionNumber.Contains("-"))
+                {
+                    if (entity.Inspection.InspectionNumber.Split('-').Count() > 2)
+                    {
+                        s3 = (entity.Inspection.InspectionNumber.Split('-')[1] + entity.Inspection.InspectionNumber.Split('-')[2]).PadRight(8, '0');
+                    }
+                    else if (entity.Inspection.InspectionNumber.Split('-').Count() == 2)
+                    {
+                        s3 = entity.Inspection.InspectionNumber.Split('-')[1].PadRight(8, '0');
+                    }
+                    else
+                    {
+                        s3 = entity.Inspection.InspectionNumber.Replace("-", "").PadRight(8, '0');
+                    }
+                }
+                else
+                {
+                    s3 = entity.Inspection.InspectionNumber.PadRight(8, '0');
+                }
+                s3 = s3.Replace('/', '1');
+                s3 = s3.Replace('\\', '0');
+                s3 = s3.Replace('№', '4');
+                char[] charsS3 = s3.ToCharArray();
+                for (int i = 0; i < s3.Length; i++)
+                {
+                    if (!char.IsDigit(charsS3[i]))
+                    {
+                        s3 = s3.Replace(charsS3[i], '0');
+                    }
+                }
+                UIN = (s1 + s2 + s3).Substring(0, 24);
+                UIN += CheckSum(entity.UIN);
+                return UIN;
+            }
+            return "";
         }
     }
 }

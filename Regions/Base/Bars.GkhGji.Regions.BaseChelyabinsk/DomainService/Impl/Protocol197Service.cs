@@ -233,7 +233,7 @@
 					return null;
 				}
 
-                if (thisOperator?.Inspector.NotMemberPosition.Name == "Администратор доходов")
+                if (thisOperator?.Inspector.NotMemberPosition != null && thisOperator?.Inspector.NotMemberPosition.Name == "Администратор доходов")
                 {
                     var zonalInspSubIds = Container.Resolve<IDomainService<InspectorZonalInspSubscription>>().GetAll()
                     .Where(x => x.Inspector.Id == thisOperator.Inspector.Id)
