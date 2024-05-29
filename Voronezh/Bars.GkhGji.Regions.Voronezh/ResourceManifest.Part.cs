@@ -76,6 +76,7 @@
             container.Add("libs/B4/enums/DisputeCategory.js", new ExtJsEnumResource<DisputeCategory>("B4.enums.DisputeCategory"));
             container.Add("libs/B4/enums/DisputeType.js", new ExtJsEnumResource<DisputeType>("B4.enums.DisputeType"));
             container.Add("libs/B4/enums/LawyerInspector.js", new ExtJsEnumResource<LawyerInspector>("B4.enums.LawyerInspector"));
+            container.Add("libs/B4/enums/CourtDischargeReason.js", new ExtJsEnumResource<CourtDischargeReason>("B4.enums.CourtDischargeReason"));
             
             //ГИС ЖКХ
             if (container.Resources.ContainsKey("~/libs/B4/enums/GisGkhTypeRequest.js"))

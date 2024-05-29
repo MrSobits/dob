@@ -193,5 +193,14 @@
         /// </summary>
         public virtual Resolution DocumentGji { get; set; }
 
+        /// <summary>
+        /// Дата закрытия
+        /// </summary>
+        public virtual DateTime? ClosureDate { get; set; }
+
+        /// <summary>
+        /// Причина отмены
+        /// </summary>
+        public virtual CourtDischargeReason CourtDischargeReason { get; set; }
     }
 }

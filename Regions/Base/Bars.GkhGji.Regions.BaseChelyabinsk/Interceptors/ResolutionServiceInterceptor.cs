@@ -19,7 +19,6 @@
     {
         public override IDataResult BeforeUpdateAction(IDomainService<T> service, T entity)
         {
-            
             var payService = Container.Resolve<IDomainService<ResolutionPayFine>>();
             var documentgji = Container.Resolve<IDomainService<DocumentGjiChildren>>();
             var protocolservice = Container.Resolve<IDomainService<Bars.GkhGji.Entities.Protocol>>();
@@ -31,7 +30,8 @@
                 var parentDoc = documentgji.GetAll().FirstOrDefault(x => x.Children == entity)?.Parent;
                 if (parentDoc != null)
                 {
-                    IndividualPerson ipers = protocol197service.Get(parentDoc.Id)?.IndividualPerson;
+                    var parentProtocol197 = protocol197service.Get(parentDoc.Id);
+                    IndividualPerson ipers = parentProtocol197?.IndividualPerson;
                     if (ipers == null)
                     {
                         ipers = protocolservice.Get(parentDoc.Id)?.IndividualPerson;
@@ -40,9 +40,19 @@
                     {
                         entity.IndividualPerson = ipers;
                     }
+
+                    if (string.IsNullOrEmpty(entity.GisUin))
+                    {
+                        if (parentProtocol197 != null && !string.IsNullOrEmpty(parentProtocol197.UIN))
+                        {
+                            entity.GisUin = parentProtocol197.UIN;
+                        }
+                        else
+                        {
+                            return new BaseDataResult(false, "Ошибка: у родительского протокола отсутствует УИН.");
+                        }
+                    }
                 }
-
-
 
                 // Если во вкладке "Оплаты штрафов" поле "Итого" равно или больше значения "Сумма штрафа" во вкладке "Реквизиты", 
                 // то Поле "Штраф оплачен" должно принимать значение "Да"

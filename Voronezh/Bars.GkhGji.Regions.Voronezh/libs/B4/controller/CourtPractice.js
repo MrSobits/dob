@@ -117,6 +117,7 @@
                 actions['#courtpracticeEditWindow #cbDispute'] = { 'change': { fn: this.onChangecbcbDispute, scope: this } }; 
                 actions['#courtpracticeEditWindow #btnPrescr'] = { 'click': { fn: this.goToDocument, scope: this } };
                 actions['#courtpracticeEditWindow #cbCourtPracticeState'] = { 'change': { fn: this.onChangecbCourtPracticeState, scope: this } }; 
+                actions['#courtpracticeEditWindow #cbCourtMeetingResult'] = { 'change': { fn: this.onChangecbCourtMeetingResult, scope: this } }; 
                 actions['#courtpracticeEditWindow #sfTypeFactViolation'] = { 'change': { fn: this.onChangesfTypeFactViolation, scope: this } }; 
                 //
             },
@@ -292,6 +293,17 @@
                 {
                     tfPausedComment.hide();
                     tfPausedComment.setValue(null);
+                }
+            },
+            onChangecbCourtMeetingResult: function (field, newValue) {
+                var form = this.getForm(),
+                    cbCourtDischargeReason = form.down('#cbCourtDischargeReason');
+                if (newValue == B4.enums.CourtMeetingResult.CompletelySatisfied) {
+                    cbCourtDischargeReason.show();
+                }
+                else {
+                    cbCourtDischargeReason.hide();
+                    cbCourtDischargeReason.setValue(0);
                 }
             },
             onChangecbCourtCosts: function (field, newValue) {

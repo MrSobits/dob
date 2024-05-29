@@ -816,6 +816,7 @@
     <Compile Include="Migrations\2022\Version_2022013101\UpdateSchema.cs" />
     <Compile Include="Migrations\2022\Version_2022013100\UpdateSchema.cs" />
     <Compile Include="Migrations\2022\Version_2022011000\UpdateSchema.cs" />
+    <Compile Include="Migrations\2024\Version_2024051600\UpdateSchema.cs" />
     <Compile Include="NumberValidation\BasePermValidationRule.cs" />
     <Compile Include="Permissions\GjiChelyabinskPermission.cs" />
     <Compile Include="Permissions\IGjiPermission.cs" />

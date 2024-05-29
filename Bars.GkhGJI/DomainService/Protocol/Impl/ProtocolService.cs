@@ -341,18 +341,21 @@
                     return null;
                 }
 
-                if (thisOperator?.Inspector.NotMemberPosition.Name == "Администратор доходов")
+                if (thisOperator?.Inspector.NotMemberPosition != null)
                 {
-                    var zonalInspSubIds = Container.Resolve<IDomainService<InspectorZonalInspSubscription>>().GetAll()
-                    .Where(x => x.Inspector.Id == thisOperator.Inspector.Id)
-                    .Select(x => x.ZonalInspection.Id)
-                    .ToList();
-
-                    if (zonalInspSubIds.Count() > 0)
+                    if (thisOperator?.Inspector.NotMemberPosition.Name == "Администратор доходов")
                     {
-                        return serviceViewProtocol.GetAll()
-                            .WhereIf(municipalityList.Count > 0, x => x.MunicipalityId.HasValue && municipalityList.Contains(x.MunicipalityId.Value))
-                            .Where(x => zonalInspSubIds.Contains(x.ZonalInspectionId));
+                        var zonalInspSubIds = Container.Resolve<IDomainService<InspectorZonalInspSubscription>>().GetAll()
+                        .Where(x => x.Inspector.Id == thisOperator.Inspector.Id)
+                        .Select(x => x.ZonalInspection.Id)
+                        .ToList();
+
+                        if (zonalInspSubIds.Count() > 0)
+                        {
+                            return serviceViewProtocol.GetAll()
+                                .WhereIf(municipalityList.Count > 0, x => x.MunicipalityId.HasValue && municipalityList.Contains(x.MunicipalityId.Value))
+                                .Where(x => zonalInspSubIds.Contains(x.ZonalInspectionId));
+                        }
                     }
                 }
 

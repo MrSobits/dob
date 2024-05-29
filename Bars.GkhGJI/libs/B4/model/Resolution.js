@@ -95,6 +95,11 @@ Ext.define('B4.model.Resolution', {
         { name: 'FamilyStatus' },
         { name: 'HasProtocol' },
         { name: 'OfficialPosition' },
-        { name: 'SentToOSP' }
+        { name: 'SentToOSP' },
+        { name: 'IsAppealed' },
+        { name: 'AppelationStatus' },
+        { name: 'DischargedByCourt' },
+        { name: 'SentToNewConcederation' },
+        { name: 'ChangedByCourt' }
     ]
 });

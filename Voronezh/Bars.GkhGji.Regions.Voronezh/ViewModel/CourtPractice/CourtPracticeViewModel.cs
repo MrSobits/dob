@@ -95,8 +95,8 @@
                     DateCourtMeetingDate = x.CourtMeetingTime.HasValue ? new DateTime(x.DateCourtMeeting.Year, x.DateCourtMeeting.Month, x.DateCourtMeeting.Day, x.CourtMeetingTime.Value.Hour, x.CourtMeetingTime.Value.Minute, 0): new DateTime(x.DateCourtMeeting.Year, x.DateCourtMeeting.Month, x.DateCourtMeeting.Day, 0, 0, 0),
                     InstanceGjiCode = x.InstanceGji!= null? x.InstanceGji.Code:"03",
                     x.CourtMeetingResult
-
-                }).AsQueryable()
+                })
+                .AsQueryable()
                 .Filter(loadParams, Container);
 
             int totalCount = data.Count();
@@ -154,7 +154,9 @@
                 dataCp.TypeFactViolation,
                 dataCp.DocumentGji,
                 TypeBase = dataCp.DocumentGji != null? dataCp.DocumentGji.Inspection.TypeBase:GkhGji.Enums.TypeBase.CitizenStatement,
-                InspId = dataCp.DocumentGji != null ? dataCp.DocumentGji.Inspection.Id:0
+                InspId = dataCp.DocumentGji != null ? dataCp.DocumentGji.Inspection.Id:0,
+                dataCp.ClosureDate,
+                dataCp.CourtDischargeReason
             };
 
             return new BaseDataResult(data);

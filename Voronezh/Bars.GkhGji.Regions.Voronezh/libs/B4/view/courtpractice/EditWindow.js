@@ -9,7 +9,7 @@
     },
     width: 1200,
     minWidth: 800,
-    height: 400,
+    height: 420,
     resizable: true,
     bodyPadding: 3,
     itemId: 'courtpracticeEditWindow',
@@ -31,6 +31,7 @@
         'B4.form.FileField',
         'B4.store.Contragent',
         'B4.enums.CourtPracticeState',
+        'B4.enums.CourtDischargeReason',
         'B4.enums.CourtMeetingResult',
         'B4.enums.LawyerInspector',
         'B4.enums.DisputeCategory',
@@ -296,10 +297,24 @@
                                             labelWidth: 160,
                                             store: B4.enums.CourtMeetingResult.getStore(),
                                             valueField: 'Value',
-                                            width: 500,
+                                            width: 400,
                                             allowBlank: false,
                                             editable: false
                                         },
+                                        {
+                                            xtype: 'combobox',
+                                            name: 'CourtDischargeReason',
+                                            name: 'CourtDischargeReason',
+                                            fieldLabel: 'Причина отмены',
+                                            displayField: 'Display',
+                                            itemId: 'cbCourtDischargeReason',
+                                            labelWidth: 120,
+                                            store: B4.enums.CourtDischargeReason.getStore(),
+                                            valueField: 'Value',
+                                            width: 350,
+                                            hidden: true,
+                                            editable: false
+                                        }
                                     ]
                                 },
                                 {

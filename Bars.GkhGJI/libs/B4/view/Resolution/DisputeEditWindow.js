@@ -58,7 +58,6 @@
                     defaults: {
                         xtype: 'b4combobox',
                         labelAlign: 'right',
-                        allowBlank: false,
                         editable: false,
                         fields: ['Id', 'Name', 'Code'],
                         queryMode: 'local',
@@ -71,7 +70,8 @@
                             fieldLabel: 'Вид суда',
                             url: '/TypeCourtGji/List',
                             itemId: 'cbDisputeCourt',
-                            labelWidth: 170
+                            labelWidth: 170,
+                            allowBlank: false,
                         },
                         {
                             name: 'Instance',

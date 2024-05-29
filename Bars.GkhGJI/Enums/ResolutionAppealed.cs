@@ -16,7 +16,7 @@
         [Display("Суд")]
         Law = 40,
 
-        [Display("Жилищная инсекция")]
+        [Display("Жилищная инспекция")]
         RealityObjInspection = 50
     }
 }

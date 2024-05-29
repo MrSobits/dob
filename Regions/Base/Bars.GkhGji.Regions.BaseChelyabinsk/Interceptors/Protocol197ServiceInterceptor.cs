@@ -527,7 +527,6 @@
         private string CreateNewUIN(Protocol197 entity)
         {
             string UIN = GetUIN();
-            //string UIN = "39645f";
             if (UIN != null)
             {
                 string s1 = Convert.ToInt32(UIN, 16).ToString().PadLeft(8, '0');
@@ -564,7 +563,7 @@
                     }
                 }
                 UIN = (s1 + s2 + s3).Substring(0, 24);
-                UIN += CheckSum(entity.UIN);
+                UIN += CheckSum(UIN);
                 return UIN;
             }
             return "";

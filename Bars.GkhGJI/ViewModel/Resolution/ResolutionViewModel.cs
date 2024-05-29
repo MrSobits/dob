@@ -162,7 +162,10 @@
                 obj.SentToOSP,
                 obj.PostDeliveryDate,
                 obj.SendDate,
-                obj.PostGUID
+                obj.PostGUID,
+                obj.DischargedByCourt,
+                obj.SentToNewConcederation,
+                obj.ChangedByCourt
             };
 
             return new BaseDataResult(data);

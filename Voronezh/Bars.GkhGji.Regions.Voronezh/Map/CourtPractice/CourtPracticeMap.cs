@@ -39,6 +39,8 @@ namespace Bars.GkhGji.Regions.Voronezh.Map
             Property(x => x.PlaintiffFio, "PlaintiffFio").Column("PLANT_FIO");
             Property(x => x.Dispute, "Dispute").Column("IS_DISPUTE");
             Property(x => x.PausedComment, "PausedComment").Column("PAUSED_COMMENT");
+            Property(x => x.ClosureDate, "Дата закрытия").Column("CLOSURE_DATE");
+            Property(x => x.CourtDischargeReason, "Причина отмены").Column("CD_REASON");
 
             Reference(x => x.InstanceGji, "InstanceGji").Column("INSTANCE_ID");
             Reference(x => x.DocumentGji, "DocumentGji").Column("DOCUMENT_ID");

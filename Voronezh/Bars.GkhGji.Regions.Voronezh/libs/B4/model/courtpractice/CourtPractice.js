@@ -54,6 +54,7 @@ Ext.define('B4.model.courtpractice.CourtPractice', {
         { name: 'DefendantChoice' },
         { name: 'PlantiffChoice' },
         { name: 'DocumentGji' },
-        { name: 'PerformanceProceeding'}
+        { name: 'PerformanceProceeding' },
+        { name: 'CourtDischargeReason' }
     ]
 });

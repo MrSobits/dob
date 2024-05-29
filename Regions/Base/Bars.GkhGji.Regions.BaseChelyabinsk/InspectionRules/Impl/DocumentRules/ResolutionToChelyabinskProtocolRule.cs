@@ -86,6 +86,7 @@
 
         public override IDataResult CreateDocument(DocumentGji document)
         {
+            var proceedingsDate = document.ObjectCreateDate;
             DateTime? protDate = document.ObjectCreateDate > DateTime.Now ? document.ObjectCreateDate : DateTime.MinValue;
             #region Формируем протокол
             var resolution = ResolutionDomain.GetAll()
@@ -185,10 +186,10 @@
                     break;
             }
 
-            if (protDate != DateTime.MinValue)
+            if (proceedingsDate != DateTime.MinValue)
             {
-                protocol.DocumentDate = protDate;
-                protocol.DateOfProceedings = protDate;
+                protocol.DocumentDate = proceedingsDate;
+                protocol.DateOfProceedings = proceedingsDate;
                 protocol.HourOfProceedings = 9;
                 protocol.MinuteOfProceedings = 30;
                 protocol.FormatHour = 0;

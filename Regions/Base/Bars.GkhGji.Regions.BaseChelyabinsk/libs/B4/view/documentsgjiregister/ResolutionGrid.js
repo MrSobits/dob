@@ -11,6 +11,7 @@
         'B4.ux.grid.column.Enum',
         'B4.enums.ControlType',
         'B4.enums.TypeBase',
+        'B4.enums.CourtMeetingResult',
         'B4.ux.grid.selection.CheckboxModel'
     ],
 
@@ -99,7 +100,7 @@
                     dataIndex: 'State',
                     menuText: 'Статус',
                     text: 'Статус',
-                    width: 125,
+                    width: 100,
                     filter: {
                         xtype: 'b4combobox',
                         url: '/State/GetListByType',
@@ -131,7 +132,7 @@
                 {
                     xtype: 'gridcolumn',
                     dataIndex: 'TypeBase',
-                    width: 150,
+                    width: 100,
                     // 'Основание проверки'
                     text: 'Основание',
                     renderer: function (val, meta, rec) {
@@ -178,6 +179,35 @@
                         return val ? "Да" : "Нет";
                     },
                     filter: { xtype: 'b4dgridfilteryesno' }
+                },
+                {
+                    xtype: 'booleancolumn',
+                    dataIndex: 'IsAppealed',
+                    text: 'Идет обжалование',
+                    width: 100,
+                    renderer: function (val, meta, rec) {
+                        renderer(val, meta, rec);
+                        return val ? "Да" : "Нет";
+                    },
+                    filter: { xtype: 'b4dgridfilteryesno' }
+                },
+                {
+                    xtype: 'gridcolumn',
+                    dataIndex: 'AppelationStatus',
+                    text: 'Результат обжалования',
+                    width: 100,
+                    renderer: function (val, meta, rec) {
+                        val = renderer(val, meta, rec);
+                        return B4.enums.CourtMeetingResult.displayRenderer(val);
+                    },
+                    filter: {
+                        xtype: 'b4combobox',
+                        items: newTypeBase,
+                        editable: false,
+                        operand: CondExpr.operands.eq,
+                        valueField: 'Value',
+                        displayField: 'Display'
+                    }
                 },
                 //{
                 //    xtype: 'b4enumcolumn',
@@ -365,17 +395,17 @@
                         return renderer(val, meta, rec);
                     }
                 },
-                {
-                    xtype: 'b4enumcolumn',
-                    enumName: 'B4.enums.YesNoNotSet',
-                    dataIndex: 'Paided',
-                    text: 'Штраф оплачен',
-                    flex: 1,
-                    filter: true,
-                    renderer: function (val, meta, rec) {
-                        return renderer(val, meta, rec);
-                    }
-                },
+                //{
+                //    xtype: 'b4enumcolumn',
+                //    enumName: 'B4.enums.YesNoNotSet',
+                //    dataIndex: 'Paided',
+                //    text: 'Штраф оплачен',
+                //    flex: 1,
+                //    filter: true,
+                //    renderer: function (val, meta, rec) {
+                //        return renderer(val, meta, rec);
+                //    }
+                //},
                 {
                     xtype: 'datecolumn',
                     dataIndex: 'DueDate',
@@ -391,7 +421,7 @@
                     xtype: 'gridcolumn',
                     dataIndex: 'SumPays',
                     width: 70,
-                    text: 'Оплачено штрафов',
+                    text: 'Оплаченная сумма по штрафам',
                     filter: {
                         xtype: 'numberfield',
                         hideTrigger: true,

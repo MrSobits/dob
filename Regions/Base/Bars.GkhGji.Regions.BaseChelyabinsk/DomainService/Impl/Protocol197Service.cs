@@ -750,8 +750,12 @@
 					}
 					if (existsresolution != null)
 					{
-						throw new Exception($"По протоколу {resolPros.DocumentNumber} уже создано постановление") ;
+						throw new Exception($"По протоколу {resolPros.DocumentNumber} уже создано постановление");
 					}
+					if (resolPros.ComissionMeeting == null)
+					{
+                        throw new Exception($"Протокол {resolPros.DocumentNumber} не привязан к комиссии");
+                    }
 
 					Resolution resolution = null;
 					//учитывать номер
@@ -1151,8 +1155,12 @@
 				{
 					throw new Exception("По данному документу уже создано постановление");
 				}
+                if (resolPros.ComissionMeeting == null)
+                {
+                    throw new Exception($"Протокол {resolPros.DocumentNumber} не привязан к комиссии");
+                }
 
-				Resolution resolution = null;
+                Resolution resolution = null;
 				//учитывать номер
 				int docnum = GetNextNumber();
 				if (resolPros.IndividualPerson != null)
@@ -1554,8 +1562,12 @@
 					{
 						throw new Exception("По данному документу уже создано постановление");
 					}
+                    if (resolPros.ComissionMeeting == null)
+                    {
+                        throw new Exception($"Протокол {resolPros.DocumentNumber} не привязан к комиссии");
+                    }
 
-					Resolution resolution = null;
+                    Resolution resolution = null;
 					//учитывать номер
 					int docnum = GetNextNumber();
 					if (resolPros.IndividualPerson != null)

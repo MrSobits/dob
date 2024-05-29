@@ -155,6 +155,42 @@
                                     //  readOnly: true
                                 }
                             ]
+                        },
+                        {
+                            padding: '10px 0px 15px 15px',
+                            bodyStyle: Gkh.bodyStyle,
+                            items: [
+                                {
+                                    xtype: 'checkbox',
+                                    name: 'DischargedByCourt',
+                                    fieldLabel: 'Постановление отменено',
+                                    labelAlign: 'right',
+                                    width: 200,
+                                    labelWidth: 180,
+                                    allowBlank: true,
+                                    readOnly: true
+                                },
+                                {
+                                    xtype: 'checkbox',
+                                    name: 'SentToNewConcederation',
+                                    fieldLabel: 'Направлено новое рассмотрение',
+                                    labelAlign: 'right',
+                                    width: 220,
+                                    labelWidth: 210,
+                                    allowBlank: true,
+                                    readOnly: true
+                                },
+                                {
+                                    xtype: 'checkbox',
+                                    name: 'ChangedByCourt',
+                                    fieldLabel: 'Изменено судом',
+                                    labelAlign: 'right',
+                                    width: 170,
+                                    labelWidth: 150,
+                                    allowBlank: true,
+                                    readOnly: true
+                                }
+                            ]
                         }
                     ]
                 },

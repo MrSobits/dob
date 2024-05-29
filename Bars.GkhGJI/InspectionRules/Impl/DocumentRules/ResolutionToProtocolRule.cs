@@ -82,7 +82,7 @@
             #region Формируем протокол
             var resolution = ResolutionDomain.GetAll()
                                     .Where(x => x.Id == document.Id)
-                                    .Select(x => new { x.Executant, x.Contragent, x.PhysicalPerson, x.PhysicalPersonInfo, x.IndividualPerson , x.Protocol205Date, x.FirstName, x.Surname, x.Patronymic})
+                                    .Select(x => x)
                                     .FirstOrDefault();
 
             if (resolution == null)
@@ -118,9 +118,9 @@
                     PlaceResidenceOutState = resolution.IndividualPerson.PlaceResidenceOutState,
                     PhysicalPersonInfo = resolution.PhysicalPersonInfo,
                     IndividualPerson = resolution.IndividualPerson,
+                    DateOfProceedings = resolution.RulingDate,
                     HourOfProceedings = 0,
                     MinuteOfProceedings = 1
-
                 };
             }
             else
@@ -134,6 +134,7 @@
                     Executant = resolution.Executant,
                     PhysicalPerson = resolution.PhysicalPerson,                  
                     PhysicalPersonInfo = resolution.PhysicalPersonInfo,
+                    DateOfProceedings = resolution.RulingDate,
                     HourOfProceedings = 0,
                     MinuteOfProceedings = 1
                 };

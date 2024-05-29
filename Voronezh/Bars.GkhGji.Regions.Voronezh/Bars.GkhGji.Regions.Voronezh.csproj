@@ -94,6 +94,7 @@
     <Compile Include="DomainService\Complaints\ComplaintsService.cs" />
     <Compile Include="DomainService\PrescriptionFond\AppCitPrFondOperationsService.cs" />
     <Compile Include="DomainService\PrescriptionFond\IAppCitPrFondOperationsService.cs" />
+    <Compile Include="DomainService\Resolution\Impl\ResolutionService.cs" />
     <Compile Include="DomainService\SMEVEDO\ISMEVEDOService.cs" />
     <Compile Include="DomainService\SMEVEDO\SMEVEDOService.cs" />
     <Compile Include="DomainService\TaskCalendarService.cs" />
@@ -373,6 +374,7 @@
     <Compile Include="Enums\ASFKADBDocCode.cs" />
     <Compile Include="Enums\ASFKKBKType.cs" />
     <Compile Include="Enums\ASFKReportType.cs" />
+    <Compile Include="Enums\CourtDischargeReason.cs" />
     <Compile Include="Enums\EmergencyTypeSGIO.cs" />
     <Compile Include="Enums\QueryTypeType.cs" />
     <Compile Include="Enums\SMEVLivingPlaceHasReg.cs" />
@@ -647,6 +649,7 @@
     <Compile Include="Migrations\Version_2021052600\UpdateSchema.cs" />
     <Compile Include="Migrations\Version_2021042100\UpdateSchema.cs" />
     <Compile Include="Migrations\Version_2021040800\UpdateSchema.cs" />
+    <Compile Include="Migrations\Version_2024051400\UpdateSchema.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="NavigationProvider.cs" />
     <Compile Include="Navigation\DocumentsGjiRegisterMenuProvider.cs" />
@@ -703,6 +706,7 @@
     <Compile Include="Signature\AppealCitsAdmonitionAnswerSignature.cs" />
     <Compile Include="Signature\AppealCitsAdmonitionSignature.cs" />
     <Compile Include="Signature\IAnswerSignature.cs" />
+    <Compile Include="StateChange\Rule\CourtPracticeClosureRule.cs" />
     <Compile Include="StateChange\Rule\ComplaintsAcceptRule.cs" />
     <Compile Include="StateChange\Rule\ComplaintsDeclineRule.cs" />
     <Compile Include="StateChange\Rule\LicenseReissuanceDeclineRule.cs" />

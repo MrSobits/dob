@@ -77,6 +77,10 @@ namespace Bars.GkhGji.Map
             Reference(x => x.PhysicalPersonDocType, "Тип документа ФЛ").Column("PHYSICALPERSON_DOCTYPE_ID").Fetch();
             Reference(x => x.ConcederationResult, "Результат рассмотрения").Column("CONSIDERATION_RESULT_ID");
             Property(x => x.SentToOSP, "Направлено приставам").Column("SENT_TO_OSP");
+
+            Property(x => x.DischargedByCourt, "Постановление отменено").Column("DISCHARGED_BY_COURT");
+            Property(x => x.SentToNewConcederation, "Направлено новое рассмотрение").Column("SENT_TO_NEW_CONCEDERATION");
+            Property(x => x.ChangedByCourt, "Изменено судом").Column("CHANGED_BY_COURT");
         }
     }
 }

@@ -442,6 +442,7 @@ namespace Bars.GkhGji.Regions.Voronezh
             this.Container.RegisterTransient<IRuleChangeStatus, LicenseReissuanceDeclineRule>();
             this.Container.RegisterTransient<IRuleChangeStatus, LicenseInfoRequestAcceptRule>();
             this.Container.RegisterTransient<IRuleChangeStatus, LicenseInfoRequestDeclineRule>();
+            this.Container.RegisterTransient<IRuleChangeStatus, CourtPracticeClosureRule>();
         }
 
         private void RegisterViewModels()
@@ -678,6 +679,10 @@ namespace Bars.GkhGji.Regions.Voronezh
             this.Container.ReplaceComponent<IManOrgLicenseRequestService>(
              typeof(Gkh.DomainService.ManOrgLicenseRequestService),
              Component.For<IManOrgLicenseRequestService>().ImplementedBy<DomainService.ManOrgLicenseRequestService>());
+
+            Container.ReplaceComponent<IResolutionService>(
+                typeof(GkhGji.DomainService.ResolutionService),
+                Component.For<IResolutionService>().ImplementedBy<DomainService.ResolutionService>().LifeStyle.Transient);
         }
     }
 }

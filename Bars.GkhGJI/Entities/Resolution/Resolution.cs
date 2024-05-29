@@ -379,5 +379,20 @@
         /// Направлено приставам
         /// </summary>
         public virtual bool SentToOSP { get; set; }
+
+        /// <summary>
+        /// Постановление отменено
+        /// </summary>
+        public virtual bool DischargedByCourt { get; set; }
+
+        /// <summary>
+        /// Направлено новое рассмотрение
+        /// </summary>
+        public virtual bool SentToNewConcederation { get; set; }
+
+        /// <summary>
+        /// Изменено судом
+        /// </summary>
+        public virtual bool ChangedByCourt { get; set; }
     }
 }
